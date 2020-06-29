@@ -1,0 +1,17 @@
+﻿@namespace DSD.MSS.Blazor.Components.Table
+@typeparam TableItem
+
+@if (Column.FilterControl == this)
+{
+    <select class="form-control form-control-sm" value="@Condition" @onchange="@((x) => Condition = (StringCondition)Enum.Parse(typeof(StringCondition), x.Value.ToString()))">
+        @foreach (var option in (StringCondition[])Enum.GetValues(typeof(StringCondition)))
+        {
+            <option value="@option">@option.GetDescription()</option>
+        }
+    </select>
+    
+    @if (Condition != StringCondition.IsNotNulOrEmpty && Condition != StringCondition.IsNullOrEmpty)
+    {
+        <input type="text" class="form-control form-control-sm" @bind-value="FilterText" />
+    }
+}

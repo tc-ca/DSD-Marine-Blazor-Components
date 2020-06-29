@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <IsPackable>true</IsPackable>
+    <Title>BlazorTable</Title>
+    <PackageId>DSD.MSS.Blazor.Components.Table</PackageId>
+    <Description>Blazor Table Component with Sorting, Paging and Filtering forked from BlazorTable by Ivan Josipovic https://github.com/IvanJosipovic/BlazorTable</Description>
+    <Authors>Transport Canada</Authors>
+    <PackageProjectUrl>https://BlazorTable.netlify.com</PackageProjectUrl>
+    <PackageTags>Blazor;Table;Component;Grid;DataTable;Data;Sort;Filter;AspNetCore;AspNet</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://dev.azure.com/transport-canada/DSD-MARINE%20Vessel%20Registry/_git/Vessel%20Registration?path=%2FInternal%2Fsrc%2FLibraries%2FBlazorTable</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>DSD.MSS.Blazor.Components.Table</AssemblyName>
+    <RootNamespace>DSD.MSS.Blazor.Components.Table</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LINQKit.Core" Version="1.1.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Include="..\**\*.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Components\TableHeaderFilter.razor" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>$(AssemblyName).Tests</_Parameter1>
+      <!-- We use the value of AssemblyName to declare the value of the attribute -->
+    </AssemblyAttribute>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Resources\SharedResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SharedResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\SharedResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  
+</Project>
