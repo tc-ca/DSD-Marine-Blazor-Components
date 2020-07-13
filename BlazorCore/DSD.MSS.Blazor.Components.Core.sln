@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSD.MSS.Blazor.Components.Core.Demo", "DSD.MSS.Blazor.Components.Core.Demo\DSD.MSS.Blazor.Components.Core.Demo.csproj", "{178BBCFF-735B-4242-9BE5-88590107A3F6}"
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSD.MSS.Blazor.Components.Core.Demo", "DSD.MSS.Blazor.Components.Core.Demo\DSD.MSS.Blazor.Components.Core.Demo.csproj", "{178BBCFF-735B-4242-9BE5-88590107A3F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSD.MSS.Blazor.Components.Core", "DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj", "{6F1B7D8E-A896-4599-A1AA-2D642DC548AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSD.MSS.Blazor.Components.Core", "DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj", "{6F1B7D8E-A896-4599-A1AA-2D642DC548AB}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
