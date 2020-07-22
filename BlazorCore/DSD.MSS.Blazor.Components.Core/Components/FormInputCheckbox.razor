@@ -1,17 +1,14 @@
 ﻿@namespace DSD.MSS.Blazor.Components.Core
 @using Microsoft.AspNetCore.Components
-@using System.Linq.Expressions;
-@typeparam T
 @inherits InputBase<bool>
 
-<div class="form-group">
-    <InputCheckbox id="@Id" name="@Id" class="@CssClass" @bind-Value="CurrentValue" @oninput="this.OnChangeAsync" />
-    @if (!string.IsNullOrWhiteSpace(Label))
-    {
-        <label for="@Id" class="@($"form-label {Required}")">@Label</label>
-    }
-    <ValidationMessage For="@ValidationFor" />
-</div>
+    <div class="form-group custom-control custom-checkbox">
+        <InputCheckbox id="@Id" name="@Id" class="@($"custom-control-input {CssClass}")" @bind-Value="CurrentValue" @oninput="this.OnChangeAsync" />
+        @if (!string.IsNullOrWhiteSpace(Text))
+        {
+            <label for="@Id" class="custom-control-label">@Text</label>
+        }
+    </div>
 
 @code{
 
@@ -23,17 +20,8 @@
     /// <summary>
     /// Specifies the Field Label
     /// </summary>
-    [Parameter] public string Label { get; set; }
+    [Parameter] public string Text { get; set; }
 
-    /// <summary>
-    /// Define the validation expression.
-    /// </summary>
-    [Parameter] public Expression<Func<T>> ValidationFor { get; set; }
-
-    /// <summary>
-    /// Specifies whether this field is required.
-    /// </summary>
-    [Parameter] public string Required { get; set; }
 
     /// <summary>
     /// The callback that is called when the checkbox is checked or unchecked.
@@ -50,7 +38,7 @@
             return true;
         }
 
-        throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(T)}'.");
+        throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(bool)}'.");
     }
 
     /// <summary>

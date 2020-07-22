@@ -1,14 +1,21 @@
 ﻿@namespace DSD.MSS.Blazor.Components.Core
 @using System.Linq.Expressions;
-@typeparam T
-@inherits InputBase<T>
+
+@inherits InputBase<DateTime?>
 
 <div class="form-group">
     @if (!string.IsNullOrWhiteSpace(Label))
     {
         <label for="@Id" class="@($"form-label {Required}")">@Label</label>
     }
-    <InputDate id="@Id" name="@Id" class="@($"form-control {CssClass}")" @bind-Value="@CurrentValue" />
+    <div>
+        <InputDate id="@Id" name="@Id" style="float:left; min-width: 180px; margin-right: 10px;" class="@($"form-control w-25 {CssClass}")" @bind-Value="CurrentValue" />
+        @if (Time)
+        {
+            <input id="@($"{Id}-Time")" name="@($"{Id}-Time")" type="time" @bind=CurrentValue style="min-width: 180px;" class="@($"form-control w-25 {CssClass}")" />
+        }
+        <div class="clearfix"></div>
+    </div>
     <ValidationMessage For="@ValidationFor" />
 </div>
 
@@ -25,9 +32,14 @@
     [Parameter] public string Label { get; set; }
 
     /// <summary>
+    /// Specifies the Field Label
+    /// </summary>
+    [Parameter] public bool Time { get; set; }
+
+    /// <summary>
     /// Define the validation expression.
     /// </summary>
-    [Parameter] public Expression<Func<T>> ValidationFor { get; set; }
+    [Parameter] public Expression<Func<DateTime?>> ValidationFor { get; set; }
 
     /// <summary>
     /// Specifies whether this field is required.
@@ -35,16 +47,10 @@
     [Parameter] public string Required { get; set; }
 
 
-    protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
+    protected override bool TryParseValueFromString(string value, out DateTime? result, out string validationErrorMessage)
     {
-        if (typeof(T) == typeof(DateTime))
-        {
-            result = (T)(object)Convert.ToDateTime(value);
-            validationErrorMessage = null;
-
-            return true;
-        }
-
-        throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(T)}'.");
+        result = CurrentValue;
+        validationErrorMessage = "";
+        return true;
     }
 }
