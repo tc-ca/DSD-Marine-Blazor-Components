@@ -1,0 +1,82 @@
+﻿@page "/input"
+
+@using System.Linq.Expressions
+@using System.Globalization;
+@using DSD.MSS.Blazor.Components.Core.Demo.Data
+@using DSD.MSS.Blazor.Components.Core
+@using DSD.MSS.Blazor.Components.Core.Demo.Model
+@using DSD.MSS.Blazor.Components.Core.Models
+@inject FormInputList InputList
+
+<h1>Input Components</h1>
+
+<div class="row well">
+    <div class="col-8">
+        <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
+            <div class="card mt-3" style="background-color: #f5f5f5">
+                <div class="card-body p-5">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <FormInputText Id="InputText" Label="Input Text" Required="required" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
+
+                    <FormInputNumber Id="InputNumberInt" Label="Input Number (Int)" Required="required" @bind-Value="@FormInputObj.IntValue" ValidationFor="@(()=>FormInputObj.IntValue)" />
+
+                    <FormInputNumber Id="InputNumberInt" Label="Input Number (Int)" Width="200px" Required="required" @bind-Value="@FormInputObj.IntValue" ValidationFor="@(()=>FormInputObj.IntValue)" />
+                    <FormInputNumber Id="InputNumberDouble" Label="Input Number (Double)" Required="required" @bind-Value="@FormInputObj.DoubleValue" ValidationFor="@(()=>FormInputObj.DoubleValue)" />
+                    <FormInputNumber Id="InputNumberFloat" Label="Input Number (Float)" Required="required" @bind-Value="@FormInputObj.FloatValue" ValidationFor="@(()=>FormInputObj.FloatValue)" />
+                    <FormInputNumber Id="InputNumberDecimal" Label="Input Number (Decimal)" Required="required" @bind-Value="@FormInputObj.DecimalValue" ValidationFor="@(()=>FormInputObj.DecimalValue)" />
+                    <FormInputTextArea Id="InputTextArea" Label="Input Text Area" Required="required" Rows="2" Cols="50" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
+                    <FormInputDate Id="InputDate" Label="Input Date" Time="true" Required="required" @bind-Value="@FormInputObj.DateValue" ValidationFor="@(() => FormInputObj.DateValue)" />
+                    <FormInputSelect Id="InputSelect" Label="Input Select" SelectLabel="Select today's weather" Required="required" @bind-Value="FormInputObj.SelectValue" ValidationFor="@(() => FormInputObj.SelectValue)" OnChange="OnInputChange">
+                        @foreach (var item in FormInputListObj)
+                        {
+                            <option value="@item.ID">@item.StringValue</option>
+                        }
+                    </FormInputSelect>
+                    <FormInputCheckbox Id="InputCheckbox" Text="Input Checkbox" @bind-Value="@FormInputObj.BoolValue" OnChange="OnInputChange" />
+                    <InputMultipleSelect Id="servicerequesttype" SelectTitle="Select" Title="Select multiple" CheckBoxList="@selectlist" />
+
+                    <button type="submit" class="btn btn-primary float-right">
+                        Submit
+                    </button>
+
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    protected FormInputModel FormInputObj { get; set; }
+    protected FormInputModel[] FormInputListObj { get; set; }
+    protected EditContext editContext;
+    protected List<SelectListItem> selectlist { get; set; } = new List<SelectListItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        FormInputObj = new FormInputModel();
+        FormInputListObj = await InputList.GetFormInputListAsync(DateTime.Now);
+        editContext = new EditContext(FormInputObj);
+        selectlist.Add(new SelectListItem()
+        {
+            Text = "A",
+            Value = true
+        });
+        selectlist.Add(new SelectListItem()
+        {
+            Text = "B",
+            Value = false
+        });
+    }
+
+    private void HandleValidSubmit()
+    {
+        var isValid = editContext.Validate();
+        Console.WriteLine("Valid Submit");
+    }
+    private void OnInputChange(EventArgs e)
+    {
+
+    }
+}
