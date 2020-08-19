@@ -1,0 +1,33 @@
+﻿@page "/alert"
+
+@using DSD.MSS.Blazor.Components.Core.Constants
+@using DSD.MSS.Blazor.Components.Core.Components
+<h1>Alert Components</h1>
+
+<div class="row well">
+    <div class="card mt-3 col-8" style="background-color: #f5f5f5">
+        <div class="card-body p-5">
+
+            <p>Alert components </p>
+            <AlertComponent Title="Success" Message="Sucess Message" EnableShow="true" AlertType="@AlertTypes.Success" />
+            <AlertComponent Title="Danger" Message="Danger Message" EnableShow="true" AlertType="@AlertTypes.Danger" />
+            <AlertComponent Title="Information" Message="Information Message" EnableShow="true" AlertType="@AlertTypes.Information" />
+            <AlertComponent Title="Warning" Message="Warning Message" EnableShow="true" AlertType="@AlertTypes.Warning" />
+            <AlertComponent Title="Primary" Message="Primary Message" EnableShow="true" AlertType="@AlertTypes.Primary" />
+
+        </div>
+    </div>
+
+    <div class="card mt-3 col-8" style="background-color: #f5f5f5">
+        <div class="card-body p-5">
+
+        <p>Alert components with cancel button </p>
+        <AlertComponent Title="Success" Message="Sucess Message" EnableShow="true" AlertType="@AlertTypes.Success" Dismisable="true" />
+        <AlertComponent Title="Danger" Message="Danger Message" EnableShow="true" AlertType="@AlertTypes.Danger" Dismisable="true" />
+        <AlertComponent Title="Information" Message="Information Message" EnableShow="true" AlertType="@AlertTypes.Information" Dismisable="true" />
+        <AlertComponent Title="Warning" Message="Warning Message" EnableShow="true" AlertType="@AlertTypes.Warning" Dismisable="true" />
+        <AlertComponent Title="Primary" Message="Primary Message" EnableShow="true" AlertType="@AlertTypes.Primary" Dismisable="true" />
+    </div>
+
+</div>
+</div>

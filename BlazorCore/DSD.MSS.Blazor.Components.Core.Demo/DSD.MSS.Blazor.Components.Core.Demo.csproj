@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj" />
   </ItemGroup>
 

@@ -44,7 +44,7 @@
 
 .text-btn-item {
     font-weight: normal;
-  /*  top: -2px !important;*/
+    /*  top: -2px !important;*/
     padding: 0.5rem 0;
     font-size: 0.875rem !important;
     line-height: 1.5 !important;
@@ -76,7 +76,6 @@
     position: relative;
     display: flex;
     margin-bottom: 1rem;
-    
 }
 
     .alert-icon.alert-success .icon {
