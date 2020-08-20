@@ -1,4 +1,8 @@
 ﻿
+html, body {
+    font-family: 'Nunito Sans';
+}
+
 .checkbox-menu li label {
     display: block;
     padding: 3px 10px;
@@ -304,3 +308,23 @@
 .alert-icon.alert-dismissible .close {
     padding: 1.75rem 1.25rem;
 }
+
+.form-control:valid {
+    background-color: #F7F9FC;
+}
+
+.validation-message {
+    color: #9B2C2C;
+}
+
+.multiple-select {
+    background-color: #F7F9FC !important;
+    color: #4D5D6C !important;
+    border: 1px solid #ced4da !important;
+}
+
+    .multiple-select:hover {
+        background-color: #F7F9FC !important;
+        color: #4D5D6C !important;
+        border: 1px solid #ced4da !important;
+    }
