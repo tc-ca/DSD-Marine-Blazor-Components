@@ -6,7 +6,7 @@
 <div class="form-group">
     @if (!string.IsNullOrWhiteSpace(Label))
     {
-        <label for="@Id" class="@($"form-label {Required}")">@Label</label>
+        <label for="@Id" class="@($"form-label {Required}")"><b>@Label</b></label>
     }
     <div>
         <InputDate id="@Id" name="@Id" style="float:left; min-width: 180px; margin-right: 10px;" class="@($"form-control w-25 {CssClass}")" @bind-Value="CurrentValue" />

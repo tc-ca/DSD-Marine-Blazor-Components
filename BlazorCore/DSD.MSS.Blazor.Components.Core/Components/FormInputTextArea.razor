@@ -6,7 +6,7 @@
 <div class="form-group">
     @if (!string.IsNullOrWhiteSpace(Label))
     {
-        <label for="@Id" class="@($"form-label {Required}")">@Label</label>
+        <label for="@Id" class="@($"form-label {Required}")"><b>@Label</b></label>
     }
     <InputTextArea id="@Id" name="@Id" rows="@Rows" cols="@Cols" class="@($"form-control {CssClass}")" @bind-Value="CurrentValueAsString" />
     <ValidationMessage For="@ValidationFor" />

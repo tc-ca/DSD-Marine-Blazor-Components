@@ -1,0 +1,127 @@
+﻿@using DSD.MSS.Blazor.Components.Core.Constants
+
+@if (EnableShow)
+{
+    @switch (AlertType)
+    {
+        case AlertTypes.Danger:
+            <section class="alert-icon alert-danger alert-dismissible fade show" role="alert">
+                <div class="icon" aria-hidden="true">
+                    <i class="fas fa-ban" style="font-size:25px"></i>
+                </div>
+                <div class="message">
+                    @if (!string.IsNullOrEmpty(Title))
+                    {
+                        <h5>@Title</h5>
+                    }
+                    <p class="mrgn-lft-md">@Message</p>
+                </div>
+                @if (Dismisable)
+                {
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" color="link" @onclick="HandleCancelClick">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                }
+            </section>
+            break;
+
+        case AlertTypes.Success:
+            <section class="alert-icon alert-success alert-dismissible fade show" role="alert">
+                <div class="icon" aria-hidden="true">
+                    <i class="fas fa-check-circle" style="font-size:25px"></i>
+                </div>
+                <div class="message">
+                    @if (!string.IsNullOrEmpty(Title))
+                    {
+                        <h5>@Title</h5>
+                    }
+                    <p class="mrgn-lft-md">@Message</p>
+                </div>
+                @if (Dismisable)
+                {
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" color="link" @onclick="HandleCancelClick">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                }
+            </section>
+            break;
+
+        case AlertTypes.Warning:
+            <section class="alert-icon alert-warning alert-dismissible fade show" role="alert">
+                <div class="icon" aria-hidden="true">
+                    <i class="fas fa-exclamation-triangle" style="font-size:25px"></i>
+                </div>
+                <div class="message">
+                    @if (!string.IsNullOrEmpty(Title))
+                    {
+                        <h5>@Title</h5>
+                    }
+                    <p class="mrgn-lft-md">@Message</p>
+                </div>
+                @if (Dismisable)
+                {
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" color="link" @onclick="HandleCancelClick">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                }
+            </section>
+            break;
+
+        case AlertTypes.Information:
+            <section class="alert-icon alert-info alert-dismissible fade show" role="alert">
+                <div class="icon" aria-hidden="true">
+                    <i class="fas fa-exclamation-circle" style="font-size:25px"></i>
+                </div>
+                <div class="message">
+                    @if (!string.IsNullOrEmpty(Title))
+                    {
+                        <h5>@Title</h5>
+                    }
+                    <p class="mrgn-lft-md">@Message</p>
+                </div>
+                @if (Dismisable)
+                {
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" color="link" @onclick="HandleCancelClick">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                }
+            </section>
+            break;
+
+        case AlertTypes.Primary:
+            <section class="alert-icon alert-primary alert-dismissible fade show" role="alert">
+                <div class="icon" aria-hidden="true">
+                    <i class="far fa-flag" style="font-size:25px"></i>
+                </div>
+                <div class="message">
+                    @if (!string.IsNullOrEmpty(Title))
+                    {
+                        <h5>@Title</h5>
+                    }
+                    <p class="mrgn-lft-md">@Message</p>
+                </div>
+                @if (Dismisable)
+                {
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" color="link" @onclick="HandleCancelClick">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                }
+            </section>
+            break;
+    }
+
+}
+@code
+{
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Message { get; set; }
+    [Parameter] public bool EnableShow { get; set; }
+    [Parameter] public bool EnableCancel { get; set; }
+    [Parameter] public AlertTypes AlertType { get; set; }
+    [Parameter] public bool Dismisable { get; set; } = false;
+
+    protected void HandleCancelClick()
+    {
+        EnableShow = false;
+    }
+}
