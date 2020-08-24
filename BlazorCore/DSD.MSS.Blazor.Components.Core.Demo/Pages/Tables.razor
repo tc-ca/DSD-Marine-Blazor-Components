@@ -1,0 +1,48 @@
+﻿@page "/en/tables"
+@page "/fr/tables"
+
+@inherits BasePageComponent
+@using DSD.MSS.Blazor.Components.Core.Demo.Data
+@using DSD.MSS.Blazor.Components.Core.Demo.Model
+@using DSD.MSS.Blazor.Components.Table
+
+<h1>Table Component</h1>
+
+<div class="row well">
+    <div class="col-12">
+        <div class="card  mb-3 mt-3">
+            <div class="card-body">
+                <Table TableClass="table table-striped table-hover" TableItem="TableModel" PageSize="10" Items="tableData" ColumnReorder="true" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())" ShowSearchBar="@ShowFilterHeader">
+                    <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" Sortable="true" Width="25%" DefaultSortColumn="true" />
+                    <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" Sortable="true" HeaderRowFilterable="true" Width="25%" />
+                    <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" HeaderRowFilterable="true" Sortable="true" Width="25%" />
+                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" Sortable="true" HeaderRowFilterable="true" Width="25%" />
+                    <Pager ShowPageNumber="true" ShowTotalCount="true" />
+                </Table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+    protected List<TableModel> tableData = new List<TableModel>();
+    protected bool ShowFilterHeader { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        tableData = TableData.GetData();
+    }
+
+    protected void HandleHeaderFilterChanged()
+    {
+        ShowFilterHeader = false;
+        StateHasChanged();
+    }
+
+    protected void HandleFilterButtonClick()
+    {
+        ShowFilterHeader = !ShowFilterHeader;
+    }
+}
