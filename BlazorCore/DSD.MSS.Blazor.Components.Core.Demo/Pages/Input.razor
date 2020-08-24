@@ -1,5 +1,7 @@
-﻿@page "/input"
+﻿@page "/en/input"
+@page "/fr/input"
 
+@inherits BasePageComponent
 @using System.Linq.Expressions
 @using System.Globalization;
 @using DSD.MSS.Blazor.Components.Core.Demo.Data
@@ -13,7 +15,7 @@
 <div class="row well">
     <div class="col-8">
         <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
-            <div class="card mt-3" >
+            <div class="card mt-3">
                 <div class="card-body p-5">
                     <DataAnnotationsValidator />
                     <ValidationSummary />

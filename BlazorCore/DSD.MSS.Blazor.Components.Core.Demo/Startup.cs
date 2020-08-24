@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DSD.MSS.Blazor.Components.Core.Demo.Data;
+using System.Globalization;
+using DSD.MSS.Blazor.Components.Core.Demo.Utilities;
 
 namespace DSD.MSS.Blazor.Components.Core.Demo
 {
@@ -29,6 +31,19 @@ namespace DSD.MSS.Blazor.Components.Core.Demo
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<FormInputList>();
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            var supportedCultures = new List<CultureInfo> { new CultureInfo("en-CA"), new CultureInfo("fr-CA") };
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-CA");
+                options.SupportedUICultures = supportedCultures;
+                options.SupportedCultures = supportedCultures;
+                options.RequestCultureProviders.Clear();
+                options.RequestCultureProviders.Add(new Utilities.CustomRequestCultureProvider());
+            });
+
+            services.AddSingleton<SharedResourceMgt>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
