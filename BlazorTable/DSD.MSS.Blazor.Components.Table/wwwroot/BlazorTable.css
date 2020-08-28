@@ -37,6 +37,10 @@
     line-height: 1.5 !important;
 }
 
+.text-btn:focus {
+    outline: none !important;
+}
+
 .checkbox-menu li label {
     display: block;
     padding: 3px 10px;

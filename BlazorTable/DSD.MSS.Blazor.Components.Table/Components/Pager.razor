@@ -1,40 +1,58 @@
 @namespace DSD.MSS.Blazor.Components.Table
 
-@if (AlwaysShow || (Table.TotalPages > 1))
+@if (AlwaysShow || (Table.TotalPages >= 1))
 {
-    <div class="d-flex justify-content-end">
-        <ul class="pagination">
-            @if (ShowPageNumber)
+    <div class="d-flex">
+        <div class="mr-auto d-flex flex-row">
+            <div>
+                @($"{Resources.SharedResources.ResourceManager.GetString("Showing", Resources.SharedResources.Culture)} " + $"{Table.PageSize*Table.PageNumber +1} " +
+                  $"{Resources.SharedResources.ResourceManager.GetString("To", Resources.SharedResources.Culture)} {PageMaxCount()} " +
+                  $"{Resources.SharedResources.ResourceManager.GetString("Of", Resources.SharedResources.Culture)} {Table.TotalCount} " +
+                  $"{Resources.SharedResources.ResourceManager.GetString("Entries", Resources.SharedResources.Culture)}")
+                <span class="ml-2"><b>|</b></span>
+            </div>
+            <div id ="PageSize" class="d-flex flex-row ml-3">
+                <span>@Resources.SharedResources.ResourceManager.GetString("Show", Resources.SharedResources.Culture)</span>
+                <select class="form-control ml-2" id="PageSize" style="width:auto; height:26px; padding: 0.2rem 0.5rem;" aria-labelledby="PageSize" @bind="Table.PageSize" @oninput="UpdatePageSize">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span class="ml-2">@Resources.SharedResources.ResourceManager.GetString("Entries", Resources.SharedResources.Culture)</span>
+            </div>
+        </div>
+        <div class="d-flex flex-row">
+            <div class="page-item @(Table.PageNumber == 0 ? "disabled": "")" @onclick="@(() => Table.PreviousPage())">
+                <a class="page-link" style="border-width:0px;" href="javascript:;" aria-disabled="@(Table.PageNumber == 0 ? "true": null)"
+                   aria-label="@Resources.SharedResources.ResourceManager.GetString("Previous", Resources.SharedResources.Culture)">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </div>
+            <div class="page-item @(Table.PageNumber == 0 ? "active": "")" @onclick="@(() => Table.UpdatePage(0))">
+                <a class="page-link" style="border-width:0px;" href="javascript:;" aria-disabled="@(Table.PageNumber == 0 ? "true": null)">1</a>
+            </div>
+            @if (Table.TotalPages > 2)
             {
-                <li class="page-item disabled" @onclick="@(() => Table.FirstPage())" title="Page @(Table.PageNumber + 1)/@(Table.TotalPages)">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">@(Table.PageNumber + 1)/@(Table.TotalPages)</a>
-                </li>
+                @for (int i = Table.PageListStartNumber; i < Table.PageListEndNumber + 1; i++)
+                {
+                    var tempint = i;
+                    if (tempint == Table.TotalPages - 1)
+                        continue;
+                    <div class="page-item @(Table.PageNumber == tempint ? "active": "")" @onclick="@(() => Table.UpdatePage(tempint))">
+                        <a class="page-link" style="border-width:0px;" href="javascript:;">@(i+1)</a>
+                    </div>
+                }
             }
-            @if (ShowTotalCount)
-            {
-                <li class="page-item disabled" @onclick="@(() => Table.FirstPage())" title="Total Items @Table.TotalCount">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">@Table.TotalCount</a>
-                </li>
-            }
-            @if ((ShowPageNumber || ShowTotalCount))
-            {
-                <li aria-hidden="true" class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&nbsp;</a>
-                </li>
-            }
-
-            <li class="page-item @(Table.PageNumber == 0 ? "disabled": "")" @onclick="@(() => Table.FirstPage())" title="First">
-                <a class="page-link" href="javascript:;" aria-disabled="@(Table.PageNumber == 0 ? "true": null)">First</a>
-            </li>
-            <li class="page-item @(Table.PageNumber == 0 ? "disabled": "")" @onclick="@(() => Table.PreviousPage())" title="Previous">
-                <a class="page-link" href="javascript:;" aria-disabled="@(Table.PageNumber == 0 ? "true": null)">Previous</a>
-            </li>
-            <li class="page-item @(Table.PageNumber + 1 < Table.TotalPages ? "" : "disabled")" @onclick="@(() => Table.NextPage())" title="Next">
-                <a class="page-link" href="javascript:;" aria-disabled="@(Table.PageNumber + 1 < Table.TotalPages ? null: "true")">Next</a>
-            </li>
-            <li class="page-item @(Table.PageNumber + 1 != Table.TotalPages ? "" : "disabled")" @onclick="@(() => Table.LastPage())" title="Last">
-                <a class="page-link" href="javascript:;" aria-disabled="@(Table.PageNumber + 1 != Table.TotalPages ? null : "true")">Last</a>
-            </li>
-        </ul>
+            <div class="page-item @(Table.PageNumber == Table.TotalPages - 1 ? "active": "")" style="display:@(Table.TotalPages > 1 ? "block": "none")" @onclick="@(() => Table.UpdatePage(Table.TotalPages-1))">
+                <a class="page-link" style="border-width:0px;" href="javascript:;" aria-disabled="@(Table.PageNumber + 1 != Table.TotalPages ? null : "true")">@Table.TotalPages</a>
+            </div>
+            <div class="page-item @(Table.PageNumber + 1 < Table.TotalPages? "": "disabled")" @onclick="@(() => Table.NextPage())">
+                <a class="page-link" style="border-width:0px;" href="javascript:;" aria-disabled="@(Table.PageNumber + 1 < Table.TotalPages ? null: "true")"
+                   aria-label="@Resources.SharedResources.ResourceManager.GetString("Next", Resources.SharedResources.Culture)">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
     </div>
 }

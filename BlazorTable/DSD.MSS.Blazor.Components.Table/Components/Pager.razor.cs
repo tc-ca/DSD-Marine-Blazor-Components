@@ -27,5 +27,27 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         [Parameter]
         public bool ShowTotalCount { get; set; }
+
+        /// <summary>
+        /// Update page size
+        /// </summary>
+        /// <param name="e"></param>
+        protected void UpdatePageSize(ChangeEventArgs e)
+        {
+            Table.PageSize = int.Parse(e.Value.ToString());
+            Table.PageNumber = 0;
+            Table.Update();
+        }
+
+        /// <summary>
+        /// Page max count
+        /// </summary>
+        /// <returns></returns>
+        protected int PageMaxCount()
+        {
+            var count = Table.PageSize * (Table.PageNumber + 1);
+            count = count > Table.TotalCount ? Table.TotalCount : count;
+            return count;
+        }
     }
 }
