@@ -2,9 +2,10 @@
 @typeparam TableItem
 
 <div class="flex-row flex-grow mb-2" style="background-color: #F6F7F9">
-    <div class="form-group flex-row icon-search flex-noshrink ml-2 mt-2 mb-2" style="color: white !important">
+    <div id="search" class="form-group flex-row icon-search flex-noshrink ml-2 mt-2 mb-2" style="color: white !important">
         <span class="fas fa-filter ml-2 mr-2 form-control-span"></span>
-        <input type="text" class="form-control input-no-border form-control-sm float-left" value="@GlobalSearch" @oninput="@(x => { TableRef.GlobalSearch = x.Value.ToString(); TableRef.Update(); })" placeholder="Filter by keyword ..." />
+        <input type="text" class="form-control input-no-border form-control-sm float-left" aria-labelledby="search" 
+               value="@GlobalSearch" @oninput="@(x => { TableRef.GlobalSearch = x.Value.ToString(); TableRef.Update(); })" placeholder="@Resources.SharedResources.ResourceManager.GetString("FilterByKeyword", Resources.SharedResources.Culture)" />
     </div>
     <div class="flex-row ml-auto">
 
@@ -47,7 +48,8 @@
             column.ColumnFilterItems.Clear();
         }
         <div class="ml-2 pr-3 flex-row flex-noshrink" style="line-height: 2.75rem;">
-            <a href="javascript:void(0)" @onclick="@(()=>OnCancelClicked())">
+            <a href="javascript:void(0)" @onclick="@(()=>OnCancelClicked())" 
+               aria-label="@Resources.SharedResources.ResourceManager.GetString("Cancel", Resources.SharedResources.Culture)">
                 <span class="fas fa-times"></span>
             </a>
         </div>

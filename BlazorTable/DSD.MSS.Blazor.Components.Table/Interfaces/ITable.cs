@@ -11,7 +11,7 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Page Size
         /// </summary>
-        int PageSize { get; }
+        int PageSize { get; set; }
 
         /// <summary>
         /// Allow Columns to be reordered
@@ -21,12 +21,22 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Current Page Number
         /// </summary>
-        int PageNumber { get; }
+        int PageNumber { get; set; }
 
         /// <summary>
         /// Total Count of Items
         /// </summary>
         int TotalCount { get; }
+
+        /// <summary>
+        /// Page list Start Number
+        /// </summary>
+        public int PageListStartNumber { get; set; }
+
+        /// <summary>
+        /// Page list End Number
+        /// </summary>
+        public int PageListEndNumber { get; set; }
 
         /// <summary>
         /// Total Pages
@@ -57,6 +67,11 @@ namespace DSD.MSS.Blazor.Components.Table
         /// Go to Last Page
         /// </summary>
         void LastPage();
+
+        /// <summary>
+        /// Go to updated Page
+        /// </summary>
+        void UpdatePage(int pageNumber);
 
         /// <summary>
         /// Redraws the Table using EditTemplate instead of Template
