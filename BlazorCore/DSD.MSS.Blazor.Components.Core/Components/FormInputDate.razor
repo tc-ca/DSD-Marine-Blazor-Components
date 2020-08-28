@@ -12,7 +12,7 @@
         <InputDate id="@Id" name="@Id" style="float:left; min-width: 180px; margin-right: 10px;" class="@($"form-control w-25 {CssClass}")" @bind-Value="CurrentValue" />
         @if (Time)
         {
-            <input id="@($"{Id}-Time")" name="@($"{Id}-Time")" type="time" @bind=CurrentValue style="min-width: 180px;" class="@($"form-control w-25 {CssClass}")" />
+            <input id="@($"{Id}-Time")" name="@($"{Id}-Time")" aria-labelledby="@Id" type="time" @bind=CurrentValue style="min-width: 180px;" class="@($"form-control w-25 {CssClass}")" />
         }
         <div class="clearfix"></div>
     </div>

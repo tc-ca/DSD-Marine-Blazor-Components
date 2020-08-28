@@ -12,11 +12,21 @@
     <div class="col-12">
         <div class="card  mb-3 mt-3">
             <div class="card-body">
+                <div class="flex-row flex-grow mb-3 mt-3">
+                    <div class="flex-row ml-auto">
+                        <button type="button" aria-label="Refresh" class="btn btn-outline-primary">
+                            <i aria-hidden="true" class="fas fa-redo-alt"></i>
+                        </button>
+                        <button type="button" aria-label="Toggle Filter" class="btn btn-outline-primary ml-2" @onclick=@(() => HandleFilterButtonClick())>
+                            <i aria-hidden="true" class="fas fa-filter"></i>
+                        </button>
+                    </div>
+                </div>
                 <Table TableClass="table table-striped table-hover" TableItem="TableModel" PageSize="10" Items="tableData" ColumnReorder="true" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())" ShowSearchBar="@ShowFilterHeader">
                     <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" Sortable="true" Width="25%" DefaultSortColumn="true" />
                     <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" Sortable="true" HeaderRowFilterable="true" Width="25%" />
                     <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" HeaderRowFilterable="true" Sortable="true" Width="25%" />
-                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" Sortable="true" HeaderRowFilterable="true" Width="25%" />
+                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" Sortable="true" Width="25%" />
                     <Pager ShowPageNumber="true" ShowTotalCount="true" />
                 </Table>
             </div>
@@ -28,7 +38,7 @@
 
 
     protected List<TableModel> tableData = new List<TableModel>();
-    protected bool ShowFilterHeader { get; set; } = false;
+    protected bool ShowFilterHeader { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
