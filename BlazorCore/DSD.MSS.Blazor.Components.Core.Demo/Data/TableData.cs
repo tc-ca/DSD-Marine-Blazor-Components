@@ -11,28 +11,23 @@ namespace DSD.MSS.Blazor.Components.Core.Demo.Data
         public static List<TableModel> GetData()
         {
             List<TableModel> list = new List<TableModel>();
-
-            list.Add(new TableModel()
+            for (int i = 0; i < 75; i = i + 2)
             {
-                Id = "1",
-                FirstName = "Mark",
-                LastName = "Otto",
-                Handle = "@mdo"
-            });
-            list.Add(new TableModel()
-            {
-                Id = "2",
-                FirstName = "Jacob",
-                LastName = "Thornton",
-                Handle = "@fat"
-            });
-            list.Add(new TableModel()
-            {
-                Id = "3",
-                FirstName = "Larry",
-                LastName = "the Bird",
-                Handle = "@twitter"
-            });
+                list.Add(new TableModel()
+                {
+                    Id = i.ToString(),
+                    FirstName = "Mark",
+                    LastName = "Otto",
+                    Handle = "@mdo" + i.ToString()
+                });
+                list.Add(new TableModel()
+                {
+                    Id = (i + 1).ToString(),
+                    FirstName = "Jacob",
+                    LastName = "Thornton",
+                    Handle = "@mdo" + i.ToString()
+                });
+            }
             return list;
         }
     }

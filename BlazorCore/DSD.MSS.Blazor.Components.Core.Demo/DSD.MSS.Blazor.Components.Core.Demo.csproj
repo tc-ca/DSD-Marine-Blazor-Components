@@ -5,12 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSD.MSS.Blazor.Components.Table" Version="2020.8.11.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DSD.MSS.Blazor.Components.Table">
+      <HintPath>..\..\BlazorTable\DSD.MSS.Blazor.Components.Table\bin\Release\netstandard2.1\DSD.MSS.Blazor.Components.Table.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

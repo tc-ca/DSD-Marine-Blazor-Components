@@ -7,26 +7,32 @@
     <ul class="nav flex-column">
         <li class="nav-item">
             <NavLink class="nav-link" href="@($"{LanguageCode}")" Match="NavLinkMatch.All">
-                <span class="fas fa-home menu-icon-large" ></span>
-                <span class="ml-3 nav-tooltiptext">@_localizer["Home"]</span>
+                <span class="fas fa-home menu-icon-large"></span>
+                <span class="ml-3 mt-1 nav-tooltiptext">@_localizer["Color Theme"]</span>
+            </NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="javascript:;">
+                <span class="fas fa-list-alt menu-icon-large" style="min-width:20px;"></span>
+                <span class="ml-3 nav-tooltiptext">@_localizer["Components"]</span>
             </NavLink>
         </li>
         <li class="nav-item">
             <NavLink class="nav-link" href="@($"{LanguageCode}/input")">
-                <span class="fas fa-list-alt menu-icon-large"></span>
-                <span class="ml-3 nav-tooltiptext">@_localizer["Input Components"]</span>
+                <span style="min-width:20px;"></span>
+                <span class="ml-3 nav-tooltiptext">@_localizer["Inputs"]</span>
             </NavLink>
         </li>
         <li class="nav-item">
             <NavLink class="nav-link" href="@($"{LanguageCode}/alert")">
-                <span class="fas fa-list-alt menu-icon-large"></span>
-                <span class="ml-3 nav-tooltiptext">@_localizer["Alert Component"]</span>
+                <span style="min-width:20px;"></span>
+                <span class="ml-3 nav-tooltiptext">@_localizer["Alerts"]</span>
             </NavLink>
         </li>
         <li class="nav-item">
             <NavLink class="nav-link" href="@($"{LanguageCode}/tables")">
-                <span class="fas fa-list-alt menu-icon-large"></span>
-                <span class="ml-3 nav-tooltiptext">@_localizer["Table Component"]</span>
+                <span style="min-width:20px;"></span>
+                <span class="ml-3 nav-tooltiptext">@_localizer["Table"]</span>
             </NavLink>
         </li>
     </ul>
