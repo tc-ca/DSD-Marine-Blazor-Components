@@ -9,13 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="DSD.MSS.Blazor.Components.Table">
-      <HintPath>..\..\BlazorTable\DSD.MSS.Blazor.Components.Table\bin\Release\netstandard2.1\DSD.MSS.Blazor.Components.Table.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\..\BlazorCore\DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj" />
+    <ProjectReference Include="..\..\..\BlazorTable\DSD.MSS.Blazor.Components.Table\DSD.MSS.Blazor.Components.Table.csproj" />
   </ItemGroup>
 
   <ItemGroup>
