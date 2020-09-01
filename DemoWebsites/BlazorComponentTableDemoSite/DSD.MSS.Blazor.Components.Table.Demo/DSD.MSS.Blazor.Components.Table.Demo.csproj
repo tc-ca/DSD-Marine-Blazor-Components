@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DSD.MSS.Blazor.Components.Table\DSD.MSS.Blazor.Components.Table.csproj" />
+    <ProjectReference Include="..\..\..\BlazorTable\DSD.MSS.Blazor.Components.Table\DSD.MSS.Blazor.Components.Table.csproj" />
   </ItemGroup>
 
 </Project>

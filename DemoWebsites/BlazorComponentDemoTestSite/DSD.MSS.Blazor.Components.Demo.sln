@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30404.54
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSD.MSS.Blazor.Components.Core.Demo", "DSD.MSS.Blazor.Components.DemoSite\DSD.MSS.Blazor.Components.Core.Demo.csproj", "{921DF015-78B6-4D2D-AA1D-9D4E052DF78A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSD.MSS.Blazor.Components.Core", "..\BlazorCore\DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj", "{5C7A2D0D-75BC-40B0-9C3A-FF4A9CC6827B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSD.MSS.Blazor.Components.Core", "..\..\BlazorCore\DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj", "{5C7A2D0D-75BC-40B0-9C3A-FF4A9CC6827B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSD.MSS.Blazor.Components.Table", "..\BlazorTable\DSD.MSS.Blazor.Components.Table\DSD.MSS.Blazor.Components.Table.csproj", "{5D62CB8F-E6DD-447C-A4C3-60CBCE5C47DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSD.MSS.Blazor.Components.Table", "..\..\BlazorTable\DSD.MSS.Blazor.Components.Table\DSD.MSS.Blazor.Components.Table.csproj", "{5D62CB8F-E6DD-447C-A4C3-60CBCE5C47DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{B2619D35-4F48-4FCE-889A-20DD330234E0}"
 EndProject

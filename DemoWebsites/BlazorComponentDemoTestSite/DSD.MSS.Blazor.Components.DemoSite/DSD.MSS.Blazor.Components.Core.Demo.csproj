@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BlazorCore\DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj" />
-    <ProjectReference Include="..\..\BlazorTable\DSD.MSS.Blazor.Components.Table\DSD.MSS.Blazor.Components.Table.csproj" />
+    <ProjectReference Include="..\..\..\BlazorCore\DSD.MSS.Blazor.Components.Core\DSD.MSS.Blazor.Components.Core.csproj" />
+    <ProjectReference Include="..\..\..\BlazorTable\DSD.MSS.Blazor.Components.Table\DSD.MSS.Blazor.Components.Table.csproj" />
   </ItemGroup>
 
   <ItemGroup>
