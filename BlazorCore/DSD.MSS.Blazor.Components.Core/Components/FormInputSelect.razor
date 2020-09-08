@@ -8,7 +8,7 @@
 <div class="form-group">
     @if (!string.IsNullOrWhiteSpace(Label))
     {
-        <label for="@Id" class="@($"form-label {Required}")">@Label</label>
+        <label for="@Id" class="@($"form-label {Required}")"><b>@Label</b></label>
     }
     <InputSelect  id="@Id" name="@Id" class="@($"form-control {CssClass}")" @bind-Value="CurrentValueAsString" @oninput="this.OnChangeAsync">
         @if (ShowDefaultOption)

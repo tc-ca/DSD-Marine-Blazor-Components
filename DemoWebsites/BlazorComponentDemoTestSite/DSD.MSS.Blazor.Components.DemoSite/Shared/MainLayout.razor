@@ -1,0 +1,28 @@
+﻿@inherits LayoutComponentBase
+
+@*<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main" style="background-color: #fafbfe">
+    <div class="top-row px-4">
+        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    </div>
+
+    <div class="content px-4" style="background-color: #E8F2F8">
+        @Body
+    </div>
+</div>*@
+<div class="page-wrapper full-size">
+    <div class="page-top flex-row">
+        <TopNavBar />
+    </div>
+    <div class="page-bottom flex-row flex-grow">
+        <NavMenu />
+        <div id="content" class="flex-column flex-grow">
+            <div class="content-scrollablet">
+                @Body
+            </div>
+        </div>
+    </div>
+</div>

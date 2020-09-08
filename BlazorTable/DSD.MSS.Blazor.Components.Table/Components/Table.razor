@@ -12,13 +12,19 @@
                 <thead role="search">
                     <tr>
                         <th colspan="@columnCount" style="padding:0px">
-                            <TableHeaderFilter HeaderFilterChanged="@(()=>OnHeaderFilterChanged())" TableRef="this" />
+                            <TableHeaderFilter HeaderFilterChanged="@(() => OnHeaderFilterChanged())" TableRef="this" />
                         </th>
                     </tr>
                 </thead>
             }
             else
             {
+                @if (!string.IsNullOrEmpty(GlobalSearch))
+                {
+                    GlobalSearch = string.Empty;
+                    Update();
+                }
+
                 @foreach (IColumn<TableItem> column in Columns)
                 {
                     column.ColumnFilterItems.Clear();
@@ -118,7 +124,7 @@
                                         @if (IsEditMode && column.EditTemplate != null)
                                             @column.EditTemplate(item)
                                             else
-                                                                                                                             if (column.Template == null)
+                                                                                                                                if (column.Template == null)
                                                 @column.Render(item)
                                                 else
                                                     @column.Template(item)

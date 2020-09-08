@@ -4,7 +4,7 @@
 <div class="form-group">
     <label for="@Id" class="form-label">@Title</label>
     <div style="display: flex;">
-        <button class="btn btn-outline-secondary " style="flex: 1;" type="button" data-toggle="collapse" data-target="@($"#{Id}")" aria-expanded="false" aria-controls="collapseExample" onClick="($(this).find('span').className == 'fa fa-angle-up')?$(this).find('span').className='fa fa-angle-down':$(this).find('span').className='fa fa-angle-up'">
+        <button class="btn btn-outline-secondary multiple-select" style="flex: 1;" type="button" data-toggle="collapse" data-target="@($"#{Id}")" aria-expanded="false" aria-controls="collapseExample" onClick="($(this).find('span').className == 'fa fa-angle-up')?$(this).find('span').className='fa fa-angle-down':$(this).find('span').className='fa fa-angle-up'">
             <span style="float: left">@SelectTitle</span><span class="fa fa-angle-down" style="float: right"></span>
         </button>
     </div>

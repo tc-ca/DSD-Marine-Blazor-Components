@@ -96,7 +96,17 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Current Page Number
         /// </summary>
-        public int PageNumber { get; private set; }
+        public int PageNumber { get; set; }
+
+        /// <summary>
+        /// Page List Start Number
+        /// </summary>
+        public int PageListStartNumber { get; set; } = 2;
+
+        /// <summary>
+        /// Page List end Number
+        /// </summary>
+        public int PageListEndNumber { get; set; }
 
         /// <summary>
         /// Total Count of Items
@@ -167,6 +177,8 @@ namespace DSD.MSS.Blazor.Components.Table
                 {
                     PageNumber = TotalPages - 1;
                 }
+
+                UpdaePageList();
 
                 // if PageSize is zero, we return all rows and no paging
                 if (PageSize <= 0)
@@ -260,6 +272,71 @@ namespace DSD.MSS.Blazor.Components.Table
         {
             PageNumber = TotalPages - 1;
             Update();
+        }
+
+        private void UpdaePageList()
+        {
+            var LastPageNumber = TotalPages - 1;
+
+            if (PageNumber == 0)
+            {
+                PageListStartNumber = 1;
+                PageListEndNumber = TotalPages >= 6 ? 4 : TotalPages - PageListStartNumber;
+            }
+            else if (PageNumber == LastPageNumber)
+            {
+                PageListEndNumber = LastPageNumber - 1;
+                int i;
+                for (i = PageListEndNumber; i > 1; i--)
+                {
+                    if (i == PageListEndNumber - 3)
+                        break;
+                }
+                PageListStartNumber = i;
+            }
+            else if (PageNumber > 0 && PageNumber < LastPageNumber)
+            {
+                if (PageListStartNumber == PageNumber)
+                {
+                    int i;
+                    if (PageNumber >= 2)
+                    {
+                        for (i = PageNumber; i > 1; i--)
+                        {
+                            if (i == PageNumber - 2)
+                                break;
+                        }
+                        PageListStartNumber = i;
+                        PageListEndNumber = PageListEndNumber - (PageNumber - PageListStartNumber);
+                    }
+                }
+                else if (PageListEndNumber == PageNumber)
+                {
+                    int i;
+                    if (LastPageNumber - PageListEndNumber >= 2)
+                    {
+                        for (i = PageNumber; i < LastPageNumber; i++)
+                        {
+                            if (i == PageNumber + 2)
+                                break;
+                        }
+                        PageListEndNumber = i;
+                        PageListStartNumber = PageListStartNumber + PageListEndNumber - PageNumber;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update Page
+        /// </summary>
+        public void UpdatePage(int pageNumber)
+        {
+            if (pageNumber >= 0 && pageNumber < TotalPages)
+            {
+                PageNumber = pageNumber;
+                Update();
+            }
         }
 
         /// <summary>

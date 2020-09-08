@@ -1,0 +1,33 @@
+﻿@using Pages;
+@inherits BasePageComponent
+@inject IStringLocalizer<TopNavBar> _localizer
+
+<div class="topbar flex-row flex-grow">
+    <div class="flex-row flex-grow top-nav-header p-3">
+        <a class="flex-row flex-noshrink flex-center header-title">
+            <svg width="24" height="29" viewBox="0 0 24 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.40206 0.0714111H15.6014V4.01622H19.2011C20.521 4.01622 21.6009 5.19967 21.6009 6.6461V12.7211L23.1368 13.2734C23.4487 13.3786 23.7127 13.6153 23.8567 13.9309C24.0007 14.2464 24.0247 14.6146 23.9287 14.9565L21.6609 23.7403H21.6009C19.6811 23.7403 17.9772 22.5831 16.8013 21.1104C15.6254 22.5831 13.9216 23.7403 12.0017 23.7403C10.0819 23.7403 8.37806 22.5831 7.20217 21.1104C6.02627 22.5831 4.32242 23.7403 2.40259 23.7403H2.34259L0.0627905 14.9565C-0.0452001 14.6146 -0.0092032 14.2464 0.134784 13.9309C0.278772 13.6153 0.542749 13.3786 0.854721 13.2734L2.40259 12.7211V6.6461C2.40259 5.19967 3.48249 4.01622 4.80238 4.01622H8.40206V0.0714111ZM13.2009 2.70125V4.01619H10.8011V2.70125H13.2009ZM12.0021 12.0505L18.4575 14.3779L21.3252 15.4035L19.9814 20.6238C19.3334 20.2294 18.8535 19.6902 18.6135 19.3878L16.8016 17.113L14.9898 19.3747C14.5818 19.9006 13.4539 21.1104 12.0021 21.1104C10.5502 21.1104 9.42228 19.9006 9.01432 19.3747L7.20247 17.113L5.39063 19.3747C5.15065 19.6771 4.6707 20.2031 4.02275 20.5975L2.66687 15.3904L5.54662 14.3516L12.0021 12.0505ZM4.802 11.8664V6.64609H19.2007V11.8664L12.0014 9.27597L4.802 11.8664ZM12.0008 26.3175C13.6686 26.3175 15.3365 25.7521 16.8004 24.6344C18.2642 25.7521 19.9321 26.3701 21.5999 26.3701H23.9997V29H21.5999C19.9441 29 18.3122 28.5529 16.8004 27.6982C15.2885 28.5529 13.6446 28.9737 12.0008 28.9737C10.3569 28.9737 8.71307 28.5397 7.2012 27.6982C5.68933 28.5397 4.05748 29 2.40162 29H0.00183105V26.3701H2.40162C4.06948 26.3701 5.73733 25.7521 7.2012 24.6344C8.66507 25.7521 10.3329 26.3175 12.0008 26.3175Z" fill="#F2F2F2" />
+            </svg>
+            <span style="color:white" class="ml-3 header-tooltiptext"><b>@_localizer["Blazor Core Demo"]</b></span>
+        </a>
+    </div>
+    <div class="flex-row flex-grow top-nav-bar">
+        <div class="flex-row flex-grow top-nav-bar">
+            <div class="pr-3 flex-row flex-noshrink flex-center ml-auto" style="color:white">
+            </div>
+            <div class="pr-3 flex-row flex-noshrink flex-center ml-auto">
+                <form>
+                    <div class="form-group icon-search mt-3 mb-2" style="color:white !important">
+                        <span class="fa fa-search ml-2 mr-2 form-control-span"></span>
+                        <input type="text" class="form-control dark-input" aria-label="Search" placeholder="@_localizer["Search.Title"]">
+                    </div>
+                </form>
+            </div>
+            <div class="dropdown m-3 pr-3 mflex-row flex-noshrink">
+                <button class="text-btn flex-row flex-noshrink" title="@_localizer["Language.Title"]" type="button" @onclick="@(()=>SetSwitchLanguage())">
+                    <span style="color:white"><b>@_localizer["LanguageShort.Title"]</b></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
