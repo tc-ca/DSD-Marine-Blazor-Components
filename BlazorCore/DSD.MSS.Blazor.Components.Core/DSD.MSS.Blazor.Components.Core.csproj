@@ -5,7 +5,7 @@
     <RazorLangVersion>3.0</RazorLangVersion>
     <Authors>Transport Canada</Authors>
     <Company>Transport Canada</Company>
-    <Version>2.0.0</Version>
+    <Version>2.0.0.1</Version>
     <Description>Blazor component core with color themes and custom components.</Description>
     <Copyright></Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -19,6 +19,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.5" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="images\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
