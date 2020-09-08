@@ -23,7 +23,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="icon.png" Pack="true" PackagePath="" />
     <None Include="images\icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
