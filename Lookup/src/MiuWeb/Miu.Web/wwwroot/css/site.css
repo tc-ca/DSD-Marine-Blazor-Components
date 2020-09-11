@@ -1,0 +1,685 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css");
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+/*html, body {
+    height: 100%;
+    font: 16px/1 'Open Sans', sans-serif;
+    color: #555;
+    background: #e5e5e5;
+}
+
+body {
+    padding: 50px;
+}*/
+
+.accordion {
+    transform: translateZ(0);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+    .accordion > .accordion-toggle {
+        position: absolute;
+        opacity: 0;
+        display: none;
+    }
+
+    .accordion > label {
+        position: relative;
+        display: block;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 20px;
+        font-size: 14px;
+        font-weight: 700;
+        border-top: 1px solid #ddd;
+        background: #fff;
+        cursor: pointer;
+    }
+
+        .accordion > label:after {
+            content: '\f078';
+            position: absolute;
+            top: 0px;
+            right: 20px;
+            font-family: fontawesome;
+            transform: rotate(90deg);
+            transition: .3s transform;
+        }
+
+    .accordion > section {
+        height: 0;
+        transition: .3s all;
+        overflow: hidden;
+    }
+
+    .accordion > .accordion-toggle:checked ~ label:after {
+        transform: rotate(0deg);
+    }
+
+    .accordion > .accordion-toggle:checked ~ section {
+        height: 550px;
+    }
+
+    .accordion > section p {
+        margin: 15px 0;
+        padding: 0 20px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+/*Vessel display table*/
+.table-read {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .table-read td, .table-read th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .table-read tr:nth-child(even) {
+        background-color: #eaebed;
+    }
+
+    .table-read tr:hover {
+        background-color: #bbbfc5;
+    }
+
+    .table-read th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #26374a;
+        color: white;
+    }
+/*End Vessel display table*/
+
+/* START CDTS  Header's Search bar */
+form[name="cse-search-box"] {
+    justify-content: flex-end;
+}
+/* END CDTS  Header's Search bar*/
+.TWyTecAccordion {
+    width: 100%;
+    height: auto;
+}
+
+.TWyTecAccordionItem {
+    margin-bottom: 5px;
+}
+
+.TWyTecAccordionItemContent {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    border-left: 1px solid gainsboro;
+    border-right: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.TWyTecAccordionItemButton {
+    background-color: transparent;
+    border: 1px solid gainsboro;
+    border-radius: 2px;
+    cursor: pointer;
+    height: 40px;
+    width: 100%;
+}
+
+    .TWyTecAccordionItemButton:hover {
+        color: dodgerblue !important;
+        text-decoration: underline;
+    }
+
+    .TWyTecAccordionItemButton:focus {
+        outline: 0;
+    }
+
+.TWyTecAccordionItemButtonActive {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+body {
+    padding-top: unset;
+}
+
+main.container{
+    padding: 0;
+}
+.addr-label {
+    color: #002D42;
+}
+.addr-footer-template {
+    font-size: small;
+    color: #002D42;
+}
+
+.btn-sec{
+        color: #002d42;
+        background-color: transparent;
+        background-image: none;
+        border-color: #002d42 !important;
+        height: 42px;
+}
+
+.btndiv .btn{
+    margin-bottom: 2rem;
+}
+
+/********* MIU STEP INDICATOR START *********/
+.miuext .step-indicator .steps li {
+    width: 16%;
+}
+/********* MIU STEP INDICATOR END *********/
+
+/********* CONTACT INFORMATION PAGE START *********/
+.wrappmain h1{
+    font-weight: normal;
+    margin-bottom: 3rem;
+    font-size: 1.6em;
+    font-weight: 600;
+    border-bottom: none;
+}
+
+.wrappmain h4{
+    font-weight: normal;
+    font-size: 1.2em;
+    margin-bottom: 4rem;
+    margin-top: 3rem;
+}
+
+.wrappmain .step-indicator{
+    margin: 40px 0;
+    line-height: 1.5;
+    min-width: 290px;
+    max-width: 1200px;
+}
+
+.wrappmain .divuserform {
+    max-width: 780px;
+}
+
+.wrappmain .btndiv{
+    display: -webkit-box;  
+    display: -ms-flexbox;
+    display: -webkit-flex; 
+    display: flex;
+    padding-top: 3rem;
+}
+
+.wrappmain .form-control{
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    height: 42px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+}
+
+.wrappmain .form-group{
+    margin-bottom: 2rem;
+}
+
+.wrappmain .form-group label{
+    font-weight: unset;
+}
+
+.wrappmain .postcode{
+    text-transform: uppercase; 
+}
+
+.mailedwrapp p{
+    font-size: 18px;
+}
+
+.mailedwrapp .custom-control-label {
+    padding-left: 20px;
+    font-weight: normal;
+    padding-bottom: 8px;
+}
+
+.mailedwrapp .custom-control-label::before, 
+.mailedwrapp .custom-control-label::after {
+    height: 20px;
+    width: 20px;
+}
+
+.mailingwrapp{
+    padding-top: 40px;
+}
+
+.wrappmain .btn{
+    margin-right: 4rem;
+    font-size: 16px;
+    padding: 0px 16px;
+}
+
+.btndiv .btn-primary{
+    color: #ffffff;
+}
+
+.btndiv .btn-primary:hover{
+    background: #002D42;
+    opacity: 0.6;
+}
+
+.btndiv .btn-secondary:hover{
+    background-color: unset;
+    text-decoration: #002D42;
+}
+
+.reportbtn{
+    font-weight: normal;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 10px 6px;
+    font-size: 16px;
+    line-height: 1.4375;
+    border-radius: 4px;
+    border-style: outset;
+    height: auto;
+    min-height: 36px;
+    min-width: 36px;
+    white-space: normal;
+}
+
+.reportbtn:hover{
+    text-decoration: none;
+}
+
+/********* CONTACT INFORMATION PAGE END*********/
+
+/********* SERVICE DETAILS PAGE START*********/
+.btncancel{
+    width: -moz-fit-content;
+    width: -webkit-fit-content; 
+    width: -ms-fit-content; 
+    width: fit-content;
+    margin-top: 20px;
+    text-align: left;
+    margin-bottom: 2rem;
+}
+/* .wrappmain .wrappvessel{
+    max-width: 780px;
+} */
+
+.wrappvessel input, .wrappvessel select{
+    max-width: 394px;
+}
+
+.textother{
+    display: flex;
+    align-items: center;
+}
+
+.miuswrapbtninput{
+    display: flex;
+
+    width: 100%;
+    max-width: 460px;
+}
+
+.miuswrapbtninput .form-group{
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+
+.miuswrapbtninput .btn{
+  margin-left: 10px;
+  margin-right: 0;
+  margin-top: 5px;
+}
+
+.textother > .form-group{
+    width: 100%;
+}
+
+.sdborder{
+    border-top: 1px solid #cccccc;
+    margin-top: unset;
+}
+
+.fa-info-circle{
+    color: #cccccc;
+}
+
+.wrappvessel .form-row label{
+    font-weight: normal;
+}
+
+.custom-checkbox .custom-control-label{
+    font-weight: normal;
+}
+
+.wrapcheckvessel{
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapcheckvessel .custom-control-label::before, 
+.wrapcheckvessel .custom-control-label::after {
+    height: 20px;
+    width: 20px;
+}
+
+.wrappvessel .custom-control-label{
+    padding-left: 20px;;
+}
+
+.wrappvessel .certificatestype{
+    display: flex;
+    align-items: center;
+}
+
+.wrappvessel input[type="date"]{
+    width: 25%;
+}
+
+.visibilityhidden{
+    visibility: hidden;
+}
+
+/* **STEP 2** */
+.wrappvessel .lookup__input{
+    width: 124px;
+    height: 42px;
+}
+
+.wrappvessel p{
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.wrappvessel > div:first-child{
+    display: flex;
+}
+
+.wrappvessel .form-row{
+    align-items: center;
+}
+
+.vesselsinput, 
+.vesselsinput div:first-child{
+    padding-left: 0;
+}
+
+/********* SERVICE DETAILS PAGE END*********/
+
+/********* REVIEW DETAILS PAGE START *********/
+.reviewcontact span{
+    color: #cccccc;
+    text-transform: uppercase;
+    padding: 10px;
+    font-weight: normal;
+}
+.reviewcontact li{
+    font-weight: 600;
+}
+/********* REVIEW DETAILS PAGE END *********/
+
+/********* ERRORS MESSAGES START*********/
+.wrappmain .valid.modified:not([type=checkbox]) {
+    border: 1px solid #26b050;
+    border-radius: 4px;
+}
+
+.wrappmain .invalid, .wrappmain .form-control.invalid {
+    border: 1px solid #923534;
+    border-radius: 4px;
+}
+
+.invalid-message, .validation-message {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #923534; 
+  }
+
+.alert-box{
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.alert-box h2{
+    margin-left: unset;
+    font-weight: bold;
+}
+
+/********* ERRORS MESSAGES END*********/
+
+
+/********* UPLOAD BUTTON START *********/
+.miucustom .custom-file input[type=file]{
+    display: unset;
+    max-width: unset;
+    padding: 20px;
+}
+
+.miucustom .custom-file-label {
+    font-size: 16px;
+    padding: 20px 120px;
+    line-height: 0;
+    font-weight: normal;
+    border: 1px solid #ccc;
+}
+
+.miucustom .custom-file-label::after {
+    padding: 20px 20px;
+    line-height: 0;
+    font-weight: normal;
+    background-color:#343a40;
+}
+
+.miucustom .file-row {
+    margin-top: 20px;
+    background-color: #F5F5F5;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    border-radius: 0.6rem;
+    color: #555;
+    display: -webkit-box;  
+    display: -ms-flexbox;
+    display: -webkit-flex; 
+    display: flex;
+    flex-direction: column;
+}
+
+.miucustom .alertfile{
+    margin-top: 20px;
+}
+
+.miucustom .file-row button{
+    width: -moz-fit-content;
+    width: -webkit-fit-content; 
+    width: -ms-fit-content; 
+    width: fit-content;
+}
+    
+.miucustom  .file-row h2 {
+    margin: 0.3rem 0 0.6rem 0;
+    font-weight: bold;
+    color: black;
+    font-size: 1.1rem;
+}
+    
+.miucustom  .file-row > div {
+    flex-grow: 1;
+}
+    
+.miucustom  .uploaderrortext {
+    font-size: 12px;
+	margin-left: 25px;
+}
+
+.miucustom  .uploadtext{
+    font-size: 12px;
+}
+
+.miucustom .file-row button {
+    padding: 0.5rem 1rem;
+}
+/********* UPLOAD BUTTON END *********/
+
+/********* RESPONSIVE PAGE START  *********/
+
+@media (max-width: 991px) {
+    
+    .wrappvessel input, .wrappvessel select {
+    max-width: unset;
+    }
+
+    .miuswrapbtninput{
+        max-width: unset;
+    }
+
+    .wrappvessel p{
+        padding: 0;
+    }
+
+    .wrapcheckvessel{
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .vesselsinput div:nth-child(2){
+        padding-left: 0;
+    }
+
+}
+@media (max-width: 768px) {
+
+    .wrappmain{
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .wrappmain .form-control{
+        width: 100%;
+    }
+     
+    .wrappmain .divuserform {
+        max-width: unset;
+    }
+
+    .wrappmain .btndiv {
+        justify-content: space-evenly;
+    }
+
+    .dropsize .form-group{
+        width: 100%;
+    }
+
+    .textother{
+        flex-direction: column;
+        align-items: unset;
+    }
+
+    .textother div label {
+        display: none;
+    }
+
+    .wrappvessel input[type="date"]{
+        width: 50%;
+    }
+
+    .CPplace {
+        flex-wrap: wrap;
+    }
+
+    .CPplace .form-group:nth-child(2) {
+        padding-right: unset;
+        padding-left: unset;
+    }
+
+    .titlesvessels{
+        flex-direction: column;
+    }
+    .titlesvessels > p {
+        padding-left: 0;
+    }
+
+    .wrappvessel .form-control{
+        margin-bottom: 10px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .divuserform .form-group{
+        min-width: 260px;
+    }
+
+    .wrappmain .btndiv{
+        width: 100%;
+        flex-direction: column;
+        padding-top: 2rem;
+    }
+    
+    .wrappmain .btn {
+        width: 100%;
+        margin-bottom: 2.375rem;
+    }
+
+    .wrappmain h1{
+        font-size: 20px;
+    }
+
+    .wrappmain h4{
+        font-size: 14px;
+        margin-bottom: 3rem;
+        margin-top: 2rem;
+    }
+    
+    .reportbtn{
+        width: 100%;
+    }
+
+    .wrappvessel input[type="date"]{
+        width: 100%;
+    }
+
+    .miuswrapbtninput{
+        flex-direction: column;
+    }
+
+    .miuswrapbtninput .btn{
+        margin: 80px 0 0;
+    }
+
+    .miucustom{
+        min-width: 289px;
+    }   
+
+    .miucustom .custom-file-label {
+        font-size: 10px;
+        min-width: 288px;
+        padding: 20px 100px;
+    }
+
+    .wrappvessel .form-group input, .wrappvessel .form-group select, .wrappvessel {
+        min-width: 260px;
+    }
+    
+} 
+
+/********* RESPONSIVE PAGE END  *********/
