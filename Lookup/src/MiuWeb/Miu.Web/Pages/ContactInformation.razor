@@ -1,0 +1,50 @@
+﻿@page "/{lang}/contactinfo"
+
+@inject IStringLocalizer<ContactInformation>  L
+@inject IStringLocalizer<ContactInfoForm> LF    
+@inject IStringLocalizer<Common> LC
+@*@inject AppState appState*@
+@*@inject IAppStateManager appStateMgr*@
+@inject IInteropService interopService
+@inject IConfiguration config
+
+<div class="wrappmain">
+    <h1>@L["Heading1"]</h1>
+
+    <div class="divuserform">
+        <ContactInfoForm Model="ContactInfo" Language="@Lang" FormEditedCallback="ContactInfoChangedAsync" />
+    </div>
+</div>
+
+@code{
+
+    ContactInfo ContactInfo { get; set; }
+
+    [Parameter]
+    public string Lang { get; set; } = "en";
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ContactInfo = new ContactInfo { Index = UserInfoIndex.Applicant };
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        // get from browser
+        ContactInfo = await interopService.ReadModelFromLocalStorageAsync<ContactInfo>(ContactInfo, nameof(ContactInfo));
+
+    }
+
+    private async Task ContactInfoChangedAsync(bool isModelValid)
+    {
+        // save state to browser
+        await interopService.WriteModelToLocalStorageAsync<ContactInfo>(ContactInfo, nameof(ContactInfo));
+    }
+
+
+}

@@ -1,0 +1,17 @@
+﻿@inherits LayoutComponentBase
+
+@inject IStringLocalizer<Common> LC
+
+<div class="main">
+    <div class="content miuext">
+        @Body
+    </div>
+    <br />
+    <br />
+    <div class="row"> 
+        <div class="col">
+			<a href="https://www.canada.ca/en/report-problem.html" class="reportbtn btn-default text-center">@LC["MasterLayout_ReportProblem"]</a>
+		</div>
+    </div>
+</div>
+

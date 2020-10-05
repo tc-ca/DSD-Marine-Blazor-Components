@@ -1,0 +1,102 @@
+﻿@page "/"
+@namespace Demo.Web.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using Microsoft.AspNetCore.Http
+@using  Microsoft.Extensions.Configuration
+@inject GoC.WebTemplate.Components.Core.Services.ModelAccessor ModelAccessor
+@inject Demo.Web.Views.LayoutViewModel VM;
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor;
+@inject IConfiguration  config
+
+@{
+    GoC.WebTemplate.Components.Model WebTemplateModel;
+    WebTemplateModel = ModelAccessor.Model;
+    VM.InitializePage();
+}
+
+<!DOCTYPE html>
+
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="@WebTemplateModel.TwoLetterCultureLanguage" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="@WebTemplateModel.TwoLetterCultureLanguage" dir="ltr">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+        wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+    <title>@WebTemplateModel.Render.HeaderTitle()</title>
+
+    <base href="~/" />
+
+    <link href="_content/Lookup/lookup.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/aurora.min.css" rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet" />
+
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <!-- Load closure template scripts -->
+    <script type="text/javascript" src="@string.Concat(WebTemplateModel.CDNPath, "soyutils.js")"></script>
+    <script type="text/javascript" src="@string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}wet-{1}.js", WebTemplateModel.CDNPath, WebTemplateModel.TwoLetterCultureLanguage)"></script>
+    <noscript>
+        <!-- Write closure fall-back static file -->
+        @WebTemplateModel.LoadStaticFile("refTop.html")
+    </noscript>
+    <!-- Write closure template -->
+    <script type="text/javascript">
+        document.write(wet.builder.refTop(@WebTemplateModel.Render.RefTop(isApplication : false)));
+    </script>
+    @WebTemplateModel.Render.HtmlHeaderElements()
+
+</head>
+<body vocab="http://schema.org/" typeof="WebPage">
+    @WebTemplateModel.Render.SessionTimeoutControl()
+    <div id="def-top">
+        <!-- Write closure fall-back static file -->
+        @WebTemplateModel.LoadStaticFile(string.Concat("top-", WebTemplateModel.TwoLetterCultureLanguage, ".html"))
+    </div>
+    <!-- Write closure template -->
+    <script type="text/javascript">
+        var defTop = document.getElementById("def-top");
+        defTop.outerHTML = wet.builder.top(@WebTemplateModel.Render.Top());
+    </script>
+    <div class="container">
+        <!-- the main content -->
+        <app>
+            @(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))
+        </app>
+        <!-- end main content -->
+        <div id="def-preFooter">
+            <!-- Write closure fall-back static file -->
+            @WebTemplateModel.LoadStaticFile(string.Concat("preFooter-", WebTemplateModel.TwoLetterCultureLanguage, ".html"))
+        </div>
+        <!-- Write closure template -->
+        <script type="text/javascript">
+                    var defPreFooter = document.getElementById("def-preFooter");
+                    defPreFooter.outerHTML = wet.builder.preFooter(@WebTemplateModel.Render.PreFooter());
+        </script>
+    </div>
+    <div id="def-footer">
+        <!-- Write closure fall-back static file -->
+        @WebTemplateModel.LoadStaticFile(string.Concat("footer-", WebTemplateModel.TwoLetterCultureLanguage, ".html"))
+    </div>
+    <!-- Write closure template -->
+    <script type="text/javascript">
+    var defFooter = document.getElementById("def-footer");
+        defFooter.outerHTML = wet.builder.footer(@WebTemplateModel.Render.Footer());
+    </script>
+    <!-- Write closure template -->
+    <script type="text/javascript">
+        document.write(wet.builder.refFooter(@WebTemplateModel.Render.RefFooter()));
+    </script>
+    @WebTemplateModel.Render.HtmlBodyElements()
+    <script type="text/javascript" src="_framework/blazor.server.js"></script>
+    <script type="text/javascript" src="script/stateManagement.js"></script>
+    <script type="text/javascript" src="script/aurora.min.js"></script>
+    <script type="text/javascript" src="script/inputfile.js"></script>
+    <script type="text/javascript" src="_content/Lookup/lookup.js"></script>
+    @*<script type="text/javascript" src="_content/BlazorInputMask/Main.js"></script>
+    <script type="text/javascript" src="_content/BlazorInputMask/IMask.js"></script>*@
+</body>
+</html>
