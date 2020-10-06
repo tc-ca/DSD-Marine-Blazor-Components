@@ -2,7 +2,7 @@
 using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
-namespace Lookup
+namespace DSD.MSS.Blazor.Components.AddressComplete
 {
     public static class Interop
     {

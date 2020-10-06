@@ -1,8 +1,8 @@
-﻿using Demo.Web.Models.View;
+﻿using AddressComplete.Demo.Models.View;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Demo.Web.Services
+namespace AddressComplete.Demo.Services
 {
     public interface IInteropService
     {

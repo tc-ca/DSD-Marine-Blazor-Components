@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
-using Demo.Web.Models.View;
+using AddressComplete.Demo.Models.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Res = Demo.Web.Resources.Shared;
+using Res = AddressComplete.Demo.Resources.Shared;
 
-namespace Demo.Web.Services
+namespace AddressComplete.Demo.Services
 {
     public class InteropService : IInteropService
     {

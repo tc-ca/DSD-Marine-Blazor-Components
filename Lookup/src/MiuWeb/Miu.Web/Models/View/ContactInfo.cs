@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Demo.Web.Models.View
+namespace AddressComplete.Demo.Models.View
 {
     public class ContactInfo
     {
@@ -31,6 +31,7 @@ namespace Demo.Web.Models.View
         public string AddressCity { get; set; }
 
         public string AddressCountry { get; set; }
+        public string AddressCountryCode { get; set; }
 
         public string AddressProvince { get; set; }
 

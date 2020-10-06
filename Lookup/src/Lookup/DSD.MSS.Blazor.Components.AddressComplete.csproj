@@ -1,8 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RazorLangVersion>3.0</RazorLangVersion>
+    <Authors>Transport Canada</Authors>
+    <Version>1.0.1</Version>
+    <Description>Blazor component for Canada Post address complete.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Blazor; Canada Post address complete</PackageTags>
   </PropertyGroup>
 
 

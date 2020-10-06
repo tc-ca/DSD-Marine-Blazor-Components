@@ -1,4 +1,4 @@
-﻿using Lookup.Resources;
+﻿using DSD.MSS.Blazor.Components.AddressComplete.Resources;
 using System.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Globalization;
 
-namespace Lookup
+namespace DSD.MSS.Blazor.Components.AddressComplete
 {
 #pragma warning disable CS0169, CS0649
     public partial class Autocomplete<TIndex, TValue> : ComponentBase, IDisposable

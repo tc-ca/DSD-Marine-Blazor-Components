@@ -1,11 +1,11 @@
 ﻿@page "/"
-@namespace Demo.Web.Pages
+@namespace AddressComplete.Demo.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @using Microsoft.AspNetCore.Http
 @using  Microsoft.Extensions.Configuration
 @inject GoC.WebTemplate.Components.Core.Services.ModelAccessor ModelAccessor
-@inject Demo.Web.Views.LayoutViewModel VM;
+@inject AddressComplete.Demo.Views.LayoutViewModel VM;
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor;
 @inject IConfiguration  config
@@ -30,7 +30,7 @@
 
     <base href="~/" />
 
-    <link href="_content/Lookup/lookup.css" rel="stylesheet" />
+    <link href="_content/DSD.MSS.Blazor.Components.AddressComplete/lookup.css" rel="stylesheet" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/aurora.min.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
@@ -95,7 +95,7 @@
     <script type="text/javascript" src="script/stateManagement.js"></script>
     <script type="text/javascript" src="script/aurora.min.js"></script>
     <script type="text/javascript" src="script/inputfile.js"></script>
-    <script type="text/javascript" src="_content/Lookup/lookup.js"></script>
+    <script type="text/javascript" src="_content/DSD.MSS.Blazor.Components.AddressComplete/lookup.js"></script>
     @*<script type="text/javascript" src="_content/BlazorInputMask/Main.js"></script>
     <script type="text/javascript" src="_content/BlazorInputMask/IMask.js"></script>*@
 </body>

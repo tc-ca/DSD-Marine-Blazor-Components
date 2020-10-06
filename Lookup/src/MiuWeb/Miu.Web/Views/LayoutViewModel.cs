@@ -3,12 +3,12 @@ using GoC.WebTemplate.Components.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Demo.Web.Resources.Shared;
+using AddressComplete.Demo.Resources.Shared;
 using System;
 using System.Collections.Generic;
 using System.Resources;
 
-namespace Demo.Web.Views
+namespace AddressComplete.Demo.Views
 {
     public class LayoutViewModel
     {

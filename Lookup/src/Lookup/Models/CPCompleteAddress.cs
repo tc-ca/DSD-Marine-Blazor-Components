@@ -1,4 +1,4 @@
-﻿namespace Lookup
+﻿namespace DSD.MSS.Blazor.Components.AddressComplete
 {
     public class CPCompleteAddress
     {   

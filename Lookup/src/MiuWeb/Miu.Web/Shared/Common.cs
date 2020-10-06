@@ -1,4 +1,4 @@
-﻿namespace Demo.Web.Shared
+﻿namespace AddressComplete.Demo.Shared
 {
     public class Common
     {
