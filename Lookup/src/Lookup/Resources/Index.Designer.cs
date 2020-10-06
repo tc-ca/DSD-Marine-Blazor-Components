@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lookup.Resources {
+namespace DSD.MSS.Blazor.Components.AddressComplete.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Lookup.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Lookup.Resources.Index", typeof(Index).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DSD.MSS.Blazor.Components.AddressComplete.Resources.Index", typeof(Index).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

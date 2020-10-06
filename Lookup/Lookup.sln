@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lookup", "src\Lookup\Lookup.csproj", "{98E41F2A-ED4C-4C1D-9E18-A15C0DF079DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSD.MSS.Blazor.Components.AddressComplete", "src\Lookup\DSD.MSS.Blazor.Components.AddressComplete.csproj", "{98E41F2A-ED4C-4C1D-9E18-A15C0DF079DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lookup.Test", "src\Lookup.Test\Lookup.Test.csproj", "{5CC98F81-B91F-4F28-9526-C0E38B3E83B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressComplete.Test", "src\Lookup.Test\AddressComplete.Test.csproj", "{5CC98F81-B91F-4F28-9526-C0E38B3E83B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Web", "src\MiuWeb\Miu.Web\Demo.Web.csproj", "{2C914B64-CF04-4719-8BA3-B91A5FDB84F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressComplete.Demo", "src\MiuWeb\Miu.Web\AddressComplete.Demo.csproj", "{2C914B64-CF04-4719-8BA3-B91A5FDB84F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

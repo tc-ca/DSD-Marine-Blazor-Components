@@ -1,6 +1,6 @@
-using Demo.Web.Models;
-using Demo.Web.Services;
-using Demo.Web.Views;
+using AddressComplete.Demo.Models;
+using AddressComplete.Demo.Services;
+using AddressComplete.Demo.Views;
 using GoC.WebTemplate.Components.Core.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
 
-namespace Demo.Web
+namespace AddressComplete.Demo
 {
     public class Startup
     {

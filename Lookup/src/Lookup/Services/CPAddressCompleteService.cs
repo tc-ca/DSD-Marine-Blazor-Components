@@ -1,4 +1,4 @@
-﻿using Lookup.Resources;
+﻿using DSD.MSS.Blazor.Components.AddressComplete.Resources;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Lookup
+namespace DSD.MSS.Blazor.Components.AddressComplete
 {
     internal static class CPAddressCompleteService
     {

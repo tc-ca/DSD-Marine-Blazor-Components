@@ -4,30 +4,6 @@
 @inject ILogger<CPAddressLookup<string>> logger
 
     <EditForm Model="Model">
-        <div>
-        @*<div class="form-row">
-            <div class="col-12 col-md-6">
-                <label for="@($"{Model.Index}_{nameof(Model.CompanyName)}")">@L["CompanyName"]</label>
-                <InputText class="form-control" @bind-Value="Model.CompanyName" id="@($"{Model.Index}_{nameof(Model.CompanyName)}")" />
-            </div>
-            <div class="col-12 col-md-6">
-                <label for="@($"{Model.Index}_{nameof(Model.BusinessNumber)}")">@L["BusinessNumber"]</label>
-                <InputText class="form-control" @bind-Value="Model.BusinessNumber" id="@($"{Model.Index}_{nameof(Model.BusinessNumber)}")" />
-            </div>
-        </div>*@
-        @*<br />*@
-        @*<div class="form-row">
-            <div class="col-12 col-md-6">
-                <label for="@($"{Model.Index}_{nameof(Model.FirstName)}")">@L["FirstName"]</label>
-                <InputText class="form-control" @bind-Value="Model.FirstName" id="@($"{Model.Index}_{nameof(Model.FirstName)}")" />
-            </div>
-            <div class="col-12 col-md-6">
-                <label for="@($"{Model.Index}_{nameof(Model.LastName)}")">@L["LastName"]</label>
-                <InputText class="form-control" @bind-Value="Model.LastName" id="@($"{Model.Index}_{nameof(Model.LastName)}")" />
-            </div>
-        </div>*@
-        @*<br />*@
-        </div>
         <div class="form-group">
             <label for="@($"{Model.Index}_{nameof(Model.AddressLine1)}")">@L["AddressLine1"]</label>
             <CPAddressLookup @bind-Value="Model.AddressLine1" id="@($"{Model.Index}_{nameof(Model.AddressLine1)}")"
@@ -111,7 +87,7 @@
     private async Task LookupCountryChangedAsync(string country)
     {
         country = string.IsNullOrEmpty(country) ? "tcr" : country;
-        await Task.FromResult(Model.AddressCountry = country);
+        await Task.FromResult(Model.AddressCountryCode = country);
         if (!string.IsNullOrEmpty(country) && country != "tcr")
         {
             //Model.Provinces = await contactInfoService.GetProvincesByCountryCode(country);
@@ -138,6 +114,11 @@
                 Model.AddressLine2 = $"{L["AddressLine2Prefix"]} { a.SubBuilding}";
             }
         }
+        else if (!string.IsNullOrWhiteSpace(a.POBoxNumber))
+        {
+            Model.AddressLine1 = a.Line1;
+            Model.AddressLine2 = "";
+        }
         else
         {
             Model.AddressLine1 = $"{a.BuildingNumber} {a.Street}";
@@ -151,7 +132,7 @@
 
         Model.AddressPostalCode = a.PostalCode;
 
-        Model.AddressCountry = a.CountryIso3;
+        Model.AddressCountry = a.CountryName;
 
     }
 }
