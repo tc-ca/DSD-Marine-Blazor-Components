@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 
-namespace Lookup
+namespace DSD.MSS.Blazor.Components.AddressComplete
 {
     public static class DataTableExtensions
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Demo.Web.Resources.Shared {
+namespace AddressComplete.Demo.Resources.Shared {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Demo.Web.Resources.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Demo.Web.Resources.Shared.Common", typeof(Common).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AddressComplete.Demo.Resources.Shared.Common", typeof(Common).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

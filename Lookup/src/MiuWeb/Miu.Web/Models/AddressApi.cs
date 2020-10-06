@@ -1,4 +1,4 @@
-﻿namespace Demo.Web.Models
+﻿namespace AddressComplete.Demo.Models
 {
     public class AddressApi
     {   

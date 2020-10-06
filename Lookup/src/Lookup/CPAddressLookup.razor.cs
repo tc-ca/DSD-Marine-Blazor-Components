@@ -1,4 +1,4 @@
-﻿using Lookup.Resources;
+﻿using DSD.MSS.Blazor.Components.AddressComplete.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,7 +13,7 @@ using System.Resources;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace Lookup
+namespace DSD.MSS.Blazor.Components.AddressComplete
 {
 #pragma warning disable CS0169, CS0649, IDE0044, IDE0051
     public partial class CPAddressLookup<TValue> : ComponentBase, IDisposable
@@ -192,7 +192,6 @@ namespace Lookup
                 }
             }
         }
-
 
         [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
 
@@ -601,8 +600,8 @@ namespace Lookup
                 var table = dataSet.Tables[0];
                 var list = table.ToList<CPCompleteAddress>();
                 address = list.FirstOrDefault();
-                address = await ParseCPAddress(address);
-
+                //Let user deside the format of address.
+                //address = await ParseCPAddress(address);
             }
             catch (Exception ex)
             {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Demo.Web.Resources.Pages {
+namespace AddressComplete.Demo.Resources.Pages {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Demo.Web.Resources.Pages {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Demo.Web.Resources.Pages.ContactInfoForm", typeof(ContactInfoForm).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AddressComplete.Demo.Resources.Pages.ContactInfoForm", typeof(ContactInfoForm).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
