@@ -15,6 +15,7 @@
                         <h5>@Title</h5>
                     }
                     <p class="mrgn-lft-md">@Message</p>
+                    <div class="mrgn-lft-md">@ChildContent</div>
                 </div>
                 @if (Dismisable)
                 {
@@ -36,6 +37,7 @@
                         <h5>@Title</h5>
                     }
                     <p class="mrgn-lft-md">@Message</p>
+                    <div class="mrgn-lft-md">@ChildContent</div>
                 </div>
                 @if (Dismisable)
                 {
@@ -57,6 +59,7 @@
                         <h5>@Title</h5>
                     }
                     <p class="mrgn-lft-md">@Message</p>
+                    <div class="mrgn-lft-md">@ChildContent</div>
                 </div>
                 @if (Dismisable)
                 {
@@ -78,6 +81,7 @@
                         <h5>@Title</h5>
                     }
                     <p class="mrgn-lft-md">@Message</p>
+                    <div class="mrgn-lft-md">@ChildContent</div>
                 </div>
                 @if (Dismisable)
                 {
@@ -99,6 +103,7 @@
                         <h5>@Title</h5>
                     }
                     <p class="mrgn-lft-md">@Message</p>
+                    <div class="mrgn-lft-md">@ChildContent</div>
                 </div>
                 @if (Dismisable)
                 {
@@ -115,6 +120,7 @@
 {
     [Parameter] public string Title { get; set; }
     [Parameter] public string Message { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public bool EnableShow { get; set; }
     [Parameter] public bool EnableCancel { get; set; }
     [Parameter] public AlertTypes AlertType { get; set; }

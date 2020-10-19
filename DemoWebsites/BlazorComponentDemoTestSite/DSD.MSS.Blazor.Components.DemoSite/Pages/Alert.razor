@@ -15,7 +15,18 @@
                 <AlertComponent Title="Danger" Message="Danger Message" EnableShow="true" AlertType="@AlertTypes.Danger" />
                 <AlertComponent Title="Information" Message="Information Message" EnableShow="true" AlertType="@AlertTypes.Information" />
                 <AlertComponent Title="Warning" Message="Warning Message" EnableShow="true" AlertType="@AlertTypes.Warning" />
-                <AlertComponent Title="Primary" Message="Primary Message" EnableShow="true" AlertType="@AlertTypes.Primary" />
+                <AlertComponent Title="Primary" Message="Primary Message" EnableShow="true" AlertType="@AlertTypes.Primary">
+                    <span>
+                        The <b>AlertMessage</b> could be of these types: <br /><br />
+                        <ul>
+                            <li>Success</li>
+                            <li>Danger</li>
+                            <li>Information</li>
+                            <li>Warning</li>
+                            <li>Primary</li>
+                        </ul>
+                    </span>
+                </AlertComponent> />
 
             </div>
         </div>
