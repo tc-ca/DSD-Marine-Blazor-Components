@@ -270,15 +270,6 @@ namespace AddressComplete.Demo.Resources.Pages {
         /// <summary>
         ///   Looks up a localized string similar to Enter your contact information.
         /// </summary>
-        public static string Description {
-            get {
-                return ResourceManager.GetString("Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter your contact information.
-        /// </summary>
         public static string Description1 {
             get {
                 return ResourceManager.GetString("Description1", resourceCulture);
@@ -300,15 +291,6 @@ namespace AddressComplete.Demo.Resources.Pages {
         public static string Email1 {
             get {
                 return ResourceManager.GetString("Email1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to We will use your email address to communicate the status of your request.
-        /// </summary>
-        public static string EmailNote {
-            get {
-                return ResourceManager.GetString("EmailNote", resourceCulture);
             }
         }
         
@@ -342,27 +324,9 @@ namespace AddressComplete.Demo.Resources.Pages {
         /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
-        public static string FirstName {
-            get {
-                return ResourceManager.GetString("FirstName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to First Name.
-        /// </summary>
         public static string FirstName1 {
             get {
                 return ResourceManager.GetString("FirstName1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last Name.
-        /// </summary>
-        public static string LastName {
-            get {
-                return ResourceManager.GetString("LastName", resourceCulture);
             }
         }
         
@@ -408,15 +372,6 @@ namespace AddressComplete.Demo.Resources.Pages {
         public static string PlaceholderTyping1 {
             get {
                 return ResourceManager.GetString("PlaceholderTyping1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select.
-        /// </summary>
-        public static string Select {
-            get {
-                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         

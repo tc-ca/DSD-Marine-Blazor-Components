@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace AddressComplete.Demo.Models.View
@@ -24,12 +25,13 @@ namespace AddressComplete.Demo.Models.View
 
         public UserInfoIndex Index { get; set; }
 
+        [Required(ErrorMessage = "Address Line1 is required.")]
         public string AddressLine1 { get; set; }
 
         public string AddressLine2 { get; set; }
 
         public string AddressCity { get; set; }
-
+        [Required]
         public string AddressCountry { get; set; }
         public string AddressCountryCode { get; set; }
 

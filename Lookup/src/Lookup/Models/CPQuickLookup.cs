@@ -9,6 +9,10 @@
         public int Cursor { get; set; }
         public string Description { get; set; }
         public string Next { get; set; }
+        public string Error { get; set; }
+        public string Cause { get; set; }
+        public string Resolution { get; set; }
+
         public string Summary 
         { 
             get { return $"{Text} {Description}"; } 

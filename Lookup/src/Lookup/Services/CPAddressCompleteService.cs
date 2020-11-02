@@ -1,10 +1,12 @@
-﻿using DSD.MSS.Blazor.Components.AddressComplete.Resources;
+﻿using DSD.MSS.Blazor.Components.AddressComplete.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DSD.MSS.Blazor.Components.AddressComplete
@@ -13,15 +15,14 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
     {
         internal async static Task<IEnumerable<CPCountry>> GetCountries()
         {
-            var json = Index.countries;
+            var json = Resources.Index.countries;
             return await Task.FromResult(JsonConvert.DeserializeObject<List<CPCountry>>(json));
         }
 
-        internal static DataSet FindSuggestions(string key, string searchterm, string lastid, string searchfor, string country, string languagepreference, int maxsuggestions, int maxresults)
-        {            
+        internal static async Task<List<CPQuickLookup>> FindSuggestions(IHttpClientFactory clientFactory, string refererURL, string key, string searchterm, string lastid, string searchfor, string country, string languagepreference, int maxsuggestions, int maxresults)
+        {
             //Build the url
-            var url = "http://ws1.postescanada-canadapost.ca/AddressComplete/Interactive/Find/v2.10/dataset.ws?";
-            url += "&Key=" + System.Web.HttpUtility.UrlEncode(key);
+            var url = "&Key=" + System.Web.HttpUtility.UrlEncode(key);
             url += "&SearchTerm=" + System.Web.HttpUtility.UrlEncode(searchterm);
             url += "&LastId=" + System.Web.HttpUtility.UrlEncode(lastid);
             url += "&SearchFor=" + System.Web.HttpUtility.UrlEncode(searchfor);
@@ -30,7 +31,6 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
             url += "&MaxSuggestions=" + System.Web.HttpUtility.UrlEncode(maxsuggestions.ToString(CultureInfo.InvariantCulture));
             url += "&MaxResults=" + System.Web.HttpUtility.UrlEncode(maxresults.ToString(CultureInfo.InvariantCulture));
 
-            //Key Temp 14 days from June 9th 2020: DM64-YB56-WY57-JB29
             //SearchTerm , String, The search term to find.If the LastId is provided, the SearchTerm searches within the results from the LastId.
             //LastId, String, The Id from a previous Find or FindByPosition. 
             //SearchFor, String, default: Everything, Filters the search results. 
@@ -39,109 +39,65 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
             //MaxSuggestions, Integer, default: 7, The maximum number of autocomplete suggestions to return.
             //MaxResults, Integer, default: 100, The maximum number of retrievable address results to return.
 
-            //Create the dataset
-            var dataSet = new DataSet();
-            dataSet.ReadXml(url);
-
-            //Check for an error
-            if (dataSet.Tables.Count == 1 && dataSet.Tables[0].Columns.Count == 4 && dataSet.Tables[0].Columns[0].ColumnName == "Error")
-                throw new Exception(dataSet.Tables[0].Rows[0].ItemArray[1].ToString());
-
-            //Return the dataset
-            return dataSet;
-
-            //FYI: The dataset contains the following columns:
-            //Name, Type, Description, Values(optional), Example
-
-            //Id, String, The Id to be used as the LastId with the Find method., CAN | PR | X247361852 | E | 0 | 0
-            //Text, String, The found item., 2701 Riverside Dr, Ottawa, ON
-            //Highlight, String, A list of number ranges identifying the characters to highlight in the Text response(zero - based start position and end). , 0 - 2,6 - 4
-            //Cursor, Integer,  A zero-based position in the Text response indicating the suggested position of the cursor if this item is selected.A - 1 response indicates no suggestion is available., 0
-            //Description, String, Descriptive information about the found item, typically if it's a container., 102 Streets 
-            //Next, String, The next step of the search process., Values(Find Retrieve), Retrieve
-
+            var result = await AddressFindAPI(clientFactory, refererURL, url);
+            return result;
         }
 
-        internal static DataSet Retrieve(string key, string id)
+        internal static async Task<List<CPCompleteAddress>> Retrieve(IHttpClientFactory clientFactory, string refererURL, string key, string id)
         {
             //Build the url
-            var url = "http://ws1.postescanada-canadapost.ca/AddressComplete/Interactive/Retrieve/v2.11/dataset.ws?";
-            url += "&Key=" + System.Web.HttpUtility.UrlEncode(key);
+            var url = "&Key=" + System.Web.HttpUtility.UrlEncode(key);
             url += "&Id=" + System.Web.HttpUtility.UrlEncode(id);
 
             //Key, String, The key to use to authenticate to the service., AA11 - AA11 - AA11 - AA11
             //Id, String, The Id from a Find method to retrieve the details for., CAN | 1520704
 
-
-            //Create the dataset
-            var dataSet = new System.Data.DataSet();
-            dataSet.ReadXml(url);
-
-            //Check for an error
-            if (dataSet.Tables.Count == 1 && dataSet.Tables[0].Columns.Count == 4 && dataSet.Tables[0].Columns[0].ColumnName == "Error")
-                throw new Exception(dataSet.Tables[0].Rows[0].ItemArray[1].ToString());
-
-            //Return the dataset
-            return dataSet;
-
-            //FYI: The dataset contains the following columns:
-            //Id
-            //DomesticId
-            //Language
-            //LanguageAlternatives
-            //Department
-            //Company
-            //SubBuilding
-            //BuildingNumber
-            //BuildingName
-            //SecondaryStreet
-            //Street
-            //Block
-            //Neighbourhood
-            //District
-            //City
-            //Line1
-            //Line2
-            //Line3
-            //Line4
-            //Line5
-            //AdminAreaName
-            //AdminAreaCode
-            //Province
-            //ProvinceName
-            //ProvinceCode
-            //PostalCode
-            //CountryName
-            //CountryIso2
-            //CountryIso3
-            //CountryIsoNumber
-            //SortingNumber1
-            //SortingNumber2
-            //Barcode
-            //POBoxNumber
-            //Label
-            //Type
-            //DataLevel
+            var result = await AddressRetrieveAPI(clientFactory, refererURL, url);
+            return result;
         }
 
-        internal static IList<CPQuickLookup> GetLookupListFromTable(DataTable table)
+        private static async Task<List<CPQuickLookup>> AddressFindAPI(IHttpClientFactory clientFactory, string refererURL, string parameters)
         {
-            IList<CPQuickLookup> list = new List<CPQuickLookup>();
+            var _httpClient = clientFactory.CreateClient();
+            var baseAddress = "http://ws1.postescanada-canadapost.ca/AddressComplete/Interactive/Find/v2.10/json3ex.ws?";
+            var request = new HttpRequestMessage(HttpMethod.Get, baseAddress + parameters);
+            _httpClient.DefaultRequestHeaders.Add("Referer", refererURL);
+            var responseMsg = await _httpClient.SendAsync(request).ConfigureAwait(false);
+            responseMsg.EnsureSuccessStatusCode();
 
-            EnumerableRowCollection<DataRow> rows = table.AsEnumerable();
-            list = (from DataRow dr in rows
-                    select new CPQuickLookup
-                    {
-                               Id = dr["Id"].ToString(),
-                               Cursor = int.Parse(dr["Cursor"].ToString()),
-                               Description = dr["Description"].ToString(),
-                               Highlight = dr["Highlight"].ToString(),
-                               Next = dr["Next"].ToString(),
-                               Text = dr["Text"].ToString()
-                           }).ToList();
+            var jsonContent = await responseMsg.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            return list;
+            var returnData = JsonConvert.DeserializeObject<CPQuickLookupResponse>(jsonContent);
+            if (returnData.Items!=null && returnData.Items.Count == 1 && !string.IsNullOrWhiteSpace(returnData.Items.First().Error))
+            {
+                var error = returnData.Items.First();
+                throw new Exception(string.Format("ErrorCode: '{0}', Description: '{1}', Cause: '{2}', Resolution: '{3}'",
+                 error.Error, error.Description, error.Cause, error.Resolution));
+            }
+
+            return returnData == null ? null : returnData.Items;
+        }
+
+        private static async Task<List<CPCompleteAddress>> AddressRetrieveAPI(IHttpClientFactory clientFactory, string refererURL, string parameters)
+        {
+            var _httpClient = clientFactory.CreateClient();
+            var baseAddress = "http://ws1.postescanada-canadapost.ca/AddressComplete/Interactive/Retrieve/v2.11/json3ex.ws?";
+            var request = new HttpRequestMessage(HttpMethod.Get, baseAddress + parameters);
+            _httpClient.DefaultRequestHeaders.Add("Referer", refererURL);
+            var responseMsg = await _httpClient.SendAsync(request).ConfigureAwait(false);
+            responseMsg.EnsureSuccessStatusCode();
+
+            var jsonContent = await responseMsg.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            var returnData = JsonConvert.DeserializeObject<CPCompleteAddressResponse>(jsonContent);
+            if (returnData.Items != null && returnData.Items.Count == 1 && !string.IsNullOrWhiteSpace(returnData.Items.First().Error))
+            {
+                var error = returnData.Items.First();
+                throw new Exception(string.Format("ErrorCode: '{0}', Description: '{1}', Cause: '{2}', Resolution: '{3}'",
+                 error.Error, error.Description, error.Cause, error.Resolution));
+            }
+
+            return returnData == null ? null : returnData.Items;
         }
     }
-
 }
