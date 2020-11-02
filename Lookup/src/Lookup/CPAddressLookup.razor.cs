@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http;
 using System.Resources;
 using System.Threading.Tasks;
 using System.Timers;
@@ -35,9 +37,10 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
 
         #region private properties
 
-        private ResourceManager Localizer { get; set; } = new ResourceManager(typeof(Index));
+        private ResourceManager Localizer { get; set; } = new ResourceManager(typeof(Resources.Index));
 
         private bool IsSearching { get; set; } = false;
+        private bool HasError { get; set; } = false;
         private bool IsShowingSuggestions { get; set; } = false;
         private bool AddressGroupFound { get; set; } = false;
         private string AdressGroupSearchText;
@@ -174,7 +177,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
 
         #region parameters
         [Inject] private IJSRuntime JSRuntime { get; set; }
-
+        [Inject] public IHttpClientFactory ClientFactory { get; set; }
         [CascadingParameter] private EditContext CascadedEditContext { get; set; }
 
 
@@ -200,9 +203,9 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         [Parameter] public string DefaultLookupCountryIso3 { get; set; }
 
         [Parameter] public EventCallback<CPCompleteAddress> AddressRetrieved { get; set; }
-        
+
         [Parameter] public Expression<Func<TValue>> ValueExpression { get; set; }
-        
+
         [Parameter] public Expression<Func<string>> ValidationFor { get; set; }
         [Parameter] public string Id { get; set; }
 
@@ -212,6 +215,8 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
 
         [Parameter] public string Label { get; set; }
 
+        [Parameter] public string RefererURL { get; set; }
+
         [Parameter] public string CountryNullHelpMessage { get; set; }
 
         [Parameter] public string CountryIso3 { get; set; }
@@ -220,9 +225,10 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
 
         [Parameter] public EventCallback<IList<string>> ValuesChanged { get; set; }
 
-        [Parameter] public Func<Task<IEnumerable<CPCountry>>> CountriesMethod { get; set; }        
+        [Parameter] public Func<Task<IEnumerable<CPCountry>>> CountriesMethod { get; set; }
 
         [Parameter] public string NotFoundMessage { get; set; }
+        [Parameter] public string ErrorMessage { get; set; }
 
         [Parameter] public RenderFragment<CPQuickLookup> ListTemplate { get; set; }
 
@@ -230,8 +236,8 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         /// Function which takes bound value of type TValue
         /// And returns formatted string for display in input.
         /// </summary>
-        [Parameter] public Func<TValue, string> ValueFormatExpression { get; set; }  
-        
+        [Parameter] public Func<TValue, string> ValueFormatExpression { get; set; }
+
         [Parameter] public RenderFragment CountryOptionsTemplate { get; set; }
 
         /// <summary>
@@ -245,7 +251,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         [Parameter] public bool ShowDropDownCaret { get; set; } = false;
 
         [Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
-        
+
         [Parameter] public int MinimumLength { get; set; } = 1;
         [Parameter] public int Debounce { get; set; } = 300;
 
@@ -262,7 +268,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         [Parameter] public bool PrefixBuildingNumberWithSub { get; set; } = false;
 
         [Parameter] public int MaximumSuggestionsFromGroupedAddresses { get; set; }
-        
+
         /// <summary>
         /// Highlights the currently selected item in the list of suggestions, if any.
         /// </summary>
@@ -319,7 +325,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         private async Task HandleClear()
         {
             SearchText = "";
-
+            HasError = false;
             await ValueChanged.InvokeAsync(default);
 
             _editContext?.NotifyFieldChanged(_fieldIdentifier);
@@ -437,7 +443,6 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
             }
         }
 
-
         private async void Search(Object source, ElapsedEventArgs e)
         {
             if (!AddressGroupFound && _searchText.Length < MinimumLength)
@@ -493,13 +498,16 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         internal async Task<IEnumerable<CPQuickLookup>> SearchAddresses(string searchText, string lastId = "")
         {
             IList<CPQuickLookup> cpLookups = new List<CPQuickLookup>();
+            HasError = false;
             if (CountryDropdownValue == null) return cpLookups;
 
             if (!string.IsNullOrEmpty(searchText) && !string.IsNullOrWhiteSpace(searchText))
             {
                 try
                 {
-                    DataSet addressDataset = CPAddressCompleteService.FindSuggestions(
+                    cpLookups = await CPAddressCompleteService.FindSuggestions(
+                                clientFactory: ClientFactory,
+                                refererURL: RefererURL,
                                 key: CanadaPostApiKey,
                                 searchterm: searchText,
                                 lastid: lastId,
@@ -509,26 +517,29 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
                                 maxsuggestions: MaximumSuggestions,
                                 maxresults: MaximumSuggestions);
 
-                    if (addressDataset.Tables.Count < 1) return cpLookups;
-
-                    DataTable table = addressDataset.Tables[0];
-
-                    cpLookups = CPAddressCompleteService.GetLookupListFromTable(table);
-
                     cpLookup = new Dictionary<string, CPQuickLookup>();
-                    foreach (var item in cpLookups)
+                    if (cpLookups != null && cpLookups.Any())
                     {
-                        if (item.Next == NEXT_FIND_VALUE)
+                        foreach (var item in cpLookups)
                         {
-                            AddressGroupFound = true;
-                            AdressGroupSearchText = searchText;
+                            if (item.Next == NEXT_FIND_VALUE)
+                            {
+                                AddressGroupFound = true;
+                                AdressGroupSearchText = searchText;
+                            }
+                            if (!cpLookup.ContainsKey(item.Id)) cpLookup.Add(item.Id, item);
                         }
-                        if (!cpLookup.ContainsKey(item.Id)) cpLookup.Add(item.Id, item);
                     }
+                }
+                catch (HttpRequestException ex)
+                {
+                    HasError = true;
+                    Logger.LogError(ex.Message, "Network or Address error on calling address complete API.");
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError(ex.Message);
+                    HasError = true;
+                    Logger.LogError(ex.Message, "Internal error on calling address complete API.");
                 }
             }
 
@@ -574,7 +585,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
 
             Value = ResultConverter.Invoke(selectedAddress);
 
-            await ValueChanged.InvokeAsync(Value);
+            //await ValueChanged.InvokeAsync(Value); -- This will cause validation fail 
             _editContext?.NotifyFieldChanged(_fieldIdentifier);
 
             await AddressRetrieved.InvokeAsync(selectedAddress);
@@ -590,23 +601,25 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
             var item = cpLookup.FirstOrDefault(i => i.Value.Summary == addressSummary);
             if (item.Key == null) return null;
 
-            DataSet dataSet = null;
             CPCompleteAddress address = null;
             try
             {
-
                 var selectedId = item.Key;
-                dataSet = CPAddressCompleteService.Retrieve(CanadaPostApiKey, selectedId);
-                var table = dataSet.Tables[0];
-                var list = table.ToList<CPCompleteAddress>();
-                address = list.FirstOrDefault();
-                //Let user deside the format of address.
-                //address = await ParseCPAddress(address);
+                var addressList = await CPAddressCompleteService.Retrieve(ClientFactory, RefererURL, CanadaPostApiKey, selectedId);
+             
+                address = addressList.FirstOrDefault();
+            }
+            catch (HttpRequestException ex)
+            {
+                HasError = true;
+                Logger.LogError(ex.Message, "Network or Address error on calling address complete API.");
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex.Message);
+                HasError = true;
+                Logger.LogError(ex.Message, "Internal error on calling address complete API.");
             }
+
             return await Task.FromResult(address);
         }
 

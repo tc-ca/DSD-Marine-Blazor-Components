@@ -8,7 +8,7 @@
     <label class="AddressLookupLabel" for="@Id">@Label</label>
 }
 
-<div id="@Id" class="lookup @FieldCssClasses">
+<div class="lookup @FieldCssClasses">
     <div class="lookup__wrapp">
 
         @if (Disabled)
@@ -34,7 +34,8 @@
         }
         else
         {
-            <input @ref="_searchInput"
+            <input id="@Id"
+                   @ref="_searchInput"
                    @bind-value="SearchText"
                    @bind-value:event="oninput"
                    @onkeyup="HandleKeyup"
@@ -70,8 +71,8 @@
             </div>
             @if (ShowCountrySelector)
             {
-                <select name="alu_countries" id="alu_countries"  
-                    @onchange="@((e) => CountrySelectChanged(e))">
+                <select name="alu_countries" id="alu_countries"
+                        @onchange="@((e) => CountrySelectChanged(e))">
                     @if (CountryOptionsTemplate != null)
                     {
                         @CountryOptionsTemplate
@@ -99,7 +100,7 @@
         <div class="lookup__results">
             <div class="lookup__results-help-template">
                 @HelpMessage
-            </div>            
+            </div>
         </div>
     }
     else if (ShouldShowSuggestions())
@@ -109,29 +110,39 @@
             {
                 var item = Suggestions[i];
 
-            <div @key="item" class="lookup__result @(HighlightSelectedItemInList ? GetSelectedSuggestionClass(item, i) : "")"
-                 @onclick="@(_ => item.Next == NEXT_FIND_VALUE ? SelectFindResult(item) : SelectRetrieveResult(item))">
-                
-                @if (ListTemplate == null)
-                {
-                    @((MarkupString)item.Formatted)
-                }
-                else
-                {
-                    @ListTemplate(item);
-                }
-            </div>
+                <div @key="item" class="lookup__result @(HighlightSelectedItemInList ? GetSelectedSuggestionClass(item, i) : "")"
+                     @onclick="@(_ => item.Next == NEXT_FIND_VALUE ? SelectFindResult(item) : SelectRetrieveResult(item))">
+
+                    @if (ListTemplate == null)
+                    {
+                        @((MarkupString)item.Formatted)
+                    }
+                    else
+                    {
+                        @ListTemplate(item);
+                    }
+                </div>
             }
         </div>
     }
-    else if (ShowNotFound())
+    else if (ShowNotFound() && !HasError)
     {
         <div class="lookup__results">
             <div class="lookup__notfound">
                 @NotFoundMessage
-            </div>            
+            </div>
         </div>
     }
+    
+    @if (IsShowingSuggestions && HasError && !string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="lookup__results">
+            <div class="lookup_error">
+                <b>@ErrorMessage</b>
+            </div>
+        </div>
+    }
+
 </div>
 @if (ValidationFor != null)
 {
