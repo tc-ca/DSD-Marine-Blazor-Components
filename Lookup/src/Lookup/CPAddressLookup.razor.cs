@@ -515,19 +515,26 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
                                 maxresults: MaximumSuggestions);
 
                     cpLookup = new Dictionary<string, CPQuickLookup>();
-                    foreach (var item in cpLookups)
+                    if (cpLookups != null && cpLookups.Any())
                     {
-                        if (item.Next == NEXT_FIND_VALUE)
+                        foreach (var item in cpLookups)
                         {
-                            AddressGroupFound = true;
-                            AdressGroupSearchText = searchText;
+                            if (item.Next == NEXT_FIND_VALUE)
+                            {
+                                AddressGroupFound = true;
+                                AdressGroupSearchText = searchText;
+                            }
+                            if (!cpLookup.ContainsKey(item.Id)) cpLookup.Add(item.Id, item);
                         }
-                        if (!cpLookup.ContainsKey(item.Id)) cpLookup.Add(item.Id, item);
                     }
+                }
+                catch (HttpRequestException ex)
+                {
+                    Logger.LogError(ex.Message, "Network or Address error on calling address complete API.");
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError(ex.Message);
+                    Logger.LogError(ex.Message, "Internal error on calling address complete API.");
                 }
             }
 

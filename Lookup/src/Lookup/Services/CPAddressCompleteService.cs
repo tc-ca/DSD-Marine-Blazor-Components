@@ -1,7 +1,7 @@
 ﻿using DSD.MSS.Blazor.Components.AddressComplete.Models;
-using DSD.MSS.Blazor.Components.AddressComplete.Resources;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -15,7 +15,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
     {
         internal async static Task<IEnumerable<CPCountry>> GetCountries()
         {
-            var json = Index.countries;
+            var json = Resources.Index.countries;
             return await Task.FromResult(JsonConvert.DeserializeObject<List<CPCountry>>(json));
         }
 
@@ -63,16 +63,19 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
             var request = new HttpRequestMessage(HttpMethod.Get, baseAddress + parameters);
             _httpClient.DefaultRequestHeaders.Add("Referer", refererURL);
             var responseMsg = await _httpClient.SendAsync(request).ConfigureAwait(false);
+            responseMsg.EnsureSuccessStatusCode();
+
             var jsonContent = await responseMsg.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (responseMsg.IsSuccessStatusCode)
+
+            var returnData = JsonConvert.DeserializeObject<CPQuickLookupResponse>(jsonContent);
+            if (returnData.Items!=null && returnData.Items.Count == 1 && !string.IsNullOrWhiteSpace(returnData.Items.First().Error))
             {
-                var returnData = JsonConvert.DeserializeObject<CPQuickLookupResponse>(jsonContent);
-                return returnData == null ? null : returnData.Items;
+                var error = returnData.Items.First();
+                throw new Exception(string.Format("ErrorCode: '{0}', Description: '{1}', Cause: '{2}', Resolution: '{3}'",
+                 error.Error, error.Description, error.Cause, error.Resolution));
             }
-            else
-            {
-                return default;
-            }
+
+            return returnData == null ? null : returnData.Items;
         }
 
         private static async Task<List<CPCompleteAddress>> AddressRetrieveAPI(IHttpClientFactory clientFactory, string refererURL, string parameters)
@@ -82,17 +85,19 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
             var request = new HttpRequestMessage(HttpMethod.Get, baseAddress + parameters);
             _httpClient.DefaultRequestHeaders.Add("Referer", refererURL);
             var responseMsg = await _httpClient.SendAsync(request).ConfigureAwait(false);
+            responseMsg.EnsureSuccessStatusCode();
+
             var jsonContent = await responseMsg.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (responseMsg.IsSuccessStatusCode)
+
+            var returnData = JsonConvert.DeserializeObject<CPCompleteAddressResponse>(jsonContent);
+            if (returnData.Items != null && returnData.Items.Count == 1 && !string.IsNullOrWhiteSpace(returnData.Items.First().Error))
             {
-                var returnData = JsonConvert.DeserializeObject<CPCompleteAddressResponse>(jsonContent);
-                return returnData == null ? null : returnData.Items;
+                var error = returnData.Items.First();
+                throw new Exception(string.Format("ErrorCode: '{0}', Description: '{1}', Cause: '{2}', Resolution: '{3}'",
+                 error.Error, error.Description, error.Cause, error.Resolution));
             }
-            else
-            {
-                return default;
-            }
+
+            return returnData == null ? null : returnData.Items;
         }
     }
-
 }

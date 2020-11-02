@@ -3,55 +3,55 @@
 @inject IConfiguration config
 @inject ILogger<CPAddressLookup<string>> logger
 
-    <EditForm Model="Model" OnValidSubmit="@HandleValidSubmit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group">
-            <label for="@($"{Model.Index}_{nameof(Model.AddressLine1)}")" class="form-label">@L["AddressLine1"]</label>
-            <CPAddressLookup @bind-Value="Model.AddressLine1" id="@($"{Model.Index}_{nameof(Model.AddressLine1)}")"
-                             ValidationFor="() => Model.AddressLine1" RefererURL="@apiOpts.RefererURL" CanadaPostApiKey="@apiOpts.APIKey" Language="@Language"
-                             AddressRetrieved="e => AddressSelected(e)" placeholder="Start typing your address..."
-                             CountryIso3="@Model.AddressCountry" CountryChanged="(e) => LookupCountryChangedAsync(e)"
-                             MaximumSuggestionsFromGroupedAddresses="apiOpts.MaxGroupSuggestions" Logger="logger" />
+<EditForm Model="Model" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="@($"{Model.Index}_{nameof(Model.AddressLine1)}")" class="form-label">@L["AddressLine1"]</label>
+        <CPAddressLookup @bind-Value="Model.AddressLine1" id="@($"{Model.Index}_{nameof(Model.AddressLine1)}")"
+                         ValidationFor="() => Model.AddressLine1" RefererURL="@apiOpts.RefererURL" CanadaPostApiKey="@apiOpts.APIKey" Language="@Language"
+                         AddressRetrieved="e => AddressSelected(e)" placeholder="Start typing your address..."
+                         CountryIso3="@Model.AddressCountry" CountryChanged="(e) => LookupCountryChangedAsync(e)"
+                         MaximumSuggestionsFromGroupedAddresses="apiOpts.MaxGroupSuggestions" Logger="logger" />
 
-            <br />
-            <label for="@($"{Model.Index}_{nameof(Model.AddressLine2)}")">@L["AddressLine2"]</label>
-            <InputText class="form-control" @bind-Value="Model.AddressLine2" id="@($"{Model.Index}_{nameof(Model.AddressLine2)}")" />
-            <br />
-            <label for="@($"{Model.Index}_{nameof(Model.AddressCity)}")">@L["AddressCity"]</label>
-            <InputText class="form-control" @bind-Value="Model.AddressCity" id="@($"{Model.Index}_{nameof(Model.AddressCity)}")" />
+        <br />
+        <label for="@($"{Model.Index}_{nameof(Model.AddressLine2)}")">@L["AddressLine2"]</label>
+        <InputText class="form-control" @bind-Value="Model.AddressLine2" id="@($"{Model.Index}_{nameof(Model.AddressLine2)}")" />
+        <br />
+        <label for="@($"{Model.Index}_{nameof(Model.AddressCity)}")">@L["AddressCity"]</label>
+        <InputText class="form-control" @bind-Value="Model.AddressCity" id="@($"{Model.Index}_{nameof(Model.AddressCity)}")" />
 
-            <br />
-            <div class="form-row dropsize">
+        <br />
+        <div class="form-row dropsize">
 
-                <div class="col-12 col-md-4" disabled>
-                    <label for="@($"{Model.Index}_{nameof(Model.AddressCountry)}")">@L["AddressCountry"]</label>
-                    <InputText Label="@L["AddressCountry"]" @bind-Value="Model.AddressCountry" id="@($"{Model.Index}_{nameof(Model.AddressCountry)}")" class="form-control" />
-                </div>
-                <div class="col-12 col-md-4">
-                    <label for="@($"{Model.Index}_{nameof(Model.AddressProvince)}")">@L["AddressProvince"]</label>
-                    <InputText class="form-control" @bind-Value="Model.AddressProvince" id="@($"{Model.Index}_{nameof(Model.AddressProvince)}")" />
-                </div>
-                <div class="col-12 col-md-4">
-                    <label for="@($"{Model.Index}_{nameof(Model.AddressPostalCode)}")">@L["AddressPostalCode"]</label>
-                    <InputText class="form-control postcode" @bind-Value="Model.AddressPostalCode" id="@($"{Model.Index}_{nameof(Model.AddressPostalCode)}")" />
-                </div>
+            <div class="col-12 col-md-4" disabled>
+                <label for="@($"{Model.Index}_{nameof(Model.AddressCountry)}")">@L["AddressCountry"]</label>
+                <InputText Label="@L["AddressCountry"]" @bind-Value="Model.AddressCountry" id="@($"{Model.Index}_{nameof(Model.AddressCountry)}")" class="form-control" />
             </div>
-
-            <br />
-            <div class="form-row">
-                <div class="col-12 col-md-8">
-                    <label for="@($"{Model.Index}_{nameof(Model.Email)}")">@L["Email"]</label>
-                    <InputText class="form-control" @bind-Value="Model.Email" Label="@L["Email"]" id="@($"{Model.Index}_{nameof(Model.Email)}")" />
-                </div>
-                <div class="col-12 col-md-4">
-                    <label for="@($"{Model.Index}_{nameof(Model.ExtNumber)}")">@L["ExtNumber"]</label>
-                    <InputText class="form-control" @bind-Value="Model.ExtNumber" id="@($"{Model.Index}_{nameof(Model.ExtNumber)}")" maxlength="@ExtNumberMaxLength" />
-                </div>
+            <div class="col-12 col-md-4">
+                <label for="@($"{Model.Index}_{nameof(Model.AddressProvince)}")">@L["AddressProvince"]</label>
+                <InputText class="form-control" @bind-Value="Model.AddressProvince" id="@($"{Model.Index}_{nameof(Model.AddressProvince)}")" />
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="@($"{Model.Index}_{nameof(Model.AddressPostalCode)}")">@L["AddressPostalCode"]</label>
+                <InputText class="form-control postcode" @bind-Value="Model.AddressPostalCode" id="@($"{Model.Index}_{nameof(Model.AddressPostalCode)}")" />
             </div>
         </div>
-        <button type="submit" class="btn btn-primary ml-1">@L["Submit"]</button>
-    </EditForm>
+
+        <br />
+        <div class="form-row">
+            <div class="col-12 col-md-8">
+                <label for="@($"{Model.Index}_{nameof(Model.Email)}")">@L["Email"]</label>
+                <InputText class="form-control" @bind-Value="Model.Email" Label="@L["Email"]" id="@($"{Model.Index}_{nameof(Model.Email)}")" />
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="@($"{Model.Index}_{nameof(Model.ExtNumber)}")">@L["ExtNumber"]</label>
+                <InputText class="form-control" @bind-Value="Model.ExtNumber" id="@($"{Model.Index}_{nameof(Model.ExtNumber)}")" maxlength="@ExtNumberMaxLength" />
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary ml-1">@L["Submit"]</button>
+</EditForm>
 
 @code {
     [Parameter]
@@ -102,40 +102,51 @@
         }
     }
 
-    protected void AddressSelected(CPCompleteAddress a)
+    protected void AddressSelected(CPCompleteAddress address)
     {
-        if (!string.IsNullOrEmpty(a.SubBuilding) && !string.IsNullOrWhiteSpace(a.SubBuilding))
+        if (address == null)
+        {
+            Model.AddressLine1 = string.Empty;
+            Model.AddressLine2 = string.Empty;
+            Model.AddressCity = string.Empty;
+            Model.AddressProvince = string.Empty;
+            Model.AddressPostalCode = string.Empty;
+            Model.AddressCountry = string.Empty;
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(address.SubBuilding) && !string.IsNullOrWhiteSpace(address.SubBuilding))
         {
             if (apiOpts.PrefixBuildingNumberWithSub)
             {
-                Model.AddressLine1 = $"{a.SubBuilding}-{a.BuildingNumber} {a.Street}";
+                Model.AddressLine1 = $"{address.SubBuilding}-{address.BuildingNumber} {address.Street}";
                 Model.AddressLine2 = "";
             }
             else
             {
-                Model.AddressLine1 = $"{a.BuildingNumber} {a.Street}";
-                Model.AddressLine2 = $"{L["AddressLine2Prefix"]} { a.SubBuilding}";
+                Model.AddressLine1 = $"{address.BuildingNumber} {address.Street}";
+                Model.AddressLine2 = $"{L["AddressLine2Prefix"]} { address.SubBuilding}";
             }
         }
-        else if (!string.IsNullOrWhiteSpace(a.POBoxNumber))
+        else if (!string.IsNullOrWhiteSpace(address.POBoxNumber))
         {
-            Model.AddressLine1 = a.Line1;
+            Model.AddressLine1 = address.Line1;
             Model.AddressLine2 = "";
         }
         else
         {
-            Model.AddressLine1 = $"{a.BuildingNumber} {a.Street}";
+            Model.AddressLine1 = $"{address.BuildingNumber} {address.Street}";
             Model.AddressLine2 = "";
         }
 
-        Model.AddressCity = a.City;
+        Model.AddressCity = address.City;
 
-        Model.AddressProvince = a.CountryIso3 == "CAN" || a.CountryIso3 == "USA" ?
-                                a.ProvinceCode : a.ProvinceName;
+        Model.AddressProvince = address.CountryIso3 == "CAN" || address.CountryIso3 == "USA" ?
+                                address.ProvinceCode : address.ProvinceName;
 
-        Model.AddressPostalCode = a.PostalCode;
+        Model.AddressPostalCode = address.PostalCode;
 
-        Model.AddressCountry = a.CountryName;
+        Model.AddressCountry = address.CountryName;
 
     }
 
