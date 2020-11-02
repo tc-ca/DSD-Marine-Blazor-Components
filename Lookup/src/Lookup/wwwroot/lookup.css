@@ -239,15 +239,20 @@ display: flex;
     background: #fff;
 }
 
-.lookup__result,
-.lookup__notfound,
-.lookup__results-help-template,
-.lookup__results-header,
-.lookup__results-footer {
-    padding: .5rem;
-    border-top: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+.lookup_error {
+    color: #9B2C2C
 }
+
+    .lookup__result,
+    .lookup__notfound,
+    .lookup_error,
+    .lookup__results-help-template,
+    .lookup__results-header,
+    .lookup__results-footer {
+        padding: .5rem;
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #fff;
+    }
 
 .lookup__selected-item {
     background-color: #dbdbdb;

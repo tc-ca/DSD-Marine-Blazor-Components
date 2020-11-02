@@ -12,7 +12,8 @@
                          ValidationFor="() => Model.AddressLine1" RefererURL="@apiOpts.RefererURL" CanadaPostApiKey="@apiOpts.APIKey" Language="@Language"
                          AddressRetrieved="e => AddressSelected(e)" placeholder="Start typing your address..."
                          CountryIso3="@Model.AddressCountry" CountryChanged="(e) => LookupCountryChangedAsync(e)"
-                         MaximumSuggestionsFromGroupedAddresses="apiOpts.MaxGroupSuggestions" Logger="logger" />
+                         MaximumSuggestionsFromGroupedAddresses="apiOpts.MaxGroupSuggestions" Logger="logger" NotFoundMessage="Result Not Found."
+                         ErrorMessage="There is an error, please verify your API Key."/>
 
         <br />
         <label for="@($"{Model.Index}_{nameof(Model.AddressLine2)}")">@L["AddressLine2"]</label>

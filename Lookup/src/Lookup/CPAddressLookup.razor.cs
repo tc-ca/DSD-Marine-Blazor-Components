@@ -40,6 +40,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         private ResourceManager Localizer { get; set; } = new ResourceManager(typeof(Resources.Index));
 
         private bool IsSearching { get; set; } = false;
+        private bool HasError { get; set; } = false;
         private bool IsShowingSuggestions { get; set; } = false;
         private bool AddressGroupFound { get; set; } = false;
         private string AdressGroupSearchText;
@@ -227,6 +228,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         [Parameter] public Func<Task<IEnumerable<CPCountry>>> CountriesMethod { get; set; }
 
         [Parameter] public string NotFoundMessage { get; set; }
+        [Parameter] public string ErrorMessage { get; set; }
 
         [Parameter] public RenderFragment<CPQuickLookup> ListTemplate { get; set; }
 
@@ -323,7 +325,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         private async Task HandleClear()
         {
             SearchText = "";
-
+            HasError = false;
             await ValueChanged.InvokeAsync(default);
 
             _editContext?.NotifyFieldChanged(_fieldIdentifier);
@@ -496,6 +498,7 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
         internal async Task<IEnumerable<CPQuickLookup>> SearchAddresses(string searchText, string lastId = "")
         {
             IList<CPQuickLookup> cpLookups = new List<CPQuickLookup>();
+            HasError = false;
             if (CountryDropdownValue == null) return cpLookups;
 
             if (!string.IsNullOrEmpty(searchText) && !string.IsNullOrWhiteSpace(searchText))
@@ -530,10 +533,12 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
                 }
                 catch (HttpRequestException ex)
                 {
+                    HasError = true;
                     Logger.LogError(ex.Message, "Network or Address error on calling address complete API.");
                 }
                 catch (Exception ex)
                 {
+                    HasError = true;
                     Logger.LogError(ex.Message, "Internal error on calling address complete API.");
                 }
             }
@@ -604,10 +609,17 @@ namespace DSD.MSS.Blazor.Components.AddressComplete
              
                 address = addressList.FirstOrDefault();
             }
+            catch (HttpRequestException ex)
+            {
+                HasError = true;
+                Logger.LogError(ex.Message, "Network or Address error on calling address complete API.");
+            }
             catch (Exception ex)
             {
-                Logger.LogError(ex.Message);
+                HasError = true;
+                Logger.LogError(ex.Message, "Internal error on calling address complete API.");
             }
+
             return await Task.FromResult(address);
         }
 
