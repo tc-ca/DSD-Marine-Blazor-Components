@@ -140,11 +140,11 @@ display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #dbdbdb;
+    color: #595959; 
 }
 
     .lookup__clear:hover {
-        color: #333333;
+        color: #0d0d0d;
     }
 
 .lookup__down-arrow path {

@@ -1,20 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RazorLangVersion>3.0</RazorLangVersion>
     <Authors>Transport Canada</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Description>Blazor component for Canada Post address complete.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Blazor; Canada Post address complete</PackageTags>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Autocomplete.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Autocomplete.razor" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.9" />
     <PackageReference Include="newtonsoft.json" Version="12.0.3" />
     <PackageReference Include="NLog" Version="4.7.2" />
     <PackageReference Include="system.data.datasetextensions" Version="4.5.0" />

@@ -3,51 +3,54 @@
 @inject IConfiguration config
 @inject ILogger<CPAddressLookup<string>> logger
 
-    <EditForm Model="Model">
+    <EditForm Model="Model" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
         <div class="form-group">
-            <label for="@($"{Model.Index}_{nameof(Model.AddressLine1)}")">@L["AddressLine1"]</label>
+            <label for="@($"{Model.Index}_{nameof(Model.AddressLine1)}")" class="form-label">@L["AddressLine1"]</label>
             <CPAddressLookup @bind-Value="Model.AddressLine1" id="@($"{Model.Index}_{nameof(Model.AddressLine1)}")"
-                             ValidationFor="() => Model.AddressLine1" CanadaPostApiKey="@apiOpts.APIKey" Language="@Language" 
+                             ValidationFor="() => Model.AddressLine1" RefererURL="@apiOpts.RefererURL" CanadaPostApiKey="@apiOpts.APIKey" Language="@Language"
                              AddressRetrieved="e => AddressSelected(e)" placeholder="Start typing your address..."
                              CountryIso3="@Model.AddressCountry" CountryChanged="(e) => LookupCountryChangedAsync(e)"
                              MaximumSuggestionsFromGroupedAddresses="apiOpts.MaxGroupSuggestions" Logger="logger" />
+
+            <br />
+            <label for="@($"{Model.Index}_{nameof(Model.AddressLine2)}")">@L["AddressLine2"]</label>
+            <InputText class="form-control" @bind-Value="Model.AddressLine2" id="@($"{Model.Index}_{nameof(Model.AddressLine2)}")" />
+            <br />
+            <label for="@($"{Model.Index}_{nameof(Model.AddressCity)}")">@L["AddressCity"]</label>
+            <InputText class="form-control" @bind-Value="Model.AddressCity" id="@($"{Model.Index}_{nameof(Model.AddressCity)}")" />
+
+            <br />
+            <div class="form-row dropsize">
+
+                <div class="col-12 col-md-4" disabled>
+                    <label for="@($"{Model.Index}_{nameof(Model.AddressCountry)}")">@L["AddressCountry"]</label>
+                    <InputText Label="@L["AddressCountry"]" @bind-Value="Model.AddressCountry" id="@($"{Model.Index}_{nameof(Model.AddressCountry)}")" class="form-control" />
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="@($"{Model.Index}_{nameof(Model.AddressProvince)}")">@L["AddressProvince"]</label>
+                    <InputText class="form-control" @bind-Value="Model.AddressProvince" id="@($"{Model.Index}_{nameof(Model.AddressProvince)}")" />
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="@($"{Model.Index}_{nameof(Model.AddressPostalCode)}")">@L["AddressPostalCode"]</label>
+                    <InputText class="form-control postcode" @bind-Value="Model.AddressPostalCode" id="@($"{Model.Index}_{nameof(Model.AddressPostalCode)}")" />
+                </div>
+            </div>
+
+            <br />
+            <div class="form-row">
+                <div class="col-12 col-md-8">
+                    <label for="@($"{Model.Index}_{nameof(Model.Email)}")">@L["Email"]</label>
+                    <InputText class="form-control" @bind-Value="Model.Email" Label="@L["Email"]" id="@($"{Model.Index}_{nameof(Model.Email)}")" />
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="@($"{Model.Index}_{nameof(Model.ExtNumber)}")">@L["ExtNumber"]</label>
+                    <InputText class="form-control" @bind-Value="Model.ExtNumber" id="@($"{Model.Index}_{nameof(Model.ExtNumber)}")" maxlength="@ExtNumberMaxLength" />
+                </div>
+            </div>
         </div>
-        <br />
-        <label for="@($"{Model.Index}_{nameof(Model.AddressLine2)}")">@L["AddressLine2"]</label>
-        <InputText class="form-control" @bind-Value="Model.AddressLine2" id="@($"{Model.Index}_{nameof(Model.AddressLine2)}")" />
-        <br />
-        <label for="@($"{Model.Index}_{nameof(Model.AddressCity)}")">@L["AddressCity"]</label>
-        <InputText class="form-control" @bind-Value="Model.AddressCity" id="@($"{Model.Index}_{nameof(Model.AddressCity)}")" />
-
-        <br />
-        <div class="form-row dropsize">
-
-            <div class="col-12 col-md-4" disabled>
-                <label for="@($"{Model.Index}_{nameof(Model.AddressCountry)}")">@L["AddressCountry"]</label>
-                <InputText Label="@L["AddressCountry"]" @bind-Value="Model.AddressCountry" id="@($"{Model.Index}_{nameof(Model.AddressCountry)}")" class="form-control" />
-            </div>
-            <div class="col-12 col-md-4">
-                <label for="@($"{Model.Index}_{nameof(Model.AddressProvince)}")">@L["AddressProvince"]</label>
-                <InputText class="form-control" @bind-Value="Model.AddressProvince" id="@($"{Model.Index}_{nameof(Model.AddressProvince)}")" />
-            </div>
-            <div class="col-12 col-md-4">
-                <label for="@($"{Model.Index}_{nameof(Model.AddressPostalCode)}")">@L["AddressPostalCode"]</label>
-                <InputText class="form-control postcode" @bind-Value="Model.AddressPostalCode" id="@($"{Model.Index}_{nameof(Model.AddressPostalCode)}")" />
-            </div>
-        </div>
-
-        <br />
-        <div class="form-row">
-            <div class="col-12 col-md-8">
-                <label for="@($"{Model.Index}_{nameof(Model.Email)}")">@L["Email"]</label>
-                <InputText class="form-control" @bind-Value="Model.Email" Label="@L["Email"]" id="@($"{Model.Index}_{nameof(Model.Email)}")" />
-            </div>
-            <div class="col-12 col-md-4">
-                <label for="@($"{Model.Index}_{nameof(Model.ExtNumber)}")">@L["ExtNumber"]</label>
-                <InputText class="form-control" @bind-Value="Model.ExtNumber" id="@($"{Model.Index}_{nameof(Model.ExtNumber)}")" maxlength="@ExtNumberMaxLength" />
-            </div>
-        </div>
-
+        <button type="submit" class="btn btn-primary ml-1">@L["Submit"]</button>
     </EditForm>
 
 @code {
@@ -77,7 +80,7 @@
         apiOpts = options.Value;
 
         Attributes = new Dictionary<string, object>()
-    {
+{
             { "MaximumSuggestion", apiOpts.MaxSuggestions },
             { "placeholder", L["AddressLookupPlaceholder"] }
         };
@@ -133,6 +136,11 @@
         Model.AddressPostalCode = a.PostalCode;
 
         Model.AddressCountry = a.CountryName;
+
+    }
+
+    private void HandleValidSubmit()
+    {
 
     }
 }

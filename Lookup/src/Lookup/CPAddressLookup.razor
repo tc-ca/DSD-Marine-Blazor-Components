@@ -8,7 +8,7 @@
     <label class="AddressLookupLabel" for="@Id">@Label</label>
 }
 
-<div id="@Id" class="lookup @FieldCssClasses">
+<div class="lookup @FieldCssClasses">
     <div class="lookup__wrapp">
 
         @if (Disabled)
@@ -34,7 +34,8 @@
         }
         else
         {
-            <input @ref="_searchInput"
+            <input id="@Id" 
+                   @ref="_searchInput"
                    @bind-value="SearchText"
                    @bind-value:event="oninput"
                    @onkeyup="HandleKeyup"
