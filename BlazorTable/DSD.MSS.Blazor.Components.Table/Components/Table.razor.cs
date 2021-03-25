@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Resources;
+using DSD.MSS.Blazor.Components.Table.Models;
 
 namespace DSD.MSS.Blazor.Components.Table
 {
     public partial class Table<TableItem> : ITable<TableItem>
     {
         private const int DEFAULT_PAGE_SIZE = 10;
+        private const int DEFAULT_PAGE_NUMBER = 0;
 
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, object> UnknownParameters { get; set; }
@@ -42,10 +44,16 @@ namespace DSD.MSS.Blazor.Components.Table
         public Expression<Func<TableItem, string>> TableRowClass { get; set; }
 
         /// <summary>
-        /// Page Size, defaults to 15
+        /// Page Size, defaults to 10
         /// </summary>
         [Parameter]
         public int PageSize { get; set; } = DEFAULT_PAGE_SIZE;
+
+        /// <summary>
+        /// Current Page Number
+        /// </summary>
+        [Parameter]
+        public int PageNumber { get; set; } = DEFAULT_PAGE_NUMBER;
 
         /// <summary>
         /// Allow Columns to be reordered
@@ -80,6 +88,9 @@ namespace DSD.MSS.Blazor.Components.Table
         [Parameter]
         public Action HeaderFilterChanged { get; set; }
 
+        [Parameter]
+        public Action<TableSettings<TableItem>> FilterChanged { get; set; }
+
         [Inject]
         private ILogger<ITable<TableItem>> Logger { get; set; }
 
@@ -93,10 +104,7 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         public List<IColumn<TableItem>> Columns { get; } = new List<IColumn<TableItem>>();
 
-        /// <summary>
-        /// Current Page Number
-        /// </summary>
-        public int PageNumber { get; set; }
+
 
         /// <summary>
         /// Page List Start Number
@@ -151,7 +159,7 @@ namespace DSD.MSS.Blazor.Components.Table
                 }
 
                 // Global Search
-                if (!string.IsNullOrEmpty(GlobalSearch))
+                if (!string.IsNullOrEmpty(GlobalSearch) && Columns.Count > 0)
                 {
                     ItemsQueryable = ItemsQueryable.Where(GlobalSearchQuery(GlobalSearch));
                 }
@@ -199,7 +207,27 @@ namespace DSD.MSS.Blazor.Components.Table
         {
             detailsViewOpen = new bool[PageSize];
             FilteredItems = GetData();
+            FilterChanged?.Invoke(GetTableSettings()); 
             Refresh();
+        }
+
+        /// <summary>
+        /// Get table settings
+        /// </summary>
+        /// <returns>TableSettings</returns>
+        private TableSettings<TableItem>  GetTableSettings()
+        {
+            var settings = new TableSettings<TableItem>()
+            {
+                PageNumber = PageNumber,
+                PageSize = PageSize,
+                GlobalSearch = GlobalSearch
+            };
+            foreach(var item in Columns)
+            {
+                settings.Columns.Add(item);
+            }
+            return settings;  
         }
 
         /// <summary>
@@ -473,6 +501,7 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         [Parameter]
         public Action<TableItem> RowClickAction { get; set; }
+
 
         /// <summary>
         /// Handles the onclick action for table rows.

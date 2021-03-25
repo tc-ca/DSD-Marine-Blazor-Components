@@ -29,6 +29,7 @@ namespace DSD.MSS.Blazor.Components.Table.Demo
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddMemoryCache();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             var supportedCultures = new List<CultureInfo> { new CultureInfo("en-CA"), new CultureInfo("fr-CA") };
             services.Configure<RequestLocalizationOptions>(options =>
