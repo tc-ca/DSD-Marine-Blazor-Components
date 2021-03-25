@@ -5,7 +5,7 @@
     <div id="search" class="form-group flex-row icon-search flex-noshrink ml-2 mt-2 mb-2" style="color: white !important">
         <span class="fas fa-filter ml-2 mr-2 form-control-span"></span>
         <input type="text" class="form-control input-no-border form-control-sm float-left" aria-labelledby="search" 
-               value="@GlobalSearch" @oninput="@(x => { TableRef.GlobalSearch = x.Value.ToString(); TableRef.Update(); })" placeholder="@Resources.SharedResources.ResourceManager.GetString("FilterByKeyword", Resources.SharedResources.Culture)" />
+               @bind ="@TableRef.GlobalSearch"  @oninput="@(x => { TableRef.GlobalSearch = x.Value.ToString(); TableRef.Update(); })" placeholder="@Resources.SharedResources.ResourceManager.GetString("FilterByKeyword", Resources.SharedResources.Culture)" />
     </div>
     <div class="flex-row ml-auto">
 

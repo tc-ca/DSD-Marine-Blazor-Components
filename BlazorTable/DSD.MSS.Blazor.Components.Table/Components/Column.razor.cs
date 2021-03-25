@@ -99,6 +99,12 @@ namespace DSD.MSS.Blazor.Components.Table
         public string Class { get; set; }
 
         /// <summary>
+        /// Show Column
+        /// </summary>
+        [Parameter]
+        public bool ShowColumn { get; set; } = true;
+
+        /// <summary>
         /// Filter expression
         /// </summary>
         public Expression<Func<TableItem, bool>> Filter { get; set; }

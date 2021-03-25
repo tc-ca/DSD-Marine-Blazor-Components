@@ -3,6 +3,11 @@
 @using DSD.MSS.Blazor.Components.Table.Demo.Model;
 @using DSD.MSS.Blazor.Components.Table.Demo.Data;
 @using System.Globalization;
+@using DSD.MSS.Blazor.Components.Table.Models;
+@using Microsoft.Extensions.Caching.Memory;
+@using Microsoft.AspNetCore.Http; 
+@inject IMemoryCache memoryCache
+@inject NavigationManager navigationManager;
 
 <h1>Table Component</h1>
 
@@ -12,6 +17,12 @@
             <div class="card-body">
                 <div class="flex-row flex-grow mb-3 mt-3">
                     <div class="flex-row ml-auto">
+                        <button type="button" aria-label="show" class="btn btn-secondary" @onclick="()=>ToggleLastNameFilter()">
+                            Toggle LastName Filter
+                        </button>
+                        <button type="button" aria-label="show" class="btn btn-secondary" @onclick="()=>ToggleFirstNameFilter()">
+                            Toggle FirstName Filter
+                        </button>
                         <button type="button" aria-label="Refresh" class="btn btn-secondary">
                             <i aria-hidden="true" class="fas fa-redo-alt"></i>
                         </button>
@@ -20,11 +31,15 @@
                         </button>
                     </div>
                 </div>
-                <Table TableClass="table table-striped table-hover" TableItem="TableModel" PageSize="10" Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())" ShowSearchBar="@ShowFilterHeader">
+
+                <Table TableClass="table table-striped table-hover" GlobalSearch="@tableSettings.GlobalSearch" TableItem="TableModel"
+                       @ref="TableRef" PageSize="@tableSettings.PageSize" PageNumber="@tableSettings.PageNumber" ShowSearchBar="@ShowFilterHeader"
+                       Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
+                       FilterChanged="(e)=>OnFilterChanged(e)">
                     <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" Sortable="false" Width="25%" />
-                    <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" Sortable="false" Width="25%" />
-                    <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" HeaderRowFilterable="true" Sortable="false" Width="25%" />
-                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" Sortable="false" Width="25%" />
+                    <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" HeaderRowFilterable="@FirstNameFilter" Sortable="true" Width="25%" />
+                    <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" HeaderRowFilterable="@LastNameFilter" Sortable="true" Width="25%" />
+                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" Sortable="true" Width="25%" />
                     <Pager ShowPageNumber="true" ShowTotalCount="true" />
                 </Table>
             </div>
@@ -34,13 +49,64 @@
 
 @code {
 
+    private const string tableSettingKey = "TableSettings";
+    protected List<TableModel>
+    tableData = new List<TableModel>();
 
-    protected List<TableModel> tableData = new List<TableModel>();
+    protected bool LastNameFilter { get; set; } = true;
+    protected bool FirstNameFilter { get; set; } = true;
     protected bool ShowFilterHeader { get; set; } = true;
 
-    protected override async Task OnInitializedAsync()
+    protected TableSettings<TableModel> tableSettings { get; set; } = new TableSettings<TableModel>()
+    {
+        PageSize = 10,
+        PageNumber = 0,
+    };
+
+    protected Table<TableModel> TableRef { get; set; }
+
+    public void OnFilterChanged(TableSettings<TableModel> settings)
+    {
+        tableSettings = settings;
+
+        var cacheOptions = new MemoryCacheEntryOptions()
+        {
+            AbsoluteExpiration = DateTime.Now.AddHours(2)
+        };
+
+        if (TableRef != null)
+        {
+            memoryCache.Set("TableSettings", settings);
+        }
+    }
+
+    private void ToggleLastNameFilter()
+    {
+        LastNameFilter = !LastNameFilter;
+        TableRef.Update();
+    }
+
+    private void ToggleFirstNameFilter()
+    {
+        FirstNameFilter = !FirstNameFilter;
+        TableRef.Update();
+    }
+
+    protected override void OnInitialized()
     {
         tableData = TableData.GetData();
+        if (memoryCache.TryGetValue("TableSettings", out TableSettings<TableModel> settings))
+        {
+            tableSettings = settings;
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            TableRef.Update();
+        }
     }
 
     protected void HandleHeaderFilterChanged()
@@ -48,7 +114,6 @@
         ShowFilterHeader = false;
         StateHasChanged();
     }
-
     protected void HandleFilterButtonClick()
     {
         ShowFilterHeader = !ShowFilterHeader;

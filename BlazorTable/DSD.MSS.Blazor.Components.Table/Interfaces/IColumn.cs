@@ -27,6 +27,11 @@ namespace DSD.MSS.Blazor.Components.Table
         string Width { get; set; }
 
         /// <summary>
+        /// Show column
+        /// </summary>
+        public bool ShowColumn { get; set; }
+
+        /// <summary>
         /// Column can be sorted
         /// </summary>
         bool Sortable { get; set; }
