@@ -16,8 +16,8 @@ namespace DSD.MSS.Blazor.Components.Table.Demo.Data
                 list.Add(new TableModel()
                 {
                     Id = i.ToString(),
-                    FirstName = "Mark",
-                    LastName = "Otto",
+                    FirstName = "Mark " + i,
+                    LastName = "Otto " + i,
                     Handle = "@mdo" + i.ToString()
                 });
             }

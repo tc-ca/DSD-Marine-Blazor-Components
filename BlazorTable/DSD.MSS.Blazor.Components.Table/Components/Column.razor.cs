@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DSD.MSS.Blazor.Components.Table.Models;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace DSD.MSS.Blazor.Components.Table
@@ -19,6 +21,9 @@ namespace DSD.MSS.Blazor.Components.Table
         public ITable<TableItem> Table { get; set; }
 
         private string _title;
+
+        [CascadingParameter(Name = "TableSettings")]
+        public TableSettings<TableItem> TableSettings { get; set; }
 
         /// <summary>
         /// Title (Optional, will use Field Name if null)
@@ -175,6 +180,50 @@ namespace DSD.MSS.Blazor.Components.Table
             {
                 this.SortColumn = DefaultSortColumn.Value;
             }
+            Table.Update();
+        }
+
+        /// <summary>
+        /// Lifecycle method used to handle column filter reloading if it exists from previous page navigation
+        /// </summary>
+        /// <param name="firstRender">Is this the applications first render</param>
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if(firstRender)
+            {
+                ColumnFilterSelectedItems = TableSettings.Columns.FirstOrDefault(f => f.Title == Title)?.ColumnFilterSelectedItems ?? new List<string>();
+                if(ColumnFilterSelectedItems.Any())
+                {
+                    Expression<Func<TableItem, bool>> expression = GetStringFilter(this, ColumnFilterSelectedItems.First());
+                    Expression body = expression.Body;
+                    foreach (var itemName in ColumnFilterSelectedItems.Skip(1))
+                    {
+                        expression = GetStringFilter(this, itemName);
+                        body = Expression.Or(body, expression.Body);
+                    }
+                    Filter = Expression.Lambda<Func<TableItem, bool>>(body, Field.Parameters);
+                    Table.Update();
+                }
+            }
+            base.OnAfterRender(firstRender);
+        }
+
+        /// <summary>
+        /// Gets the value to filter against the encapsulating column
+        /// </summary>
+        /// <param name="column">The column</param>
+        /// <param name="FilterText">The value to filter against</param>
+        /// <returns></returns>
+        private Expression<Func<TableItem, bool>> GetStringFilter(IColumn<TableItem> column, string FilterText)
+        {
+            return Expression.Lambda<Func<TableItem, bool>>(
+                       Expression.AndAlso(
+                           Expression.NotEqual(column.Field.Body, Expression.Constant(null)),
+                           Expression.Call(
+                               column.Field.Body,
+                               typeof(string).GetMethod(nameof(string.Equals), new[] { typeof(string), typeof(StringComparison) }),
+                               new[] { Expression.Constant(FilterText), Expression.Constant(StringComparison.OrdinalIgnoreCase) })),
+                       column.Field.Parameters);
         }
 
         protected override void OnParametersSet()

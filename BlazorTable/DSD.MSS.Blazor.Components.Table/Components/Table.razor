@@ -182,5 +182,8 @@
 }
 
 <CascadingValue Value="(ITable<TableItem>)this" Name="Table">
-    @ChildContent
+    <CascadingValue Value="TableSettings" Name="TableSettings">
+        @ChildContent
+    </CascadingValue>
+    
 </CascadingValue>
