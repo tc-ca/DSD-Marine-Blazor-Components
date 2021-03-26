@@ -38,7 +38,10 @@
                         {
                             <li>
                                 <label>
-                                    <input type="checkbox" @onchange="args => { OnCheckboxClicked(column, item, args.Value); }">@item
+                                    <input 
+                                           type="checkbox" 
+                                           checked="@column.ColumnFilterSelectedItems.Contains(item)"
+                                           @onchange="args => { OnCheckboxClicked(column, item, args.Value); }">@item
                                 </label>
                             </li>
                         }

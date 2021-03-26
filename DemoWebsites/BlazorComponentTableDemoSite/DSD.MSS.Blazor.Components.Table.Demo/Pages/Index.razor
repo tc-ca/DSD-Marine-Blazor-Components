@@ -34,7 +34,7 @@
 
                 <Table TableClass="table table-striped table-hover" GlobalSearch="@tableSettings.GlobalSearch" TableItem="TableModel"
                        @ref="TableRef" PageSize="@tableSettings.PageSize" PageNumber="@tableSettings.PageNumber" ShowSearchBar="@ShowFilterHeader"
-                       Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
+                       Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())" TableSettings="tableSettings"
                        FilterChanged="(e)=>OnFilterChanged(e)">
                     <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" Sortable="false" Width="25%" />
                     <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" HeaderRowFilterable="@FirstNameFilter" Sortable="true" Width="25%" />

@@ -20,6 +20,12 @@ namespace DSD.MSS.Blazor.Components.Table
         public IReadOnlyDictionary<string, object> UnknownParameters { get; set; }
 
         /// <summary>
+        /// Contains the filtering options carried over from the previous page visit, and is cascaded down to children for use.
+        /// </summary>
+        [Parameter]
+        public TableSettings<TableItem> TableSettings { get; set; }
+
+        /// <summary>
         /// Table CSS Class (Defaults to Bootstrap 4)
         /// </summary>
         [Parameter]
