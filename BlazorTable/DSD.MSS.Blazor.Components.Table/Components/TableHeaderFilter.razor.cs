@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazorade.Bootstrap.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -38,6 +40,16 @@ namespace DSD.MSS.Blazor.Components.Table
         public bool ShowSearchBar { get; set; }
 
         /// <summary>
+        /// Configure Modal
+        /// </summary>
+        protected Modal ConfigureModal { get; set; }
+
+        /// <summary>
+        /// Configure Edit Context
+        /// </summary>
+        protected EditContext ConfigureContext { get; set; }
+
+        /// <summary>
         /// Cancel click handler
         /// </summary>
         protected void OnCancelClicked()
@@ -49,6 +61,28 @@ namespace DSD.MSS.Blazor.Components.Table
             TableRef.ShowSearchBar = false;
             HeaderFilterChanged();
             StateHasChanged();
+        }
+
+        /// <summary>
+        /// Configure Column checkbox event handler
+        /// </summary>
+        protected void OnConfigureChecked(IColumn<TableItem> column, object value)
+        {
+            if (column != null)
+            {
+                column.ShowColumn = (bool)value;
+                column.ShowHeaderRowFilterable = (column.DefaultShowHeaderFilter != null && column.DefaultShowHeaderFilter != true) ? false : column.ShowColumn;
+                TableRef.Update();
+                StateHasChanged();
+            }
+        }
+
+        /// <summary>
+        /// Configure Column click event handler
+        /// </summary>
+        protected void HandleConfigureClick()
+        {
+            ConfigureModal.Show();
         }
 
         /// <summary>

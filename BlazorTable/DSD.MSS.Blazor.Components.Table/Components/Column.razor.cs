@@ -54,8 +54,13 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Column can be filtered in header row
         /// </summary>
+        public bool ShowHeaderRowFilterable { get; set; }
+
+        /// <summary>
+        /// Show header filter by default
+        /// </summary>
         [Parameter]
-        public bool HeaderRowFilterable { get; set; }
+        public bool? DefaultShowHeaderFilter { get; set; }
 
         /// <summary>
         /// Normal Item Template
@@ -101,13 +106,15 @@ namespace DSD.MSS.Blazor.Components.Table
         [Parameter]
         public string Class { get; set; }
 
+        /// <summary>
+        /// Show Column by default
+        /// </summary>
         [Parameter]
         public bool? DefaultShowColumn { get; set; }
 
         /// <summary>
         /// Show Column
         /// </summary>
-        [Parameter]
         public bool ShowColumn { get; set; } = true;
 
         /// <summary>
@@ -179,6 +186,12 @@ namespace DSD.MSS.Blazor.Components.Table
             if (DefaultShowColumn.HasValue)
             {
                 this.ShowColumn = DefaultShowColumn.Value;
+                //this.ShowHeaderRowFilterable = this.ShowColumn;
+            }
+
+            if(DefaultShowHeaderFilter.HasValue)
+            {
+                this.ShowHeaderRowFilterable = DefaultShowHeaderFilter.Value;
             }
 
             if (DefaultSortDescending.HasValue)
