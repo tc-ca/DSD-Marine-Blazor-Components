@@ -153,6 +153,10 @@ namespace DSD.MSS.Blazor.Components.Table
         List<string> ColumnFilterSelectedItems { get; set; }
 
         /// <summary>
+        /// Update Column Filter
+        /// </summary>
+        void UpdateColumnFilter();
+        /// <summary>
         /// Default render if no Template specified
         /// </summary>
         /// <param name="item"></param>

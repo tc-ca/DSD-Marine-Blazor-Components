@@ -22,8 +22,6 @@ namespace DSD.MSS.Blazor.Components.Table
 
         private string _title;
 
-        [CascadingParameter(Name = "TableSettings")]
-        public TableSettings<TableItem> TableSettings { get; set; }
 
         /// <summary>
         /// Title (Optional, will use Field Name if null)
@@ -103,6 +101,9 @@ namespace DSD.MSS.Blazor.Components.Table
         [Parameter]
         public string Class { get; set; }
 
+        [Parameter]
+        public bool? DefaultShowColumn { get; set; }
+
         /// <summary>
         /// Show Column
         /// </summary>
@@ -166,11 +167,20 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         public IFilter<TableItem> FilterControl { get; set; }
 
+        /// <summary>
+        /// On Initialized
+        /// </summary>
         protected override void OnInitialized()
         {
             Table.AddColumn(this);
             ColumnFilterItems = new List<string>();
             ColumnFilterSelectedItems = new List<string>();
+
+            if (DefaultShowColumn.HasValue)
+            {
+                this.ShowColumn = DefaultShowColumn.Value;
+            }
+
             if (DefaultSortDescending.HasValue)
             {
                 this.SortDescending = DefaultSortDescending.Value;
@@ -180,32 +190,31 @@ namespace DSD.MSS.Blazor.Components.Table
             {
                 this.SortColumn = DefaultSortColumn.Value;
             }
-            Table.Update();
         }
 
         /// <summary>
-        /// Lifecycle method used to handle column filter reloading if it exists from previous page navigation
+        /// 
         /// </summary>
-        /// <param name="firstRender">Is this the applications first render</param>
-        protected override void OnAfterRender(bool firstRender)
+        public void UpdateColumnFilter()
         {
-            if(firstRender)
+            if (ColumnFilterSelectedItems.Any())
             {
-                ColumnFilterSelectedItems = TableSettings.Columns.FirstOrDefault(f => f.Title == Title)?.ColumnFilterSelectedItems ?? new List<string>();
-                if(ColumnFilterSelectedItems.Any())
+                Expression<Func<TableItem, bool>> expression = GetStringFilter(this, ColumnFilterSelectedItems.First());
+                Expression body = expression.Body;
+                foreach (var itemName in ColumnFilterSelectedItems.Skip(1))
                 {
-                    Expression<Func<TableItem, bool>> expression = GetStringFilter(this, ColumnFilterSelectedItems.First());
-                    Expression body = expression.Body;
-                    foreach (var itemName in ColumnFilterSelectedItems.Skip(1))
-                    {
-                        expression = GetStringFilter(this, itemName);
-                        body = Expression.Or(body, expression.Body);
-                    }
-                    Filter = Expression.Lambda<Func<TableItem, bool>>(body, Field.Parameters);
-                    Table.Update();
+                    expression = GetStringFilter(this, itemName);
+                    body = Expression.Or(body, expression.Body);
                 }
+                Filter = Expression.Lambda<Func<TableItem, bool>>(body, Field.Parameters);
+                Table.Update();
+                Table.FirstPage();
             }
-            base.OnAfterRender(firstRender);
+            else
+            {
+                Filter = null;
+                Table.Update();
+            }
         }
 
         /// <summary>
