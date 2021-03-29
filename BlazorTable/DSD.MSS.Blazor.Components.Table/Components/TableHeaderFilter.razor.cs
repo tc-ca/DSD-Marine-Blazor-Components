@@ -80,47 +80,9 @@ namespace DSD.MSS.Blazor.Components.Table
                     column.ColumnFilterSelectedItems.Remove(itemName);
                 }
             }
-            UpdateColumnFilter(column);
+            column.UpdateColumnFilter();
         }
 
-        private void UpdateColumnFilter(IColumn<TableItem> column)
-        {
-            if (column.ColumnFilterSelectedItems.Any())
-            {
-                Expression<Func<TableItem, bool>> expression = GetStringFilter(column, column.ColumnFilterSelectedItems.First());
-                Expression body = expression.Body;
-                foreach (var itemName in column.ColumnFilterSelectedItems.Skip(1))
-                {
-                    expression = GetStringFilter(column, itemName);
-                    body = Expression.Or(body, expression.Body);
-                }
-                column.Filter = Expression.Lambda<Func<TableItem, bool>>(body, column.Field.Parameters);
-                column.Table.Update();
-                column.Table.FirstPage();
-            }
-            else
-            {
-                column.Filter = null;
-                column.Table.Update();
-            }
-        }
 
-        /// <summary>
-        /// Get string filter
-        /// </summary>
-        /// <param name="column"></param>
-        /// <param name="FilterText"></param>
-        /// <returns></returns>
-        private Expression<Func<TableItem, bool>> GetStringFilter(IColumn<TableItem> column, string FilterText)
-        {
-            return Expression.Lambda<Func<TableItem, bool>>(
-                       Expression.AndAlso(
-                           Expression.NotEqual(column.Field.Body, Expression.Constant(null)),
-                           Expression.Call(
-                               column.Field.Body,
-                               typeof(string).GetMethod(nameof(string.Equals), new[] { typeof(string), typeof(StringComparison) }),
-                               new[] { Expression.Constant(FilterText), Expression.Constant(StringComparison.OrdinalIgnoreCase) })),
-                       column.Field.Parameters);
-        }
     }
 }

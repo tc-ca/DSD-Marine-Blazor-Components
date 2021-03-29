@@ -3,11 +3,11 @@
 @using DSD.MSS.Blazor.Components.Table.Demo.Model;
 @using DSD.MSS.Blazor.Components.Table.Demo.Data;
 @using System.Globalization;
+@using Microsoft.AspNetCore.Components.Forms;
 @using DSD.MSS.Blazor.Components.Table.Models;
 @using Microsoft.Extensions.Caching.Memory;
-@using Microsoft.AspNetCore.Http; 
+@using Microsoft.AspNetCore.Http;
 @inject IMemoryCache memoryCache
-@inject NavigationManager navigationManager;
 
 <h1>Table Component</h1>
 
@@ -32,9 +32,9 @@
                     </div>
                 </div>
 
-                <Table TableClass="table table-striped table-hover" GlobalSearch="@tableSettings.GlobalSearch" TableItem="TableModel"
-                       @ref="TableRef" PageSize="@tableSettings.PageSize" PageNumber="@tableSettings.PageNumber" ShowSearchBar="@ShowFilterHeader"
-                       Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())" TableSettings="tableSettings"
+                <Table TableClass="table table-striped table-hover" TableItem="TableModel"
+                       @ref="TableRef" DefaultPageSize="10" ShowSearchBar="@ShowFilterHeader"
+                       Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
                        FilterChanged="(e)=>OnFilterChanged(e)">
                     <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" Sortable="false" Width="25%" />
                     <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" HeaderRowFilterable="@FirstNameFilter" Sortable="true" Width="25%" />
@@ -52,22 +52,15 @@
     private const string tableSettingKey = "TableSettings";
     protected List<TableModel>
     tableData = new List<TableModel>();
-
     protected bool LastNameFilter { get; set; } = true;
     protected bool FirstNameFilter { get; set; } = true;
     protected bool ShowFilterHeader { get; set; } = true;
 
-    protected TableSettings<TableModel> tableSettings { get; set; } = new TableSettings<TableModel>()
-    {
-        PageSize = 10,
-        PageNumber = 0,
-    };
 
     protected Table<TableModel> TableRef { get; set; }
 
     public void OnFilterChanged(TableSettings<TableModel> settings)
     {
-        tableSettings = settings;
 
         var cacheOptions = new MemoryCacheEntryOptions()
         {
@@ -95,23 +88,22 @@
     protected override void OnInitialized()
     {
         tableData = TableData.GetData();
-        if (memoryCache.TryGetValue("TableSettings", out TableSettings<TableModel> settings))
-        {
-            tableSettings = settings;
-        }
+
     }
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
-            TableRef.Update();
+            if (memoryCache.TryGetValue("TableSettings", out TableSettings<TableModel> settings))
+            {
+                TableRef.ResetTableSettings(settings);
+            }
         }
     }
 
     protected void HandleHeaderFilterChanged()
     {
-        ShowFilterHeader = false;
         StateHasChanged();
     }
     protected void HandleFilterButtonClick()
