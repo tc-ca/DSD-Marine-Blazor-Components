@@ -275,6 +275,7 @@ namespace DSD.MSS.Blazor.Components.Table
                     column.SortColumn  = updatedColumn.SortColumn;
                     column.SortDescending = updatedColumn.SortDescending;
                     column.ShowColumn = updatedColumn.ShowColumn;
+                    column.ShowHeaderRowFilterable = (updatedColumn.DefaultShowHeaderFilter != null && updatedColumn.DefaultShowHeaderFilter != true) ? false : column.ShowColumn;
                     column.UpdateColumnFilter();
                 }
             }

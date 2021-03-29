@@ -44,7 +44,13 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Column can be filtered in header row
         /// </summary>
-        bool HeaderRowFilterable { get; set; }
+        bool ShowHeaderRowFilterable { get; set; }
+
+        /// <summary>
+        /// Show header filter by default
+        /// </summary>
+        bool? DefaultShowHeaderFilter { get; set; }
+
         /// <summary>
         /// Set the format for values if no template
         /// </summary>
