@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazorade.Bootstrap.Components;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -38,6 +40,16 @@ namespace DSD.MSS.Blazor.Components.Table
         public bool ShowSearchBar { get; set; }
 
         /// <summary>
+        /// Configure Modal
+        /// </summary>
+        protected Modal ConfigureModal { get; set; }
+
+        /// <summary>
+        /// Configure Edit Context
+        /// </summary>
+        protected EditContext ConfigureContext { get; set; }
+
+        /// <summary>
         /// Cancel click handler
         /// </summary>
         protected void OnCancelClicked()
@@ -49,6 +61,28 @@ namespace DSD.MSS.Blazor.Components.Table
             TableRef.ShowSearchBar = false;
             HeaderFilterChanged();
             StateHasChanged();
+        }
+
+        /// <summary>
+        /// Configure Column checkbox event handler
+        /// </summary>
+        protected void OnConfigureChecked(IColumn<TableItem> column, object value)
+        {
+            if (column != null)
+            {
+                column.ShowColumn = (bool)value;
+                column.ShowHeaderRowFilterable = (column.DefaultShowHeaderFilter != null && column.DefaultShowHeaderFilter != true) ? false : column.ShowColumn;
+                TableRef.Update();
+                StateHasChanged();
+            }
+        }
+
+        /// <summary>
+        /// Configure Column click event handler
+        /// </summary>
+        protected void HandleConfigureClick()
+        {
+            ConfigureModal.Show();
         }
 
         /// <summary>
@@ -80,47 +114,9 @@ namespace DSD.MSS.Blazor.Components.Table
                     column.ColumnFilterSelectedItems.Remove(itemName);
                 }
             }
-            UpdateColumnFilter(column);
+            column.UpdateColumnFilter();
         }
 
-        private void UpdateColumnFilter(IColumn<TableItem> column)
-        {
-            if (column.ColumnFilterSelectedItems.Any())
-            {
-                Expression<Func<TableItem, bool>> expression = GetStringFilter(column, column.ColumnFilterSelectedItems.First());
-                Expression body = expression.Body;
-                foreach (var itemName in column.ColumnFilterSelectedItems.Skip(1))
-                {
-                    expression = GetStringFilter(column, itemName);
-                    body = Expression.Or(body, expression.Body);
-                }
-                column.Filter = Expression.Lambda<Func<TableItem, bool>>(body, column.Field.Parameters);
-                column.Table.Update();
-                column.Table.FirstPage();
-            }
-            else
-            {
-                column.Filter = null;
-                column.Table.Update();
-            }
-        }
 
-        /// <summary>
-        /// Get string filter
-        /// </summary>
-        /// <param name="column"></param>
-        /// <param name="FilterText"></param>
-        /// <returns></returns>
-        private Expression<Func<TableItem, bool>> GetStringFilter(IColumn<TableItem> column, string FilterText)
-        {
-            return Expression.Lambda<Func<TableItem, bool>>(
-                       Expression.AndAlso(
-                           Expression.NotEqual(column.Field.Body, Expression.Constant(null)),
-                           Expression.Call(
-                               column.Field.Body,
-                               typeof(string).GetMethod(nameof(string.Equals), new[] { typeof(string), typeof(StringComparison) }),
-                               new[] { Expression.Constant(FilterText), Expression.Constant(StringComparison.OrdinalIgnoreCase) })),
-                       column.Field.Parameters);
-        }
     }
 }

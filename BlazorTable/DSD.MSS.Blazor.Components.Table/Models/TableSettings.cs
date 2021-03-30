@@ -21,6 +21,16 @@ namespace DSD.MSS.Blazor.Components.Table.Models
         public int PageNumber { get; set; }
 
         /// <summary>
+        /// Page List Start Number
+        /// </summary>
+        public int PageListStartNumber { get; set; } = 2;
+
+        /// <summary>
+        /// Page List end Number
+        /// </summary>
+        public int PageListEndNumber { get; set; }
+
+        /// <summary>
         /// Global Search
         /// </summary>
         public string GlobalSearch { get; set; }

@@ -44,7 +44,13 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Column can be filtered in header row
         /// </summary>
-        bool HeaderRowFilterable { get; set; }
+        bool ShowHeaderRowFilterable { get; set; }
+
+        /// <summary>
+        /// Show header filter by default
+        /// </summary>
+        bool? DefaultShowHeaderFilter { get; set; }
+
         /// <summary>
         /// Set the format for values if no template
         /// </summary>
@@ -152,6 +158,10 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         List<string> ColumnFilterSelectedItems { get; set; }
 
+        /// <summary>
+        /// Update Column Filter
+        /// </summary>
+        void UpdateColumnFilter();
         /// <summary>
         /// Default render if no Template specified
         /// </summary>

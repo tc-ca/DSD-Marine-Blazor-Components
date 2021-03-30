@@ -19,6 +19,7 @@ namespace DSD.MSS.Blazor.Components.Table
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, object> UnknownParameters { get; set; }
 
+
         /// <summary>
         /// Table CSS Class (Defaults to Bootstrap 4)
         /// </summary>
@@ -44,11 +45,21 @@ namespace DSD.MSS.Blazor.Components.Table
         public Expression<Func<TableItem, string>> TableRowClass { get; set; }
 
         /// <summary>
-        /// Page Size, defaults to 10
+        /// Default Page Size, set to 10
         /// </summary>
         [Parameter]
-        public int PageSize { get; set; } = DEFAULT_PAGE_SIZE;
+        public int DefaultPageSize { get; set; } = DEFAULT_PAGE_SIZE;
 
+        /// <summary>
+        /// Page Size
+        /// </summary>
+        public int PageSize { get; set; }
+
+        /// <summary>
+        /// Default Page Number, set to 0
+        /// </summary>
+        public int DefaultPageNumber { get; set; } = DEFAULT_PAGE_NUMBER;
+                
         /// <summary>
         /// Current Page Number
         /// </summary>
@@ -79,7 +90,6 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Search all columns for the specified string, supports spaces as a delimiter
         /// </summary>
-        [Parameter]
         public string GlobalSearch { get; set; }
 
         /// <summary>
@@ -103,8 +113,6 @@ namespace DSD.MSS.Blazor.Components.Table
         /// List of All Available Columns
         /// </summary>
         public List<IColumn<TableItem>> Columns { get; } = new List<IColumn<TableItem>>();
-
-
 
         /// <summary>
         /// Page List Start Number
@@ -139,6 +147,16 @@ namespace DSD.MSS.Blazor.Components.Table
         protected override void OnParametersSet()
         {
             Update();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override void OnInitialized()
+        {
+            PageSize = DefaultPageSize;
+            PageNumber = DefaultPageNumber;
         }
 
         private IEnumerable<TableItem> GetData()
@@ -207,7 +225,7 @@ namespace DSD.MSS.Blazor.Components.Table
         {
             detailsViewOpen = new bool[PageSize];
             FilteredItems = GetData();
-            FilterChanged?.Invoke(GetTableSettings()); 
+            FilterChanged?.Invoke(GetTableSettings());
             Refresh();
         }
 
@@ -215,19 +233,54 @@ namespace DSD.MSS.Blazor.Components.Table
         /// Get table settings
         /// </summary>
         /// <returns>TableSettings</returns>
-        private TableSettings<TableItem>  GetTableSettings()
+        private TableSettings<TableItem> GetTableSettings()
         {
             var settings = new TableSettings<TableItem>()
             {
                 PageNumber = PageNumber,
                 PageSize = PageSize,
+                PageListStartNumber = PageListStartNumber,
+                PageListEndNumber = PageListEndNumber,
                 GlobalSearch = GlobalSearch
             };
-            foreach(var item in Columns)
+            foreach (var item in Columns)
             {
                 settings.Columns.Add(item);
             }
-            return settings;  
+            return settings;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="settings"></param>
+        public void ResetTableSettings(TableSettings<TableItem> settings)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            GlobalSearch = settings.GlobalSearch;
+            PageSize = settings.PageSize;
+            PageNumber = settings.PageNumber;
+            PageListStartNumber = settings.PageListStartNumber;
+            PageListEndNumber = settings.PageListEndNumber;
+            foreach (var column in Columns)
+            {
+                var updatedColumn = settings.Columns.Find(f => f.Title == column.Title);
+                if (updatedColumn != null)
+                {
+                    column.ColumnFilterItems = updatedColumn.ColumnFilterItems;
+                    column.ColumnFilterSelectedItems = updatedColumn.ColumnFilterSelectedItems;
+                    column.SortColumn  = updatedColumn.SortColumn;
+                    column.SortDescending = updatedColumn.SortDescending;
+                    column.ShowColumn = updatedColumn.ShowColumn;
+                    column.ShowHeaderRowFilterable = (updatedColumn.DefaultShowHeaderFilter != null && updatedColumn.DefaultShowHeaderFilter != true) ? false : column.ShowColumn;
+                    column.UpdateColumnFilter();
+                }
+            }
+            Update();
         }
 
         /// <summary>

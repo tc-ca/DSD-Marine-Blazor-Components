@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DSD.MSS.Blazor.Components.Table.Models;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace DSD.MSS.Blazor.Components.Table
@@ -19,6 +21,7 @@ namespace DSD.MSS.Blazor.Components.Table
         public ITable<TableItem> Table { get; set; }
 
         private string _title;
+
 
         /// <summary>
         /// Title (Optional, will use Field Name if null)
@@ -51,8 +54,13 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Column can be filtered in header row
         /// </summary>
+        public bool ShowHeaderRowFilterable { get; set; }
+
+        /// <summary>
+        /// Show header filter by default
+        /// </summary>
         [Parameter]
-        public bool HeaderRowFilterable { get; set; }
+        public bool? DefaultShowHeaderFilter { get; set; }
 
         /// <summary>
         /// Normal Item Template
@@ -99,9 +107,14 @@ namespace DSD.MSS.Blazor.Components.Table
         public string Class { get; set; }
 
         /// <summary>
-        /// Show Column
+        /// Show Column by default
         /// </summary>
         [Parameter]
+        public bool? DefaultShowColumn { get; set; }
+
+        /// <summary>
+        /// Show Column
+        /// </summary>
         public bool ShowColumn { get; set; } = true;
 
         /// <summary>
@@ -161,11 +174,25 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         public IFilter<TableItem> FilterControl { get; set; }
 
+        /// <summary>
+        /// On Initialized
+        /// </summary>
         protected override void OnInitialized()
         {
             Table.AddColumn(this);
             ColumnFilterItems = new List<string>();
             ColumnFilterSelectedItems = new List<string>();
+
+            if (DefaultShowColumn.HasValue)
+            {
+                this.ShowColumn = DefaultShowColumn.Value;
+            }
+
+            if(DefaultShowHeaderFilter.HasValue)
+            {
+                this.ShowHeaderRowFilterable = DefaultShowHeaderFilter.Value;
+            }
+
             if (DefaultSortDescending.HasValue)
             {
                 this.SortDescending = DefaultSortDescending.Value;
@@ -175,6 +202,49 @@ namespace DSD.MSS.Blazor.Components.Table
             {
                 this.SortColumn = DefaultSortColumn.Value;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void UpdateColumnFilter()
+        {
+            if (ColumnFilterSelectedItems.Any())
+            {
+                Expression<Func<TableItem, bool>> expression = GetStringFilter(this, ColumnFilterSelectedItems.First());
+                Expression body = expression.Body;
+                foreach (var itemName in ColumnFilterSelectedItems.Skip(1))
+                {
+                    expression = GetStringFilter(this, itemName);
+                    body = Expression.Or(body, expression.Body);
+                }
+                Filter = Expression.Lambda<Func<TableItem, bool>>(body, Field.Parameters);
+                Table.Update();
+                Table.FirstPage();
+            }
+            else
+            {
+                Filter = null;
+                Table.Update();
+            }
+        }
+
+        /// <summary>
+        /// Gets the value to filter against the encapsulating column
+        /// </summary>
+        /// <param name="column">The column</param>
+        /// <param name="FilterText">The value to filter against</param>
+        /// <returns></returns>
+        private Expression<Func<TableItem, bool>> GetStringFilter(IColumn<TableItem> column, string FilterText)
+        {
+            return Expression.Lambda<Func<TableItem, bool>>(
+                       Expression.AndAlso(
+                           Expression.NotEqual(column.Field.Body, Expression.Constant(null)),
+                           Expression.Call(
+                               column.Field.Body,
+                               typeof(string).GetMethod(nameof(string.Equals), new[] { typeof(string), typeof(StringComparison) }),
+                               new[] { Expression.Constant(FilterText), Expression.Constant(StringComparison.OrdinalIgnoreCase) })),
+                       column.Field.Parameters);
         }
 
         protected override void OnParametersSet()
