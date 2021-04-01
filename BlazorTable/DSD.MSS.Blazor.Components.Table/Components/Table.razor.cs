@@ -98,6 +98,12 @@ namespace DSD.MSS.Blazor.Components.Table
         [Parameter]
         public Action HeaderFilterChanged { get; set; }
 
+        /// <summary>
+        /// On after data loaded
+        /// </summary>
+        [Parameter]
+        public Action OnAfterDataLoaded { get; set; }
+
         [Parameter]
         public Action<TableSettings<TableItem>> FilterChanged { get; set; }
 
@@ -280,7 +286,7 @@ namespace DSD.MSS.Blazor.Components.Table
                     column.UpdateColumnFilter();
                 }
             }
-            Update();
+            //Update();
         }
 
         /// <summary>
