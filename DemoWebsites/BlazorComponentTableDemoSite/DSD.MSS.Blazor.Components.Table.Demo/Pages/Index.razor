@@ -33,7 +33,7 @@
                 </div>
 
                 <Table TableClass="table table-striped table-hover" TableItem="TableModel"
-                       @ref="TableRef" DefaultPageSize="10" ShowSearchBar="@ShowFilterHeader"
+                       @ref="TableRef" DefaultPageSize="10" OnAfterDataLoaded="OnAfterTableDataLoaded" ShowSearchBar="@ShowFilterHeader"
                        Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
                        FilterChanged="(e)=>OnFilterChanged(e)">
                     <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" DefaultShowColumn="true" DefaultShowHeaderFilter="false" Sortable="false" Width="25%" />
@@ -55,7 +55,7 @@
     protected bool LastNameFilter { get; set; } = true;
     protected bool FirstNameFilter { get; set; } = true;
     protected bool ShowFilterHeader { get; set; } = true;
-
+    protected TableSettings<TableModel> tableSettings { get; set; }
 
     protected Table<TableModel> TableRef { get; set; }
 
@@ -85,10 +85,10 @@
         TableRef.Update();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        //await Task.Delay(TimeSpan.FromSeconds(5));
         tableData = TableData.GetData();
-
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -97,8 +97,18 @@
         {
             if (memoryCache.TryGetValue("TableSettings", out TableSettings<TableModel> settings))
             {
-                TableRef.ResetTableSettings(settings);
+                tableSettings = settings;
+                TableRef.Update();
             }
+        }
+    }
+
+    protected void OnAfterTableDataLoaded()
+    {
+        if (tableSettings != null)
+        {
+            TableRef.ResetTableSettings(tableSettings);
+            tableSettings = null;
         }
     }
 
