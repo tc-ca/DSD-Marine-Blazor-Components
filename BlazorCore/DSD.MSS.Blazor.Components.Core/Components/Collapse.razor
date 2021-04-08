@@ -1,0 +1,12 @@
+﻿<div class="card @(!ShowBorder ? "border-0" : "")">
+    <div class="card-header @(!ShowBorder ? "border-0" : "")" style="background-color: @HeaderBackgroundColor; color: @HeaderTitleTextColor;">
+        @if(!string.IsNullOrEmpty(Icon))
+        {
+            <i class="@Icon"></i>
+        }
+        <h5 class="mob-0">@Title</h5>
+    </div>
+    <div class="card-body">
+        @BodyContent
+    </div>
+</div>
