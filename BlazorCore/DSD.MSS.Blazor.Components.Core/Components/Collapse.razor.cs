@@ -13,5 +13,12 @@ namespace DSD.MSS.Blazor.Components.Core.Components
         [Parameter] public string HeaderTitleTextColor { get; set; }
         [Parameter] public bool ShowBorder { get; set; }
         [Parameter] public RenderFragment BodyContent { get; set; }
+        [Parameter] public bool IsCollapsable { get; set; } = false;
+        [Parameter] public bool IsCollapsed { get; set; } = false;
+
+        private void SetCollapseState()
+        {
+            IsCollapsed = !IsCollapsed;
+        }
     }
 }
