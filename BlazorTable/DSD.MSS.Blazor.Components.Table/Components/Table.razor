@@ -145,19 +145,19 @@
                                         @_detailTemplate(item)
                                     </td>
                                 </tr>
-                                            }
+                            }
 
-                                            {
-                                                i = locali + 1;
-                                                if(FilteredItems.Count() == i)
-                                                {
-                                                    OnAfterDataLoaded();
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else if (_emptyDataTemplate != null)
-                                    {
+                            {
+                                i = locali + 1;
+                                if (FilteredItems.Count() == i && OnAfterDataLoaded != null)
+                                {
+                                    OnAfterDataLoaded();
+                                }
+                            }
+                        }
+                    }
+                    else if (_emptyDataTemplate != null)
+                    {
                         <tr>
                             <td colspan="@columnCount">
                                 @_emptyDataTemplate
