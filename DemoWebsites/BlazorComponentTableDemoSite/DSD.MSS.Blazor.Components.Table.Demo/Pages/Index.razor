@@ -108,6 +108,7 @@
         if (tableSettings != null)
         {
             TableRef.ResetTableSettings(tableSettings);
+            TableRef.UpdatePage(tableSettings.PageNumber);
             tableSettings = null;
         }
     }
