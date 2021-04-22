@@ -59,6 +59,7 @@ namespace DSD.MSS.Blazor.Components.Table
                 column.ColumnFilterSelectedItems.Clear();
             }
             TableRef.ShowSearchBar = false;
+            TableRef.PageNumber = 0;
             HeaderFilterChanged();
             StateHasChanged();
         }
