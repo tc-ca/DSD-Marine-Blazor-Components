@@ -186,7 +186,6 @@ namespace DSD.MSS.Blazor.Components.Table
             if (DefaultShowColumn.HasValue)
             {
                 this.ShowColumn = DefaultShowColumn.Value;
-                //this.ShowHeaderRowFilterable = this.ShowColumn;
             }
 
             if(DefaultShowHeaderFilter.HasValue)

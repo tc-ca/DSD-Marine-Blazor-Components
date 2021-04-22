@@ -59,11 +59,12 @@ namespace DSD.MSS.Blazor.Components.Table
         /// Default Page Number, set to 0
         /// </summary>
         public int DefaultPageNumber { get; set; } = DEFAULT_PAGE_NUMBER;
-
+                
         /// <summary>
-        /// Page Number
+        /// Current Page Number
         /// </summary>
-        public int PageNumber { get; set; }
+        [Parameter]
+        public int PageNumber { get; set; } = DEFAULT_PAGE_NUMBER;
 
         /// <summary>
         /// Allow Columns to be reordered
