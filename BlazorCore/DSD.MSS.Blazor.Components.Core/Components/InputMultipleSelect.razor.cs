@@ -23,9 +23,9 @@ namespace DSD.MSS.Blazor.Components.Core.Components
 
         /// <summary>
         /// Flag that indicates to use selected items as the SelectTitle
-        /// </summary>
+        /// </summary> 
         [Parameter]
-        public bool UseSelectionAsSelectTitle { get; set; } = false;
+        public bool UseSelectedItemsAsSelectTitle { get; set; } = false;
         
         /// <summary>
         /// Specifies the Field ID
@@ -42,11 +42,16 @@ namespace DSD.MSS.Blazor.Components.Core.Components
         /// <summary>
         /// Gets all selected items 
         /// </summary>
-        public List<SelectListItem> SelectedItems => this.CheckBoxList.Where(x => x.Value).ToList();
+        private List<SelectListItem> SelectedItems => this.CheckBoxList.Where(x => x.Value).ToList();
 
         /// <summary>
         /// Gets all text from selected items, comma seperated
         /// </summary>
-        public string SelectedText => string.Join(',', this.SelectedItems.Select(x => x.Text));
+        private string SelectedText => string.Join(", ", this.SelectedItems.Select(x => x.Text));
+
+        /// <summary>
+        /// Flag to determine whether to show the selected items as the select title for the input multiple select
+        /// </summary>
+        private bool ShowSelectedItemsAsSelectTitle => this.UseSelectedItemsAsSelectTitle && !string.IsNullOrEmpty(this.SelectedText);
     }
 }
