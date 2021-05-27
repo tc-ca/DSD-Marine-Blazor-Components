@@ -38,6 +38,9 @@ namespace DSD.MSS.Blazor.Components.Core.Components
         /// </summary>
         [Parameter]
         public List<SelectListItem> CheckBoxList { get; set; }
+
+        [Parameter]
+        public RenderFragment<string> SelectedItemTemplate { get; set; }
         
         /// <summary>
         /// Gets all selected items 

@@ -3,17 +3,24 @@
     <div style="display: flex;">
         <button class="btn btn-outline-secondary multiple-select" style="flex: 1;" type="button" data-toggle="collapse" data-target="@($"#{this.Id}")" aria-expanded="false" aria-controls="collapseExample" onClick="($(this).find('span').className == 'fa fa-angle-up')?$(this).find('span').className='fa fa-angle-down':$(this).find('span').className='fa fa-angle-up'">
             <span style="float: left">
-            @if(this.ShowSelectedItemsAsSelectTitle)
-            {
-                foreach(var selctedItem in this.SelectedItems)
+                @if (this.ShowSelectedItemsAsSelectTitle)
                 {
-                    <span class="badge bg-primary text-white ml-1">@selctedItem.Text</span>
+                    foreach (var selctedItem in this.SelectedItems)
+                    {
+                        @if (this.SelectedItemTemplate != null)
+                        {
+                            <span>@SelectedItemTemplate(selctedItem.Text)</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-primary text-white ml-1">@selctedItem.Text</span>
+                        }
+                    }
                 }
-            }
-            else
-            {
-                <span>@this.SelectTitle</span>
-            }
+                else
+                {
+                    <span>@this.SelectTitle</span>
+                }
             </span><span class="fa fa-angle-down" style="float: right"></span>
         </button>
     </div>
