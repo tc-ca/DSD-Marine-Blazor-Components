@@ -45,13 +45,8 @@ namespace DSD.MSS.Blazor.Components.Core.Components
         private List<SelectListItem> SelectedItems => this.CheckBoxList.Where(x => x.Value).ToList();
 
         /// <summary>
-        /// Gets all text from selected items, comma seperated
-        /// </summary>
-        private string SelectedText => string.Join(", ", this.SelectedItems.Select(x => x.Text));
-
-        /// <summary>
         /// Flag to determine whether to show the selected items as the select title for the input multiple select
         /// </summary>
-        private bool ShowSelectedItemsAsSelectTitle => this.UseSelectedItemsAsSelectTitle && !string.IsNullOrEmpty(this.SelectedText);
+        private bool ShowSelectedItemsAsSelectTitle => this.UseSelectedItemsAsSelectTitle && this.SelectedItems.Count > 0;
     }
 }
