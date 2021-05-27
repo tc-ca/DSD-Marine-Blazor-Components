@@ -39,6 +39,9 @@ namespace DSD.MSS.Blazor.Components.Core.Components
         [Parameter]
         public List<SelectListItem> CheckBoxList { get; set; }
 
+        /// <summary>
+        /// Render fragment for customizing how the selected items will display.
+        /// </summary>
         [Parameter]
         public RenderFragment<string> SelectedItemTemplate { get; set; }
         
