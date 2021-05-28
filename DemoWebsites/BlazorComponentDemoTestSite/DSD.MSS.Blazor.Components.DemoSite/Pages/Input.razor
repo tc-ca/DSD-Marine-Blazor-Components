@@ -8,6 +8,7 @@
 @using DSD.MSS.Blazor.Components.Core
 @using DSD.MSS.Blazor.Components.Core.Demo.Model
 @using DSD.MSS.Blazor.Components.Core.Models
+@using DSD.MSS.Blazor.Components.Core.Components
 @inject FormInputList InputList
 
 <h1>Input Components</h1>
@@ -34,6 +35,12 @@
                     </FormInputSelect>
                     <FormInputCheckbox Id="InputCheckbox" Text="Input Checkbox" @bind-Value="@FormInputObj.BoolValue" OnChange="OnInputChange" />
                     <InputMultipleSelect Id="servicerequesttype" SelectTitle="Select" Title="Select multiple" CheckBoxList="@selectlist" />
+                    <InputMultipleSelect Id="servicerequesttype" UseSelectedItemsAsSelectTitle="true" SelectTitle="Select" Title="Select multiple" CheckBoxList="@selectlist" />
+                    <InputMultipleSelect Id="servicerequesttype" UseSelectedItemsAsSelectTitle="true" SelectTitle="Select" Title="Select multiple" CheckBoxList="@selectlist">
+                        <SelectedItemTemplate Context="SelectedItemContext">
+                            <span class="badge bg-danger text-white ml-1">@SelectedItemContext</span>
+                        </SelectedItemTemplate>
+                    </InputMultipleSelect>
                     <div class="form-group mt-2">
                         <button type="submit" class="btn btn-primary">
                             Submit
