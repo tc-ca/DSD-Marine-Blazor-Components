@@ -324,3 +324,7 @@ html, body {
         color: #4D5D6C !important;
         border: 1px solid #ced4da !important;
     }
+
+.multiple-select span {
+    font-size:1rem;
+}
