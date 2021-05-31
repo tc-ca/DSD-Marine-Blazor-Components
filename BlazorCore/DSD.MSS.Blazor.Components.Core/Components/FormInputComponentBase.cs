@@ -1,12 +1,11 @@
-﻿using DSD.MSS.Blazor.Components.Core.Components.Interfaces;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DSD.MSS.Blazor.Components.Core.Components
+﻿namespace DSD.MSS.Blazor.Components.Core.Components
 {
+    using DSD.MSS.Blazor.Components.Core.Components.Interfaces;
+    using Microsoft.AspNetCore.Components;
+    using Microsoft.AspNetCore.Components.Forms;
+    using System;
+    using System.Collections.Generic;
+
     public class FormInputComponentBase<T> : InputBase<T>, IReadonlyInputComponent
     {
         /// <summary>
