@@ -1,17 +1,14 @@
-﻿@namespace DSD.MSS.Blazor.Components.Core
-@using DSD.MSS.Blazor.Components.Core.Models
-
-<div class="form-group">
-    <label for="@Id" class="form-label">@Title</label>
+﻿<div class="form-group">
+    <label for="@this.Id" class="form-label">@this.Title</label>
     <div style="display: flex;">
-        <button class="btn btn-outline-secondary multiple-select" style="flex: 1;" type="button" data-toggle="collapse" data-target="@($"#{Id}")" aria-expanded="false" aria-controls="collapseExample" onClick="($(this).find('span').className == 'fa fa-angle-up')?$(this).find('span').className='fa fa-angle-down':$(this).find('span').className='fa fa-angle-up'">
-            <span style="float: left">@SelectTitle</span><span class="fa fa-angle-down" style="float: right"></span>
+        <button class="btn btn-outline-secondary multiple-select" style="flex: 1;" type="button" data-toggle="collapse" data-target="@($"#{this.Id}")" aria-expanded="false" aria-controls="collapseExample" onClick="($(this).find('span').className == 'fa fa-angle-up')?$(this).find('span').className='fa fa-angle-down':$(this).find('span').className='fa fa-angle-up'">
+            <span style="float: left">@this.SelectTitle</span><span class="fa fa-angle-down" style="float: right"></span>
         </button>
     </div>
-    <div class="collapse mt-1" id="@Id">
+    <div class="collapse mt-1" id="@this.Id">
         <div class="card card-body" style="padding:0px !important">
             <ul class="checkbox-menu allow-focus text-btn-item" style="list-style: none;">
-                @foreach (var item in CheckBoxList)
+                @foreach (var item in this.CheckBoxList)
                 {
                     <li>
                         <label>
@@ -23,28 +20,3 @@
         </div>
     </div>
 </div>
-
-@code{
-    /// <summary>
-    /// Title for multiple selection
-    /// </summary>
-    [Parameter]
-    public string Title { get; set; }
-
-    /// <summary>
-    /// Title for multiple selection
-    /// </summary>
-    [Parameter]
-    public string SelectTitle { get; set; }
-
-    /// <summary>
-    /// Specifies the Field ID
-    /// </summary>
-    [Parameter] public string Id { get; set; }
-
-    /// <summary>
-    /// Checkbox list
-    /// </summary>
-    [Parameter]
-    public List<SelectListItem> CheckBoxList { get; set; }
-}

@@ -1,6 +1,4 @@
-﻿@using DSD.MSS.Blazor.Components.Core.Constants
-
-@if (EnableShow)
+﻿@if (EnableShow)
 {
     <section class="@(this.ShowIcon ? "alert-icon" : "alert") @this.AlertTypeCssString @(this.Dismisable ? "alert-dismissible" : "") fade show" role="alert">
         @if (this.ShowIcon)
@@ -10,16 +8,16 @@
         </div>
         }
         <div class="message">
-            @if (!string.IsNullOrEmpty(Title))
+            @if (!string.IsNullOrEmpty(this.Title))
             {
-                <h5>@Title</h5>
+                <h5>@this.Title</h5>
             }
-            <p class="mrgn-lft-md">@Message</p>
-            <div class="mrgn-lft-md">@ChildContent</div>
+            <p class="mrgn-lft-md">@this.Message</p>
+            <div class="mrgn-lft-md">@this.ChildContent</div>
         </div>
-        @if (Dismisable)
+        @if (this.Dismisable)
         {
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" color="link" @onclick="HandleCancelClick">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" color="link" @onclick="this.HandleCancelClick">
                 <span aria-hidden="true">&times;</span>
             </button>
         }
