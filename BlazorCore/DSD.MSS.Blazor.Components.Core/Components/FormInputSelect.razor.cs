@@ -7,7 +7,7 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    public partial  class FormInputSelect<T> : FormInputComponentBase<T>
+    public partial  class FormInputSelect<T> 
     {
         /// <summary>
         /// Specifies the Field ID

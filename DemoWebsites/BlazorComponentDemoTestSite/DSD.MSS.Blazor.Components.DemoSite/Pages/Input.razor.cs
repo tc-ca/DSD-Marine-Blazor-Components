@@ -1,14 +1,19 @@
 ﻿namespace DSD.MSS.Blazor.Components.Core.Demo.Pages
 {
+    using DSD.MSS.Blazor.Components.Core.Demo.Data;
     using DSD.MSS.Blazor.Components.Core.Demo.Model;
     using DSD.MSS.Blazor.Components.Core.Models;
+    using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Forms;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public partial class Input 
+    public partial class Input
     {
+        [Inject]
+        FormInputList InputList { get; set; }
+
         protected FormInputModel FormInputObj { get; set; }
 
         protected FormInputModel[] FormInputListObj { get; set; }

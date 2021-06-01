@@ -4,7 +4,7 @@
     using System;
     using System.Linq.Expressions;
 
-    public partial class FormInputDate : FormInputComponentBase<DateTime?>
+    public partial class FormInputDate
     {
         /// <summary>
         /// Specifies the Field ID

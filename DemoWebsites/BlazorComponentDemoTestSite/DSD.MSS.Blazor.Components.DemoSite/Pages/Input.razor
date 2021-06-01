@@ -2,7 +2,6 @@
 @page "/fr/input"
 
 @inherits BasePageComponent
-@inject FormInputList InputList
 
 <h1>Input Components</h1>
 
@@ -10,10 +9,13 @@
     <div class="col-8">
         <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
             <div class="card mt-3">
+                <div class="card-header">
+                    Inputs
+                </div>
                 <div class="card-body p-5">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
-                    <FormInputText Id="InputText" disabled="true" Label="Input Text" Required="required" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
+                    <FormInputText Id="InputText" Label="Input Text" Required="required" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
                     <FormInputNumber Id="InputNumberInt" Label="Input Number (Int)" Required="required" @bind-Value="@FormInputObj.IntValue" ValidationFor="@(()=>FormInputObj.IntValue)" />
                     <FormInputNumber Id="InputNumberDouble" Label="Input Number (Double)" Required="required" @bind-Value="@FormInputObj.DoubleValue" ValidationFor="@(()=>FormInputObj.DoubleValue)" />
                     <FormInputNumber Id="InputNumberFloat" Label="Input Number (Float)" Required="required" @bind-Value="@FormInputObj.FloatValue" ValidationFor="@(()=>FormInputObj.FloatValue)" />
@@ -27,7 +29,13 @@
                         }
                     </FormInputSelect>
                     <FormInputCheckbox Id="InputCheckbox" Text="Input Checkbox" @bind-Value="@FormInputObj.BoolValue" OnChange="OnInputChange" />
-                    <InputMultipleSelect Id="servicerequesttype" SelectTitle="Select" Title="Select multiple" CheckBoxList="@selectlist" />
+                    <InputMultipleSelect Id="servicerequesttype-1" SelectTitle="Select" Title="Select multiple" CheckBoxList="@selectlist" />
+                    <InputMultipleSelect Id="servicerequesttype-2" UseSelectedItemsAsSelectTitle="true" SelectTitle="Select" Title="Select multiple" CheckBoxList="@selectlist" />
+                    <InputMultipleSelect Id="servicerequesttype-3" UseSelectedItemsAsSelectTitle="true" SelectTitle="Select" Title="Select multiple" CheckBoxList="@selectlist">
+                        <SelectedItemTemplate Context="SelectedItemContext">
+                            <span class="badge float-left bg-danger text-white m-1">@SelectedItemContext</span>
+                        </SelectedItemTemplate>
+                    </InputMultipleSelect>
                     <div class="form-group mt-2">
                         <button type="submit" class="btn btn-primary">
                             Submit
@@ -36,6 +44,27 @@
                             Clear
                         </button>
                     </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header">
+                    Readonly inputs
+                </div>
+                <div class="card-body p-5">
+                    <FormInputText readonly Id="InputText" Label="Input Text" Required="required" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
+                    <FormInputNumber readonly Id="InputNumberInt" Label="Input Number (Int)" Required="required" @bind-Value="@FormInputObj.IntValue" ValidationFor="@(()=>FormInputObj.IntValue)" />
+                    <FormInputNumber readonly Id="InputNumberDouble" Label="Input Number (Double)" Required="required" @bind-Value="@FormInputObj.DoubleValue" ValidationFor="@(()=>FormInputObj.DoubleValue)" />
+                    <FormInputNumber readonly Id="InputNumberFloat" Label="Input Number (Float)" Required="required" @bind-Value="@FormInputObj.FloatValue" ValidationFor="@(()=>FormInputObj.FloatValue)" />
+                    <FormInputNumber readonly Id="InputNumberDecimal" Label="Input Number (Decimal)" Required="required" @bind-Value="@FormInputObj.DecimalValue" ValidationFor="@(()=>FormInputObj.DecimalValue)" />
+                    <FormInputTextArea readonly Id="InputTextArea" Label="Input Text Area" Required="required" Rows="2" Cols="50" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
+                    <FormInputDate readonly Id="InputDate" Label="Input Date" Time="true" Required="required" @bind-Value="@FormInputObj.DateValue" ValidationFor="@(() => FormInputObj.DateValue)" />
+                    <FormInputSelect readonly Id="InputSelect" Label="Input Select" SelectLabel="Select today's weather" Required="required" @bind-Value="FormInputObj.SelectValue" ValidationFor="@(() => FormInputObj.SelectValue)" OnChange="OnInputChange">
+                        @foreach (var item in FormInputListObj)
+                        {
+                            <option value="@item.ID">@item.StringValue</option>
+                        }
+                    </FormInputSelect>
+                    <FormInputCheckbox disabled Id="InputCheckbox" Text="Input Checkbox" @bind-Value="@FormInputObj.BoolValue" OnChange="OnInputChange" />
                 </div>
             </div>
         </EditForm>

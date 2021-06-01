@@ -4,7 +4,7 @@
     using System;
     using System.Linq.Expressions;
 
-    public partial class FormInputTextArea<T> : FormInputComponentBase<T>
+    public partial class FormInputTextArea<T>
     {
         /// <summary>
         /// Specifies the Field ID

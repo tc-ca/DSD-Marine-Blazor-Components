@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq.Expressions;
 
-    public partial class FormInputNumber<T> : FormInputComponentBase<T>
+    public partial class FormInputNumber<T>
     {
         /// <summary>
         /// Specifies the Field ID

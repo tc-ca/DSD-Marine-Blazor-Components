@@ -1,4 +1,4 @@
-﻿@inherits FormInputComponentBase<bool>
+﻿@inherits InputBase<bool>
 
 <div class="form-group custom-control custom-checkbox">
     <InputCheckbox @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" class="@($"custom-control-input {this.CssClass}")" @bind-Value="this.CurrentValue" @oninput="this.OnChangeAsync" />

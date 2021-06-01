@@ -4,7 +4,7 @@
     using System;
     using System.Threading.Tasks;
 
-    public partial class FormInputCheckbox : FormInputComponentBase<bool>
+    public partial class FormInputCheckbox
     {
         /// <summary>
         /// Specifies the Field ID

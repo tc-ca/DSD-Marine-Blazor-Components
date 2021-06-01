@@ -1,10 +1,11 @@
 ﻿namespace DSD.MSS.Blazor.Components.Core.Components
 {
     using Microsoft.AspNetCore.Components;
+    using Microsoft.AspNetCore.Components.Forms;
     using System;
     using System.Linq.Expressions;
 
-    public partial class FormInputText<T> : FormInputComponentBase<T>
+    public partial class FormInputText<T> : InputBase<T>
     {
         /// <summary>
         /// Specifies the Field ID
