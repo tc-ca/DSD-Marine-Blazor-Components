@@ -11,24 +11,35 @@ namespace DSD.MSS.Blazor.Components.Core.Demo.Model
     {
        
         public int ID { get; set; }
+
         [Required]
         public string StringValue { get; set; }
+
         [Required]
         public int IntValue { get; set; }
+
         [Required]
         public DateTime? DateValue { get; set; }
+
         [Required]
         public bool BoolValue { get; set; }
+
         [Required]
         public double DoubleValue { get; set; }
+
         [Required]
         public float FloatValue { get; set; }
+
         [Required]
         public decimal DecimalValue { get; set; }
+
         [Required]
         public Guid GuidValue { get; set; }
+
         public StatusEnum EnumValue { get; set; }
+
         public int SelectValue { get; set; }
+
         public FormInputModel()
         {
             ID = 0;

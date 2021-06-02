@@ -1,84 +1,11 @@
-﻿@namespace DSD.MSS.Blazor.Components.Core
-@using System.Linq.Expressions
-@using System.Globalization;
-@typeparam T
+﻿@typeparam T
 @inherits InputBase<T>
 
 <div class="form-group">
-    @if (!string.IsNullOrWhiteSpace(Label))
+    @if (!string.IsNullOrWhiteSpace(this.Label))
     {
-        <label for="@Id" class="@($"form-label {Required}")"><b>@Label</b></label>
+        <label for="@this.Id" class="@($"form-label {this.Required}")"><b>@this.Label</b></label>
     }
-    <InputNumber id="@Id" name="@Id" class="@($"form-control {CssClass}")" @bind-Value="CurrentValue" />
-    <ValidationMessage For="@ValidationFor" />
+    <InputNumber @attributes="@this.AdditionalAttributes" id="@this.Id" name="@this.Id" class="@($"form-control {this.CssClass}")" @bind-Value="this.CurrentValue" />
+    <ValidationMessage For="@this.ValidationFor" />
 </div>
-
-@code{
-
-    /// <summary>
-    /// Specifies the Field ID
-    /// </summary>
-    [Parameter] public string Id { get; set; }
-
-    /// <summary>
-    /// Specifies the Field Label
-    /// </summary>
-    [Parameter] public string Label { get; set; }
-
-    /// <summary>
-    /// Define the validation expression.
-    /// </summary>
-    [Parameter] public Expression<Func<T>> ValidationFor { get; set; }
-
-    /// <summary>
-    /// Specifies whether this field is required.
-    /// </summary>
-    [Parameter] public string Required { get; set; }
-
-    protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
-    {
-        if (typeof(T) == typeof(int))
-        {
-            int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue);
-            result = (T)(object)parsedValue;
-            validationErrorMessage = null;
-
-            return true;
-        }
-        else if (typeof(T) == typeof(double))
-        {
-            int.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsedValue);
-            result = (T)(object)parsedValue;
-            validationErrorMessage = null;
-
-            return true;
-        }
-        else if (typeof(T) == typeof(float))
-        {
-            int.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsedValue);
-            result = (T)(object)parsedValue;
-            validationErrorMessage = null;
-
-            return true;
-        }
-        else if (typeof(T) == typeof(decimal))
-        {
-            int.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsedValue);
-            result = (T)(object)parsedValue;
-            validationErrorMessage = null;
-
-            return true;
-        }
-        else if (typeof(T) == typeof(Guid))
-        {
-            Guid.TryParse(value, out var parsedValue);
-            result = (T)(object)parsedValue;
-            validationErrorMessage = null;
-
-            return true;
-        }
-
-        throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(T)}'.");
-    }
-}
-
