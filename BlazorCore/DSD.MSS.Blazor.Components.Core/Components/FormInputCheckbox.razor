@@ -1,53 +1,9 @@
-﻿@namespace DSD.MSS.Blazor.Components.Core
-@using Microsoft.AspNetCore.Components
-@inherits InputBase<bool>
+﻿@inherits InputBase<bool>
 
-    <div class="form-group custom-control custom-checkbox">
-        <InputCheckbox id="@Id" name="@Id" class="@($"custom-control-input {CssClass}")" @bind-Value="CurrentValue" @oninput="this.OnChangeAsync" />
-        @if (!string.IsNullOrWhiteSpace(Text))
-        {
-            <label for="@Id" class="custom-control-label">@Text</label>
-        }
-    </div>
-
-@code{
-
-    /// <summary>
-    /// Specifies the Field ID
-    /// </summary>
-    [Parameter] public string Id { get; set; }
-
-    /// <summary>
-    /// Specifies the Field Label
-    /// </summary>
-    [Parameter] public string Text { get; set; }
-
-
-    /// <summary>
-    /// The callback that is called when the checkbox is checked or unchecked.
-    /// </summary>
-    [Parameter] public EventCallback<ChangeEventArgs> OnChange { get; set; }
-
-    protected override bool TryParseValueFromString(string value, out bool result, out string validationErrorMessage)
+<div class="form-group custom-control custom-checkbox">
+    <InputCheckbox @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" class="@($"custom-control-input {this.CssClass}")" @bind-Value="this.CurrentValue" @oninput="this.OnChangeAsync" />
+    @if (!string.IsNullOrWhiteSpace(this.Text))
     {
-        if (typeof(bool) == typeof(string))
-        {
-            result = (bool)(object)bool.Parse(value);
-            validationErrorMessage = null;
-
-            return true;
-        }
-
-        throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(bool)}'.");
+        <label for="@this.Id" class="custom-control-label">@this.Text</label>
     }
-
-    /// <summary>
-    /// Handle onchange event.
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    protected virtual async Task OnChangeAsync(ChangeEventArgs e)
-    {
-        await this.OnChange.InvokeAsync(e);
-    }
-}
+</div>

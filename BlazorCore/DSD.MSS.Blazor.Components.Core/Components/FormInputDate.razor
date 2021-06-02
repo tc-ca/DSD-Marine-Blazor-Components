@@ -1,56 +1,17 @@
-﻿@namespace DSD.MSS.Blazor.Components.Core
-@using System.Linq.Expressions;
-
-@inherits InputBase<DateTime?>
+﻿@inherits InputBase<DateTime?>
 
 <div class="form-group">
-    @if (!string.IsNullOrWhiteSpace(Label))
+    @if (!string.IsNullOrWhiteSpace(this.Label))
     {
-        <label for="@Id" class="@($"form-label {Required}")"><b>@Label</b></label>
+        <label for="@Id" class="@($"form-label {this.Required}")"><b>@this.Label</b></label>
     }
     <div>
-        <InputDate id="@Id" name="@Id" style="float:left; min-width: 180px; margin-right: 10px;" class="@($"form-control w-25 {CssClass}")" @bind-Value="CurrentValue" />
-        @if (Time)
+        <InputDate @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" style="float:left; min-width: 180px; margin-right: 10px;" class="@($"form-control w-25 {this.CssClass}")" @bind-Value="this.CurrentValue" />
+        @if (this.Time)
         {
-            <input id="@($"{Id}-Time")" name="@($"{Id}-Time")" aria-labelledby="@Id" type="time" @bind=CurrentValue style="min-width: 180px;" class="@($"form-control w-25 {CssClass}")" />
+            <input @attributes="this.AdditionalAttributes" id="@($"{this.Id}-Time")" name="@($"{this.Id}-Time")" aria-labelledby="@this.Id" type="time" @bind=this.CurrentValue style="min-width: 180px;" class="@($"form-control w-25 {this.CssClass}")" />
         }
         <div class="clearfix"></div>
     </div>
-    <ValidationMessage For="@ValidationFor" />
+    <ValidationMessage For="@this.ValidationFor" />
 </div>
-
-@code{
-
-    /// <summary>
-    /// Specifies the Field ID
-    /// </summary>
-    [Parameter] public string Id { get; set; }
-
-    /// <summary>
-    /// Specifies the Field Label
-    /// </summary>
-    [Parameter] public string Label { get; set; }
-
-    /// <summary>
-    /// Specifies the Field Label
-    /// </summary>
-    [Parameter] public bool Time { get; set; }
-
-    /// <summary>
-    /// Define the validation expression.
-    /// </summary>
-    [Parameter] public Expression<Func<DateTime?>> ValidationFor { get; set; }
-
-    /// <summary>
-    /// Specifies whether this field is required.
-    /// </summary>
-    [Parameter] public string Required { get; set; }
-
-
-    protected override bool TryParseValueFromString(string value, out DateTime? result, out string validationErrorMessage)
-    {
-        result = CurrentValue;
-        validationErrorMessage = "";
-        return true;
-    }
-}
