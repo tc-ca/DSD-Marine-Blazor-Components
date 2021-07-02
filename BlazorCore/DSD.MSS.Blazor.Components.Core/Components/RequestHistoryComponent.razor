@@ -1,5 +1,6 @@
 ﻿<Collapse Title="Status" HeaderTitleTextColor="#FFF" HeaderBackgroundColor="#1B50B1">
 </Collapse>
+
 <div class="">
     <ul class="StatusHistoryList">
         <li class="StatusHistoryList-item first">
@@ -8,7 +9,7 @@
                     <b>Medical review</b>
                 </div>
                 <div class="col pl-5">
-                   <StatusBadge RequestStatus=""></StatusBadge>
+                   <StatusBadge RequestStatus="@this.StatusHistories[i]."></StatusBadge>
                 </div>
             </div>
             <div class="row">
@@ -19,26 +20,6 @@
             <div class="row">
                 <div class="col">
                     Rice, Mary
-                </div>
-            </div>
-        </li>
-        <li class="StatusHistoryList-item not-first">
-            <div class="row">
-                <div class="col-7">
-                    <b>Waiting to receive medical report</b>
-                </div>
-                <div class="col pl-5">
-                    <CSF.SRDashboard.Client.Components.Tables.WorkloadRequest.WorkloadRequestTableItemStatusComponent RequestStatus="Services.WorkloadRequest.Enums.RequestStatus.PENDING"></CSF.SRDashboard.Client.Components.Tables.WorkloadRequest.WorkloadRequestTableItemStatusComponent>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    Febuary 20 - 11:43 AM
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    Carr, Ann
                 </div>
             </div>
         </li>
