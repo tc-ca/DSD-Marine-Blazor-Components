@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CSF.SRDashboard.Client.Models
+namespace DSD.MSS.Blazor.Components.Core.Models
 {
     public class StatusHistory
     {

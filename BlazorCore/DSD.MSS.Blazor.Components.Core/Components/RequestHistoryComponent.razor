@@ -1,28 +1,29 @@
 ﻿<Collapse Title="Status" HeaderTitleTextColor="#FFF" HeaderBackgroundColor="#1B50B1">
 </Collapse>
-
+@for(int i = 0; i < this.StatusHistories.Count; i++) { 
 <div class="">
     <ul class="StatusHistoryList">
         <li class="StatusHistoryList-item first">
             <div class="row">
                 <div class="col-7">
-                    <b>Medical review</b>
+                    <b>@this.StatusHistories[i].ProcessingPhase</b>
                 </div>
                 <div class="col pl-5">
-                   <StatusBadge RequestStatus="@this.StatusHistories[i]."></StatusBadge>
+                   <StatusBadge RequestStatus="@this.StatusHistories[i].RequestStatus"></StatusBadge>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    Febuary 20 - 11:43 AM
+                    @this.StatusHistories[i].RequestStatusTime
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    Rice, Mary
+                   @this.StatusHistories[i].AssignedTo
                 </div>
             </div>
         </li>
+        }
         <li class="StatusHistoryList-item not-first">
 
         </li>
