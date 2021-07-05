@@ -10,7 +10,7 @@
     public partial class RequestHistoryComponent
     {
         [Parameter]
-        public List<StatusHistory> StatusHistories { get; set; }
+        public List<StatusHistoryItem> StatusHistories { get; set; }
         [Parameter]
         public string DateFormat { get; set; }
 

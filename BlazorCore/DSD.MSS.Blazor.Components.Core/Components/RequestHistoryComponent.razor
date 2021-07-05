@@ -4,7 +4,12 @@
 </div>
 <div style="background: linear-gradient(0deg, white 5%, transparent 20%)">
     <ul class="StatusHistoryList pt-3">
-  
+            @if (this.StatusHistories.Count <= 0 && this.StatusHistories != null)
+            {
+                <li class="StatusHistoryList-item not-first">No Items to display</li>
+            }
+            else
+            {
             @for (int i = 0; i < this.StatusHistories.Count; i++)
             {
                 var statusHistory = this.StatusHistories[i];
@@ -40,6 +45,7 @@
             }
             <li class="StatusHistoryList-item not-first">
             </li>
+            }
     </ul>
 </div>
 
