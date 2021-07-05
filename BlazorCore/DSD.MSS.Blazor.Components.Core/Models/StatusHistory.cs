@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace DSD.MSS.Blazor.Components.Core.Models
 {
+    /// <summary>
+    /// Model used for populating information in RequestHistory Component
+    /// </summary>
     public class StatusHistory
     {
         public string Id { get; set; }
@@ -17,8 +20,7 @@ namespace DSD.MSS.Blazor.Components.Core.Models
 
         public RequestStatus RequestStatus { get; set; }
 
-        public DateTimeOffset? RequestStatusTime { get; set; }
-
+        public DateTime? RequestStatusTime { get; set; }
         public string AssignedTo { get; set; }
     }
 }

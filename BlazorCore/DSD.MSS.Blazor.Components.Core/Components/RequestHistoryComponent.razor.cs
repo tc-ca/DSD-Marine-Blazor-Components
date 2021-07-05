@@ -11,6 +11,8 @@
     {
         [Parameter]
         public List<StatusHistory> StatusHistories { get; set; }
+        [Parameter]
+        public string DateFormat { get; set; }
 
         public string SetListCSS(int index)
         {

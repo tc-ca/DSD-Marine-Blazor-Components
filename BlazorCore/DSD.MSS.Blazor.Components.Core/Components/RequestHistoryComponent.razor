@@ -2,45 +2,44 @@
 <div class="StatusHistoryListHeader">
     <h3 class="pt-2 pl-3">Status</h3>
 </div>
-<div>
+<div style="background: linear-gradient(0deg, white 5%, transparent 20%)">
     <ul class="StatusHistoryList pt-3">
-        @for (int i = 0; i < this.StatusHistories.Count; i++)
-        {
-          
-            var statusHistory = this.StatusHistories[i];
-            <li class="StatusHistoryList-item @this.SetListCSS(i)">
-                <div class="d-flex">
-                    <div style="flex-basis:50%">
-                        <b>@statusHistory.ProcessingPhase</b>
+  
+            @for (int i = 0; i < this.StatusHistories.Count; i++)
+            {
+                var statusHistory = this.StatusHistories[i];
+                <li class="StatusHistoryList-item @this.SetListCSS(i)">
+                    <div class="d-flex">
+                        <div style="flex-basis:50%">
+                            <b>@statusHistory.ProcessingPhase</b>
+                        </div>
+                        <div class="ml-auto pr-4">
+                            @if (string.IsNullOrEmpty(statusHistory.StatusText))
+                            {
+                                <StatusBadge RequestStatus="statusHistory.RequestStatus"></StatusBadge>
+                            }
+                            else
+                            {
+                                <StatusBadge RequestStatus="statusHistory.RequestStatus">
+                                    <StatusText>@statusHistory.StatusText</StatusText>
+                                </StatusBadge>
+                            }
+                        </div>
                     </div>
-                    <div class="pl-5">
-                        @if (string.IsNullOrEmpty(statusHistory.StatusText))
-                        {
-                            <StatusBadge RequestStatus="statusHistory.RequestStatus"></StatusBadge>
-                        }
-                        else
-                        {
-                            <StatusBadge RequestStatus="statusHistory.RequestStatus">
-                                <StatusText>@statusHistory.StatusText</StatusText>
-                            </StatusBadge>
-                        }
-                    </div>
-                </div>
-                <div>
                     <div>
-                        
-                        @this.StatusHistories[i].RequestStatusTime.GetValueOrDefault();
+                        <div>
+                            @this.StatusHistories[i].RequestStatusTime.Value.ToString(this.DateFormat)
+                        </div>
                     </div>
-                </div>
-                <div>
                     <div>
-                        @this.StatusHistories[i].AssignedTo
+                        <div>
+                            @this.StatusHistories[i].AssignedTo
+                        </div>
                     </div>
-                </div>
+                </li>
+            }
+            <li class="StatusHistoryList-item not-first">
             </li>
-        }
-        <li class="StatusHistoryList-item not-first">
-        </li>
     </ul>
 </div>
 

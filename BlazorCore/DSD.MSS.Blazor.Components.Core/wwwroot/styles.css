@@ -49,10 +49,12 @@
     position: relative;
     padding-left: 35px;
     list-style: none;
+    max-height: 250px;
     overflow-y: auto;
     overflow-x: hidden;
     border-bottom: 1px solid #CCCCCC;
 }
+
 .StatusHistoryListHeader {
     background-color: #1B50B1;
     width: 100%;
@@ -62,6 +64,7 @@
 }
 .StatusHistoryList-item {
     position: relative;
+    z-index:-1;
 }
 
     .StatusHistoryList-item:not(:last-child) {
