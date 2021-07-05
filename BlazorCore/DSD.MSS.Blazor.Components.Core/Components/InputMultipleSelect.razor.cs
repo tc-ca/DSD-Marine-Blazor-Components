@@ -44,7 +44,13 @@ namespace DSD.MSS.Blazor.Components.Core.Components
         /// </summary>
         [Parameter]
         public RenderFragment<string> SelectedItemTemplate { get; set; }
-        
+
+        /// <summary>
+        /// Render fragment for customizing the label text.
+        /// </summary>
+        [Parameter]
+        public RenderFragment<string> TitleTemplate { get; set; }
+
         /// <summary>
         /// Gets all selected items 
         /// </summary>
