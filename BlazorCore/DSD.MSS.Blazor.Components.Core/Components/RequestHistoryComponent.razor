@@ -1,31 +1,45 @@
-﻿<Collapse Title="Status" HeaderTitleTextColor="#FFF" HeaderBackgroundColor="#1B50B1">
-</Collapse>
-@for(int i = 0; i < this.StatusHistories.Count; i++) { 
-<div class="">
-    <ul class="StatusHistoryList">
-        <li class="StatusHistoryList-item first">
-            <div class="row">
-                <div class="col-7">
-                    <b>@this.StatusHistories[i].ProcessingPhase</b>
+﻿@using DSD.MSS.Blazor.Components.Core.Constants;
+<div class="StatusHistoryListHeader">
+    <h3 class="pt-2 pl-3">Status</h3>
+</div>
+<div>
+    <ul class="StatusHistoryList pt-3">
+        @for (int i = 0; i < this.StatusHistories.Count; i++)
+        {
+          
+            var statusHistory = this.StatusHistories[i];
+            <li class="StatusHistoryList-item @this.SetListCSS(i)">
+                <div class="d-flex">
+                    <div style="flex-basis:50%">
+                        <b>@statusHistory.ProcessingPhase</b>
+                    </div>
+                    <div class="pl-5">
+                        @if (string.IsNullOrEmpty(statusHistory.StatusText))
+                        {
+                            <StatusBadge RequestStatus="statusHistory.RequestStatus"></StatusBadge>
+                        }
+                        else
+                        {
+                            <StatusBadge RequestStatus="statusHistory.RequestStatus">
+                                <StatusText>@statusHistory.StatusText</StatusText>
+                            </StatusBadge>
+                        }
+                    </div>
                 </div>
-                <div class="col pl-5">
-                   <StatusBadge RequestStatus="@this.StatusHistories[i].RequestStatus"></StatusBadge>
+                <div>
+                    <div>
+                        
+                        @this.StatusHistories[i].RequestStatusTime.GetValueOrDefault();
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    @this.StatusHistories[i].RequestStatusTime
+                <div>
+                    <div>
+                        @this.StatusHistories[i].AssignedTo
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                   @this.StatusHistories[i].AssignedTo
-                </div>
-            </div>
-        </li>
+            </li>
         }
         <li class="StatusHistoryList-item not-first">
-
         </li>
     </ul>
 </div>

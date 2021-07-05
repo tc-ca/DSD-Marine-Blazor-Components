@@ -13,6 +13,8 @@ namespace DSD.MSS.Blazor.Components.Core.Components
 
         [Parameter]
         public RequestStatus RequestStatus { get; set; }
+        [Parameter]
+        public RenderFragment StatusText { get; set; }
 
         public string GetBadgeCssClass()
         {

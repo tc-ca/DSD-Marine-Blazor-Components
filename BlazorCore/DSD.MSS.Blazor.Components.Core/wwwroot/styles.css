@@ -44,6 +44,7 @@
     background-color: #D7BDE5CC;
     border: 1px solid #C4A8D9;
 }
+
 .StatusHistoryList {
     position: relative;
     padding-left: 35px;
@@ -52,7 +53,13 @@
     overflow-x: hidden;
     border-bottom: 1px solid #CCCCCC;
 }
+.StatusHistoryListHeader {
+    background-color: #1B50B1;
+    width: 100%;
+    height:50px;
+    color: #FFF;
 
+}
 .StatusHistoryList-item {
     position: relative;
 }
