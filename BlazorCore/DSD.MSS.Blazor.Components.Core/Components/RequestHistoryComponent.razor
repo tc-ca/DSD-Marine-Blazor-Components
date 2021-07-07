@@ -4,7 +4,7 @@
 </div>
 <div style="background: linear-gradient(0deg, white 5%, transparent 20%)">
     <ul class="StatusHistoryList pt-3">
-            @if (this.StatusHistories.Count <= 0 && this.StatusHistories != null)
+            @if (this.StatusHistories == null || !this.StatusHistories.Any())
             {
                 <li class="StatusHistoryList-item not-first">No Items to display</li>
             }
