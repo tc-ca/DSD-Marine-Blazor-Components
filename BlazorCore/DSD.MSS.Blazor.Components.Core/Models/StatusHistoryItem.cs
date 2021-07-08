@@ -21,6 +21,6 @@ namespace DSD.MSS.Blazor.Components.Core.Models
         public RequestStatus RequestStatus { get; set; }
 
         public DateTime? RequestStatusTime { get; set; }
-        public string AssignedTo { get; set; }
+        public string ChangedBy { get; set; }
     }
 }
