@@ -92,12 +92,12 @@
         border-radius: 2px;
     }
 
-    .StatusHistoryList-item.not-first::before {
+    .StatusHistoryList-item::before {
         border-left: 2px solid #4D5D6C;
         margin-top: 25px;
     }
 
-    .StatusHistoryList-item.not-first::after {
+    .StatusHistoryList-item::after {
         font-size: 10px;
         color: #FFF;
         left: -30px;
@@ -106,16 +106,17 @@
         background-color: #1B50B1;
     }
 
-    .StatusHistoryList-item.first::before {
+    .StatusHistoryList-item:first-child::before {
         border-left: 2px solid #4D5D6C;
         margin-top: 28px;
     }
 
-    .StatusHistoryList-item.first::after {
+    .StatusHistoryList-item:first-child::after {
         padding-top: 1px;
         width: 17px;
         height: 17px;
         top: 5px;
+        left: -32px;
         font-size: 14px;
         text-align: center;
         color: #1B50B1;
