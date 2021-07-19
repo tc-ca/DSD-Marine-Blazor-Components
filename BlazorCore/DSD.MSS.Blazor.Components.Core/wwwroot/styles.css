@@ -9,3 +9,117 @@
     margin: 1em 0;
     background-image: url('background.png');
 }
+
+.badge-new {
+    color: black;
+    font-weight: 100;
+    background-color: #C2CEE6CC;
+    border: 1px solid #8DA4D2;
+}
+
+.badge-pending {
+    color: black;
+    font-weight: 100;
+    background-color: #F9D9C2CC;
+    border: 1px solid #F6BD95;
+}
+
+.badge-cancelled {
+    color: black;
+    font-weight: 100;
+    background-color: #F9FAFF;
+    border: 1px solid #B6BDC6;
+}
+
+.badge-completed {
+    color: black;
+    font-weight: 100;
+    background-color: #D0E9C2CC;
+    border: 1px solid #A8D78F;
+}
+
+.badge-inprogress {
+    color: black;
+    font-weight: 100;
+    background-color: #D7BDE5CC;
+    border: 1px solid #C4A8D9;
+}
+
+
+.StatusHistoryList {
+    position: relative;
+    padding-left: 35px;
+    list-style: none;
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.StatusHistoryListHeader {
+    background-color: #1B50B1;
+    width: 100%;
+    height: 50px;
+    color: #FFF;
+}
+
+.StatusHistoryList-item {
+    position: relative;
+    z-index: -1;
+}
+
+    .StatusHistoryList-item:not(:last-child) {
+        padding-bottom: 20px;
+    }
+
+    .StatusHistoryList-item::before {
+        display: inline-block;
+        content: '';
+        position: absolute;
+        left: -24px;
+        height: 70%;
+        width: 3px;
+    }
+
+    .StatusHistoryList-item::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 5px;
+        left: -32px;
+        width: 14px;
+        height: 14px;
+        border-radius: 2px;
+    }
+
+    .StatusHistoryList-item::before {
+        border-left: 2px solid #4D5D6C;
+        margin-top: 25px;
+    }
+
+    .StatusHistoryList-item::after {
+        font-size: 10px;
+        color: #FFF;
+        left: -30px;
+        text-align: center;
+        border: 2px solid #1B50B1;
+        background-color: #1B50B1;
+    }
+
+    .StatusHistoryList-item:first-child::before {
+        border-left: 2px solid #4D5D6C;
+        margin-top: 28px;
+    }
+
+    .StatusHistoryList-item:first-child::after {
+        padding-top: 1px;
+        width: 17px;
+        height: 17px;
+        top: 5px;
+        left: -32px;
+        font-size: 14px;
+        text-align: center;
+        color: #1B50B1;
+        border: 3px solid #1B50B1;
+        background-color: #E0E7F1;
+    }
