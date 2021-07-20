@@ -1,0 +1,10 @@
+﻿<span class="badge badge-pill @this.GetBadgeCssClass()">
+    @if (this.StatusText != null)
+    {
+        @this.StatusText
+    }
+    else
+    {
+        @this.GetRequestStatusDescriptionString()
+    }
+</span>

@@ -1,15 +1,15 @@
 ﻿.icon-search .form-control {
-    padding-left: 2.375rem;
+    /*padding-left: 2.375rem;*/
 }
 
 .icon-search .form-control-span {
-    position: absolute;
+    /*position: absolute;*/
     z-index: 2;
     height: 2rem;
     line-height: 2rem;
     text-align: center;
     pointer-events: none;
-    color: #aaa;
+    color: #000;
 }
 
 .input-no-border {

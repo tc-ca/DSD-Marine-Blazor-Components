@@ -1,0 +1,51 @@
+﻿@using DSD.MSS.Blazor.Components.Core.Constants;
+<div class="StatusHistoryListHeader">
+    <h3 class="pt-2 pl-3">Status</h3>
+</div>
+<div style="background: linear-gradient(0deg, white 5%, transparent 20%)">
+    <ul class="StatusHistoryList pt-3">
+        @if (!this.IsListEmpty())
+        {
+            <li class="StatusHistoryList-item not-first">No Items to display</li>
+        }
+        else
+        {
+            @for (int i = 0; i < this.StatusHistories.Count; i++)
+            {
+                var statusHistory = this.StatusHistories[i];
+                <li class="StatusHistoryList-item">
+                    <div class="d-flex">
+                        <div style="flex-basis:50%">
+                            <b>@statusHistory.ProcessingPhase</b>
+                        </div>
+                        <div class="ml-auto pr-4">
+                            @if (string.IsNullOrEmpty(statusHistory.StatusText))
+                            {
+                                <StatusBadge RequestStatus="statusHistory.RequestStatus"></StatusBadge>
+                            }
+                            else
+                            {
+                                <StatusBadge RequestStatus="statusHistory.RequestStatus">
+                                    <StatusText>@statusHistory.StatusText</StatusText>
+                                </StatusBadge>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            @this.StatusHistories[i].RequestStatusTime.Value.ToString(this.DateFormat)
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            @this.StatusHistories[i].ChangedBy
+                        </div>
+                    </div>
+                </li>
+            }
+            <li class="StatusHistoryList-item">
+            </li>
+        }
+    </ul>
+</div>
+

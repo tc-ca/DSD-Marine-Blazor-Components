@@ -70,6 +70,24 @@ namespace DSD.MSS.Blazor.Components.Table.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear filters.
+        /// </summary>
+        internal static string ClearFilters {
+            get {
+                return ResourceManager.GetString("ClearFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit filters.
+        /// </summary>
+        internal static string EditFilters {
+            get {
+                return ResourceManager.GetString("EditFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to entries.
         /// </summary>
         internal static string Entries {
