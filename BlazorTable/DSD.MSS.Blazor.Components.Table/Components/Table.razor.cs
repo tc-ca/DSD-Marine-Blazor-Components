@@ -72,6 +72,12 @@ namespace DSD.MSS.Blazor.Components.Table
         [Parameter]
         public bool ColumnReorder { get; set; }
 
+        /// <summary>
+        /// Search placeholder text
+        /// </summary>
+        [Parameter]
+        public string SearchPlaceHolderText { get; set; }
+
         [Parameter]
         public RenderFragment ChildContent { get; set; }
 

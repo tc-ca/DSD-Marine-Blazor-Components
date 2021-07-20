@@ -120,6 +120,12 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ClearFilters" xml:space="preserve">
+    <value>Clear filters</value>
+  </data>
+  <data name="EditFilters" xml:space="preserve">
+    <value>Edit filters</value>
+  </data>
   <data name="Entries" xml:space="preserve">
     <value>entries</value>
   </data>
