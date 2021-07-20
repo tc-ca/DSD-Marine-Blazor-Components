@@ -24,6 +24,11 @@ namespace DSD.MSS.Blazor.Components.Table
         int PageNumber { get; set; }
 
         /// <summary>
+        /// Search placeholder text
+        /// </summary>
+        string SearchPlaceHolderText { get; set; }
+
+        /// <summary>
         /// Total Count of Items
         /// </summary>
         int TotalCount { get; }

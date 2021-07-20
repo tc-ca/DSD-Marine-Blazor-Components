@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <Table TableClass="table table-striped table-hover" TableItem="TableModel"
+                <Table TableClass="table table-striped table-hover" TableItem="TableModel" SearchPlaceHolderText="Search ..."
                        @ref="TableRef" DefaultPageSize="10" OnAfterDataLoaded="OnAfterTableDataLoaded" ShowSearchBar="@ShowFilterHeader"
                        Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
                        FilterChanged="(e)=>OnFilterChanged(e)">
