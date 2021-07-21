@@ -28,8 +28,14 @@
         /// <summary>
         /// Specifies whether this field is required.
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public string Required { get; set; }
+
+        /// <summary>
+        /// Specifies whether this field is required.
+        /// </summary>
+        [Parameter]
+        public bool IsRequired { get; set; }
 
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
         {

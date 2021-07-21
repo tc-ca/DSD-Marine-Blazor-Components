@@ -3,7 +3,16 @@
 <div class="form-group">
     @if (!string.IsNullOrWhiteSpace(this.Label))
     {
-        <label for="@Id" class="@($"form-label {this.Required}")"><b>@this.Label</b></label>
+        <label for="@this.Id" class="form-label @(this.Required)">
+            @if (this.IsRequired)
+            {
+                <b>@this.Label<span>*</span></b>
+            }
+            else
+            {
+                <b>@this.Label</b>
+            }
+        </label>
     }
     <div>
         <InputDate @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" style="float:left; min-width: 180px; margin-right: 10px;" class="@($"form-control w-25 {this.CssClass}")" @bind-Value="this.CurrentValue" />
