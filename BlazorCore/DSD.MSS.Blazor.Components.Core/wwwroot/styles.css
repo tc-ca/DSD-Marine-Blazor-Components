@@ -123,3 +123,13 @@
         border: 3px solid #1B50B1;
         background-color: #E0E7F1;
     }
+.CommentListItem {
+    border-bottom: 1px solid #CCCCCC;
+    width: 100%;
+    padding-top: 1rem;
+}
+
+    .CommentListItem:last-child {
+        width: 100%;
+        border-bottom: 0px;
+    }
