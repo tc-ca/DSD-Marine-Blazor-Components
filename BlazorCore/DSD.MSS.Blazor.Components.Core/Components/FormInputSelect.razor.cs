@@ -40,6 +40,12 @@
         public string Required { get; set; }
 
         /// <summary>
+        /// Specifies whether this field is required.
+        /// </summary>
+        [Parameter]
+        public bool IsRequired { get; set; }
+
+        /// <summary>
         /// The callback that is called when selected a new value.
         /// </summary>
         [Parameter] 
