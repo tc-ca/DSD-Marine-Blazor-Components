@@ -70,7 +70,7 @@ using System.Threading.Tasks;
             {
                 this.areAllCommentsShown = true;
             }
-
+          
             if(this.TextModel == null)
             {
                 this.TextModel = new CommentTextModel()
@@ -115,14 +115,13 @@ using System.Threading.Tasks;
             {
                 this.WorkComments = WorkComments.OrderBy(o => o.CreatedDateUTC).ToList();
             }
-            StateHasChanged();
+         
         }
 
         private void LoadMoreComments()
         {
             this.MaxShownComments += 10;
             this.setMaxToCurrentCount();
-            StateHasChanged();
         }
         private void setMaxToCurrentCount()
         {
