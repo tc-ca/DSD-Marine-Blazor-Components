@@ -28,7 +28,7 @@
     </div>
 </div>
 <div style="word-break: break-word">
-    @if (!this.IsCommentListEmpty())
+    @if (this.IsCommentListEmpty())
     {
         <p class="mt-3">@this.TextModel.NoCommentsLabel</p>
     }

@@ -131,7 +131,7 @@ using System.Threading.Tasks;
                 this.areAllCommentsShown = true;
             }
         }
-        private bool IsCommentListEmpty() => !(this.WorkComments == null || !this.WorkComments.Any());
+        private bool IsCommentListEmpty() => this.WorkComments == null || !this.WorkComments.Any();
     }
 
   
