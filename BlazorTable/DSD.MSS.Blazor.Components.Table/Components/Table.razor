@@ -12,7 +12,7 @@
                 <thead role="search">
                     <tr>
                         <th colspan="@columnCount" style="padding:0px">
-                            <TableHeaderFilter HeaderFilterChanged="@(() => OnHeaderFilterChanged())" TableRef="this" />
+                             <TableHeaderFilter HeaderFilterChanged="@(() => OnHeaderFilterChanged())" TableRef="this" ShowClearFilterOnTop="@ShowClearFilterOnTop" />
                         </th>
                     </tr>
                 </thead>

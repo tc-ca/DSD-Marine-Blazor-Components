@@ -94,6 +94,12 @@ namespace DSD.MSS.Blazor.Components.Table
         public IEnumerable<TableItem> Items { get; set; }
 
         /// <summary>
+        /// Shows the clear filterrs on top.
+        /// </summary>
+        [Parameter]
+        public bool ShowClearFilterOnTop { get; set; }
+
+        /// <summary>
         /// Search all columns for the specified string, supports spaces as a delimiter
         /// </summary>
         public string GlobalSearch { get; set; }
