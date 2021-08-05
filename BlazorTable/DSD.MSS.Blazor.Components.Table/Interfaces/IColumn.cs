@@ -162,6 +162,7 @@ namespace DSD.MSS.Blazor.Components.Table
         /// Update Column Filter
         /// </summary>
         void UpdateColumnFilter();
+
         /// <summary>
         /// Default render if no Template specified
         /// </summary>

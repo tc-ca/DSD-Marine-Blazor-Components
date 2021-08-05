@@ -54,6 +54,11 @@ namespace DSD.MSS.Blazor.Components.Table
         List<TableItem> SelectedItems { get; }
 
         /// <summary>
+        /// Whether the table is filtered
+        /// </summary>
+        bool IsFiltered { get; }
+
+        /// <summary>
         /// Set the SetDetailTemplate for the table
         /// </summary>
         /// <param name="template"></param>
