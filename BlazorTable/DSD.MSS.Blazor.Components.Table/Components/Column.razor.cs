@@ -22,7 +22,6 @@ namespace DSD.MSS.Blazor.Components.Table
 
         private string _title;
 
-
         /// <summary>
         /// Title (Optional, will use Field Name if null)
         /// </summary>

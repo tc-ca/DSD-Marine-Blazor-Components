@@ -4,7 +4,16 @@
 <div class="form-group">
     @if (!string.IsNullOrWhiteSpace(this.Label))
     {
-        <label for="@this.Id" class="@($"form-label {this.Required}")"><b>@this.Label</b></label>
+        <label for="@this.Id" class="form-label @(this.Required)">
+            @if (this.IsRequired)
+            {
+                <b>@this.Label<span>*</span></b>
+            }
+            else
+            {
+                <b>@this.Label</b>
+            }
+        </label>
     }
     <InputSelect @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" class="@($"form-control {this.CssClass}")" @bind-Value="this.CurrentValueAsString" @oninput="this.OnChangeAsync">
         @if (this.ShowDefaultOption)

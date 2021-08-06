@@ -45,6 +45,9 @@
     border: 1px solid #C4A8D9;
 }
 
+label.required span {
+    color: #C53030;
+}
 
 .StatusHistoryList {
     position: relative;

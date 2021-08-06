@@ -15,6 +15,7 @@
                 <div class="card-body p-5">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
+                    <FormInputText Id="InputText" Label="Input Text(Required)" Required="required" IsRequired="true" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
                     <FormInputText Id="InputText" Label="Input Text" Required="required" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
                     <FormInputNumber Id="InputNumberInt" Label="Input Number (Int)" Required="required" @bind-Value="@FormInputObj.IntValue" ValidationFor="@(()=>FormInputObj.IntValue)" />
                     <FormInputNumber Id="InputNumberDouble" Label="Input Number (Double)" Required="required" @bind-Value="@FormInputObj.DoubleValue" ValidationFor="@(()=>FormInputObj.DoubleValue)" />
