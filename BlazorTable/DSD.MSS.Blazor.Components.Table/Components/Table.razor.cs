@@ -19,7 +19,6 @@ namespace DSD.MSS.Blazor.Components.Table
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, object> UnknownParameters { get; set; }
 
-
         /// <summary>
         /// Table CSS Class (Defaults to Bootstrap 4)
         /// </summary>
@@ -94,6 +93,12 @@ namespace DSD.MSS.Blazor.Components.Table
         public IEnumerable<TableItem> Items { get; set; }
 
         /// <summary>
+        /// Shows the clear filterrs on top.
+        /// </summary>
+        [Parameter]
+        public bool ShowClearFilterOnTop { get; set; }
+
+        /// <summary>
         /// Search all columns for the specified string, supports spaces as a delimiter
         /// </summary>
         public string GlobalSearch { get; set; }
@@ -120,6 +125,11 @@ namespace DSD.MSS.Blazor.Components.Table
         /// Collection of filtered items
         /// </summary>
         public IEnumerable<TableItem> FilteredItems { get; private set; }
+
+        /// <summary>
+        /// Whether the table is filtered
+        /// </summary>
+        public bool IsFiltered => this.Columns.Any(x => x.Filter != null);
 
         /// <summary>
         /// List of All Available Columns

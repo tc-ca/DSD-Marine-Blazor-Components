@@ -42,6 +42,17 @@
                     <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
                     <Pager ShowPageNumber="true" ShowTotalCount="true" />
                 </Table>
+
+                <Table TableClass="table table-striped table-hover" TableItem="TableModel" SearchPlaceHolderText="Search ..."
+                       @ref="TableRef" DefaultPageSize="10" OnAfterDataLoaded="OnAfterTableDataLoaded" ShowSearchBar="@ShowFilterHeader"
+                       Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
+                       FilterChanged="(e)=>OnFilterChanged(e)" ShowClearFilterOnTop="true">
+                    <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" DefaultShowColumn="true" DefaultShowHeaderFilter="false" Sortable="false" Width="25%" />
+                    <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
+                    <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
+                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
+                    <Pager ShowPageNumber="true" ShowTotalCount="true" />
+                </Table>
             </div>
         </div>
     </div>
