@@ -40,6 +40,12 @@ namespace DSD.MSS.Blazor.Components.Table
         public bool ShowSearchBar { get; set; }
 
         /// <summary>
+        /// Shows the clear filters button on top.
+        /// </summary>
+        [Parameter]
+        public bool ShowClearFilterOnTop { get; set; }
+
+        /// <summary>
         /// Configure Modal
         /// </summary>
         protected Modal ConfigureModal { get; set; }
