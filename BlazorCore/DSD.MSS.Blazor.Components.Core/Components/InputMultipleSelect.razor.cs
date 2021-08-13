@@ -52,6 +52,12 @@ namespace DSD.MSS.Blazor.Components.Core.Components
         public RenderFragment<string> TitleTemplate { get; set; }
 
         /// <summary>
+        /// For additional CSS on this component
+        /// </summary>
+        [Parameter]
+        public string AdditionalCSS { get; set; }
+
+        /// <summary>
         /// Gets all selected items 
         /// </summary>
         private List<SelectListItem> SelectedItems => this.CheckBoxList.Where(x => x.Value).ToList();
