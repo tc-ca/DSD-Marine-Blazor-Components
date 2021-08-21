@@ -5,17 +5,15 @@ using System.Threading.Tasks;
 
 namespace DSD.MSS.Blazor.Components.Core.Models
 {
+    /// <summary>
+    /// Model used when creating and populating a list of comments
+    /// </summary>
     public class RequestCommentInfo
     {
         /// <summary>
         /// Id for the comment
         /// </summary>
         public int Id { get; set; }
-        
-        /// <summary>
-        /// Work item ID attached this this comment
-        /// </summary>
-        public int WorkItemId { get; set; }
         
         /// <summary>
         /// Actual text from the component

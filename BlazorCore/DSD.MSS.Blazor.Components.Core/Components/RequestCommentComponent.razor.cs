@@ -1,6 +1,5 @@
 ﻿namespace DSD.MSS.Blazor.Components.Core.Components
 {
-
 using DSD.MSS.Blazor.Components.Core.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -10,8 +9,6 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-
-
 
     public partial class RequestCommentComponent
     {
@@ -26,10 +23,13 @@ using System.Threading.Tasks;
                 WorkCommentsChanged.InvokeAsync(value);
             }
         }
+
         [Parameter]
         public bool ReadOnly { get; set; }
+
         [Parameter]
         public EventCallback<string> SubmitComment { get; set; }
+
         [Parameter]
         public EventCallback<List<RequestCommentInfo>> WorkCommentsChanged { get; set; }
         
@@ -46,17 +46,15 @@ using System.Threading.Tasks;
 
         private CommentDTO requestComment { get; set; } = new CommentDTO();
 
-
-        private bool areAllCommentsShown { get; set; } = false;
+        private bool areAllCommentsShown { get; set; }
 
         public static List<SelectListItem> SortOptions { get; set; }
 
-
-
         protected override void OnInitialized()
         {
+            base.OnInitialized();
 
-            if(this.WorkComments == null)
+            if (this.WorkComments == null)
             {
                 this.WorkComments = new List<RequestCommentInfo>();
                 this.setMaxToCurrentCount();
@@ -89,7 +87,7 @@ using System.Threading.Tasks;
            };
 
             this.EditContext = new EditContext(this.requestComment);
-            base.OnInitialized();
+           
         }
 
         public async void SaveComment()
@@ -105,6 +103,7 @@ using System.Threading.Tasks;
                 this.requestComment.CommentText = null;
             }
         }
+
         public void ChangeSortOrder()
         {
             if (string.Equals(this.SortOption.Text, "2"))
@@ -123,6 +122,7 @@ using System.Threading.Tasks;
             this.MaxShownComments += 10;
             this.setMaxToCurrentCount();
         }
+
         private void setMaxToCurrentCount()
         {
             if (this.MaxShownComments >= this.WorkComments.Count)
@@ -131,6 +131,7 @@ using System.Threading.Tasks;
                 this.areAllCommentsShown = true;
             }
         }
+
         private bool IsCommentListEmpty() => this.WorkComments == null || !this.WorkComments.Any();
     }
 

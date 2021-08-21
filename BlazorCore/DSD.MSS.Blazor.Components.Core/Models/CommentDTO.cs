@@ -8,6 +8,6 @@ namespace DSD.MSS.Blazor.Components.Core.Models
     {
         public string CommentText { get; set; }
 
-        public DateTime? CommentTime { get; set; }
+        public DateTime? CommentCreatedDate { get; set; }
     }
 }

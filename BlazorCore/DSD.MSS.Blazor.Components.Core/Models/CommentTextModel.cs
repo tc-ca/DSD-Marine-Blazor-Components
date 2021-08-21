@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DSD.MSS.Blazor.Components.Core.Models
 {
+    /// <summary>
+    /// Model class used to localize/customize text in the comment component
+    /// </summary>
     public class CommentTextModel
     {
         public string AddCommentBtn { get; set; }
@@ -12,6 +15,5 @@ namespace DSD.MSS.Blazor.Components.Core.Models
         public string NoCommentsLabel { get; set; }
         public string SortOrderNew { get; set; }
         public string SortOrderOld { get; set; }
-
     }
 }
