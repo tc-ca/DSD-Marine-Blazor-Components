@@ -44,7 +44,7 @@ using System.Threading.Tasks;
 
         private List<RequestCommentInfo> workComments { get; set; }
 
-        private CommentDTO requestComment { get; set; } = new CommentDTO();
+        private Comment requestComment { get; set; } = new Comment();
 
         private bool areAllCommentsShown { get; set; }
 
@@ -85,9 +85,7 @@ using System.Threading.Tasks;
             new SelectListItem { Id = "1", Text = TextModel.SortOrderNew },
             new SelectListItem { Id = "2", Text = TextModel.SortOrderOld }
            };
-
             this.EditContext = new EditContext(this.requestComment);
-           
         }
 
         public async void SaveComment()
@@ -97,16 +95,16 @@ using System.Threading.Tasks;
                 if (this.EditContext.Validate())
                 {
                     await SubmitComment.InvokeAsync(this.requestComment.CommentText);
-
                 }
                 this.MaxShownComments += 1;
-                this.requestComment.CommentText = null;
+                this.requestComment.CommentText = string.Empty;
             }
         }
 
         public void ChangeSortOrder()
         {
-            if (string.Equals(this.SortOption.Text, "2"))
+            var sortNewest = "2";
+            if (string.Equals(this.SortOption.Text, sortNewest))
             {
                 this.WorkComments = WorkComments.OrderByDescending(o => o.CreatedDateUTC).ToList();
             }
@@ -114,7 +112,6 @@ using System.Threading.Tasks;
             {
                 this.WorkComments = WorkComments.OrderBy(o => o.CreatedDateUTC).ToList();
             }
-         
         }
 
         private void LoadMoreComments()
@@ -134,6 +131,4 @@ using System.Threading.Tasks;
 
         private bool IsCommentListEmpty() => this.WorkComments == null || !this.WorkComments.Any();
     }
-
-  
 }
