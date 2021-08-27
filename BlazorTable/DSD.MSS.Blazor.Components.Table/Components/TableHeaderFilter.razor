@@ -15,7 +15,7 @@
 }
 
 <div class="d-flex flex-row" id="ConfigModal">
-    <Modal @ref="this.ConfigureModal" Backdrop="Backdrop.Static" Header="Table Settings" Size="ModalSize.Default">
+    <Modal @ref="this.ConfigureModal" Backdrop="Backdrop.Static" Header="@Resources.SharedResources.ResourceManager.GetString("TableSettings", Resources.SharedResources.Culture)" Size="ModalSize.Default">
         <HeaderTemplate>
             <ModalHeader BackgroundColor="NamedColor.Primary" Padding="2" TextColor="NamedColor.Light">
                 <Heading Level="HeadingLevel.H5">@context</Heading>
@@ -27,7 +27,7 @@
                 <EditForm Model="TableRef.Columns" Context="contextValue">
                     <div class="scrollable-checklist">
                         <div>
-                            <span class="mb-2">Show Columns</span>
+                            <span class="mb-2">@Resources.SharedResources.ResourceManager.GetString("ShowColumns", Resources.SharedResources.Culture)</span>
                             <ul class="checkbox-menu allow-focus text-btn-item" style="list-style: none; margin-bottom: 0px">
                                 @foreach (var item in TableRef.Columns)
                                 {

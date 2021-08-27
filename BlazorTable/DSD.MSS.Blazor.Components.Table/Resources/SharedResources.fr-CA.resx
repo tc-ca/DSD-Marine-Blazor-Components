@@ -144,8 +144,14 @@
   <data name="Show" xml:space="preserve">
     <value>Montrer</value>
   </data>
+  <data name="ShowColumns" xml:space="preserve">
+    <value>Afficher les colonnes</value>
+  </data>
   <data name="Showing" xml:space="preserve">
     <value>Montrant</value>
+  </data>
+  <data name="TableSettings" xml:space="preserve">
+    <value>Paramètres du tableau</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>à</value>
