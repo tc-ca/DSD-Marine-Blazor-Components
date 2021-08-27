@@ -1,0 +1,12 @@
+﻿<button disabled="@this.IsLoading" @onclick="this.OnButtonClick" class="btn btn-warning position-relative @(this.IsLoading ? "button-loading" : "")">
+    <span class="button-content">
+        @if (this.ChildContent != null)
+        {
+            @this.ChildContent
+        }
+        else
+        {
+            @this.Text
+        }
+    </span>
+</button>
