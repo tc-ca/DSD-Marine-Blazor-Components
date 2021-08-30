@@ -1,0 +1,33 @@
+﻿@page "/en/buttons"
+@page "/fr/buttons"
+
+@inherits BasePageComponent
+@using DSD.MSS.Blazor.Components.Core.Components.Buttons
+<h1>Button Components</h1>
+
+<div class="row well">
+    <div class="col-8">
+        <div class="card mt-3">
+            <div class="card-body p-5">
+                <p>Loading Buttons</p>
+                <div class="row mb-1">
+                    <div class="col-1">
+                        <LoadingButton @bind-IsLoading="this.Button1Loading" OnClickCallback="this.Button1OnClick" Text="Save" />
+                    </div>
+                    <div class="col-1">
+                        <LoadingButton @bind-IsLoading="this.Button1Loading" OnClickCallback="this.Button1OnClick" Css="btn btn-warning" Text="Save" />
+                    </div>
+                </div>
+                <div class="row">
+                    <LoadingButton @bind-IsLoading="this.Button2Loading" OnClickCallback="this.Button2OnClick">
+                        <div>
+                            <h2>Button with custom template</h2>
+                            <h3>With subheaders</h3>
+                            <p>And more paragraphs</p>
+                        </div>
+                    </LoadingButton>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

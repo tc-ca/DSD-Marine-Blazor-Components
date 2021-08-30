@@ -18,6 +18,12 @@
         public string Text { get; set; }
 
         /// <summary>
+        /// Gets or sets the button's css class.
+        /// </summary>
+        [Parameter]
+        public string Css { get; set; }
+
+        /// <summary>
         /// Gets or sets whether the buttin is loading or not.
         /// </summary>
         [Parameter]

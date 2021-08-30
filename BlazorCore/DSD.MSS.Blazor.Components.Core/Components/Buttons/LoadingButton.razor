@@ -1,4 +1,5 @@
-﻿<button disabled="@this.IsLoading" @onclick="this.OnButtonClick" class="btn btn-warning position-relative @(this.IsLoading ? "button-loading" : "")">
+﻿<button disabled="@this.IsLoading" @onclick="this.OnButtonClick" 
+        class="@(string.IsNullOrEmpty(this.Css) ? "btn btn-primary" : this.Css) position-relative @(this.IsLoading ? "button-loading" : "")">
     <span class="button-content">
         @if (this.ChildContent != null)
         {
