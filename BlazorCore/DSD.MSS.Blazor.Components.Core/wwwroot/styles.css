@@ -3,6 +3,40 @@
     used from a library project/package.
 */
 
+.button-content {
+    transition: all 0.2s;
+}
+
+.button-loading .button-content, .button-loading .button-content > * {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.button-loading::after {
+    font-family: "Font Awesome 5 Free";
+    content: "\f110";
+    font-weight: 900;
+    color: white;
+    position: absolute;
+    width: 28px;
+    height: 24px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    animation: button-loading-spinner 1s linear infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+
 .my-component {
     border: 2px dashed red;
     padding: 1em;
