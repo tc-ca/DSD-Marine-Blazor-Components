@@ -52,7 +52,7 @@
                                 draggable="@(ColumnReorder.ToString())"
                                 @key="column"
                                 aria-sort="@column.AriaSort"
-                                class="@(column.Class)">
+                                class="@(column.Class) align-top">
 
                                 <div @onclick="@(() => column.SortBy())">
                                     <span>@column.Title</span>
