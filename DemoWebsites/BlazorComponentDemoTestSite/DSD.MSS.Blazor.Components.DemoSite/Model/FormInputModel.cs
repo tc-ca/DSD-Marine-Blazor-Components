@@ -22,6 +22,9 @@ namespace DSD.MSS.Blazor.Components.Core.Demo.Model
         public DateTime? DateValue { get; set; }
 
         [Required]
+        public DateTime? DateValueNull { get; set; }
+
+        [Required]
         public bool BoolValue { get; set; }
 
         [Required]
@@ -45,7 +48,7 @@ namespace DSD.MSS.Blazor.Components.Core.Demo.Model
             ID = 0;
             StringValue = "String Value";
             IntValue = 100;
-            //DateValue = DateTime.Now;
+            DateValue = DateTime.Now;
             BoolValue = true;
             DoubleValue = 5.1;
             FloatValue = 5.001F;

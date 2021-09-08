@@ -9,25 +9,25 @@
         /// <summary>
         /// Specifies the Field ID
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public string Id { get; set; }
 
         /// <summary>
         /// Specifies the Field Label
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public string Label { get; set; }
 
         /// <summary>
         /// Specifies the Field Label
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public bool Time { get; set; }
 
         /// <summary>
         /// Define the validation expression.
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public Expression<Func<DateTime?>> ValidationFor { get; set; }
 
         /// <summary>
@@ -41,6 +41,33 @@
         /// </summary>
         [Parameter]
         public bool IsRequired { get; set; }
+
+        private TimeSpan LocalTime = DateTime.Now.TimeOfDay;
+        protected string TimeValue { get => GetTimeFromDateTime(CurrentValue); }
+        protected void OnDateChange(DateTime? date)
+        {
+            if (date != null)
+            {
+                CurrentValue = new DateTime(date.Value.Year, date.Value.Month, date.Value.Day, LocalTime.Hours, LocalTime.Minutes, 0);
+            }
+        }
+
+        protected void OnTimeChange(string time)
+        {
+            if (TimeSpan.TryParse(time, out LocalTime))
+            {
+                DateTime? newDate = CurrentValue.Value;
+                if (newDate != null)
+                {
+                    CurrentValue = new DateTime(newDate.Value.Year, newDate.Value.Month, newDate.Value.Day, LocalTime.Hours, LocalTime.Minutes, 0);
+                }
+            }
+        }
+
+        private string GetTimeFromDateTime(DateTime? date)
+        {
+            return date?.ToString("HH:mm");
+        }
 
         protected override bool TryParseValueFromString(string value, out DateTime? result, out string validationErrorMessage)
         {

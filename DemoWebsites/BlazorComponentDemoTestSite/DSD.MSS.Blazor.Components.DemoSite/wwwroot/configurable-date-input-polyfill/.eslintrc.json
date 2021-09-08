@@ -1,0 +1,22 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": "airbnb-base",
+    "parser": "babel-eslint",
+    "ignorePatterns": ["dateformat.js"],
+    "rules": {
+        "linebreak-style": 0,
+        "indent": 0,
+        "radix": 0,
+        "max-classes-per-file": 0,
+        "no-restricted-globals": 0,
+        "class-methods-use-this": 0,
+        "quotes": 0
+    },
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    }
+}
