@@ -1,0 +1,74 @@
+{
+  "_from": "configurable-date-input-polyfill",
+  "_id": "configurable-date-input-polyfill@3.1.0",
+  "_inBundle": false,
+  "_integrity": "sha512-nlqYtBTOy3sjAKWcDXQVe9w/5ZtzazZCc+dXBiKjE2fMg8vG0wLjRi2PTp8QG2nsOChA8T32YnjGBhD48OsbxA==",
+  "_location": "/configurable-date-input-polyfill",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "configurable-date-input-polyfill",
+    "name": "configurable-date-input-polyfill",
+    "escapedName": "configurable-date-input-polyfill",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/configurable-date-input-polyfill/-/configurable-date-input-polyfill-3.1.0.tgz",
+  "_shasum": "4f10e67d5e258c6411ed9f14b6926b05145d758a",
+  "_spec": "configurable-date-input-polyfill",
+  "_where": "C:\\Yong\\DataPickerpolyfill",
+  "analyze": true,
+  "bugs": {
+    "url": "https://github.com/KreutzerCode/configurable-date-input-polyfill.git/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "The last Date-Input-Polyfill you will ever need. Automatically adds datepickers to input[type=date] on IE, Firefox, and OS X Safari. Configurable localization and start of week day.",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^6.2.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "sass": "^1.29.0",
+    "sass-loader": "^12.0.1",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.2.0",
+    "webpack-cli": "^4.2.0"
+  },
+  "homepage": "https://kreutzercode.github.io/configurable-date-input-polyfill/",
+  "keywords": [
+    "html5",
+    "light",
+    "lightweight",
+    "input",
+    "type",
+    "date",
+    "datepicker",
+    "polyfill",
+    "configurable"
+  ],
+  "license": "MIT",
+  "main": "configurable-date-input-polyfill.dist.js",
+  "name": "configurable-date-input-polyfill",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KreutzerCode/configurable-date-input-polyfill.git"
+  },
+  "scripts": {
+    "build": "webpack --mode=development",
+    "production": "webpack --mode=production",
+    "watch": "webpack --watch --mode=development"
+  },
+  "version": "3.1.0"
+}
