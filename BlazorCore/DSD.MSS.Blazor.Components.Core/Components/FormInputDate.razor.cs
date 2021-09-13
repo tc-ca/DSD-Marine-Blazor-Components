@@ -54,9 +54,11 @@
 
         protected void OnTimeChange(string time)
         {
-            if (TimeSpan.TryParse(time, out LocalTime))
+            TimeSpan newTime;
+            if (TimeSpan.TryParse(time, out newTime))
             {
-                DateTime? newDate = CurrentValue.Value;
+                LocalTime = newTime;
+                DateTime? newDate = CurrentValue;
                 if (newDate != null)
                 {
                     CurrentValue = new DateTime(newDate.Value.Year, newDate.Value.Month, newDate.Value.Day, LocalTime.Hours, LocalTime.Minutes, 0);
@@ -66,6 +68,10 @@
 
         private string GetTimeFromDateTime(DateTime? date)
         {
+            if (date != null)
+            {
+                LocalTime = ((DateTime)date).TimeOfDay;
+            }
             return date?.ToString("HH:mm");
         }
 
