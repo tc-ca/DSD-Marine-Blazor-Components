@@ -48,7 +48,7 @@ namespace DSD.MSS.Blazor.Components.Core.Demo.Model
             ID = 0;
             StringValue = "String Value";
             IntValue = 100;
-            DateValue = DateTime.Now;
+            DateValue = new DateTime(2021,8, 18, 11, 23, 12);
             BoolValue = true;
             DoubleValue = 5.1;
             FloatValue = 5.001F;
