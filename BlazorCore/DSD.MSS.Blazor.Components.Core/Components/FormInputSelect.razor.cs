@@ -65,9 +65,15 @@
         [Parameter] 
         public bool ShowDefaultOption { get; set; } = true;
 
+        /// <summary>
+        /// List of selection options
+        /// </summary>
         [Parameter]
         public List<SelectListItem> SelectionList { get; set; } = new List<SelectListItem>();
 
+        /// <summary>
+        /// Will specify the first item in the selection list as the default value
+        /// </summary>
         [Parameter]
         public bool UseFirstItemAsDefault { get; set; }
 
