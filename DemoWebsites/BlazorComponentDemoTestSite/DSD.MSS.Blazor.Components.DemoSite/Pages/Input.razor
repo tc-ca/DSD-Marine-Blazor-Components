@@ -24,6 +24,8 @@
                     <FormInputTextArea Id="InputTextArea" Label="Input Text Area" Required="required" Rows="2" Cols="50" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
                     <FormInputDate Id="InputDate" Label="Input Date" Time="true" Required="required" @bind-Value="@FormInputObj.DateValue" ValidationFor="@(() => FormInputObj.DateValue)" />
                     <FormInputDate Id="InputDate" Label="Input Date" Time="true" Required="required" @bind-Value="@FormInputObj.DateValueNull" ValidationFor="@(() => FormInputObj.DateValueNull)" />
+                    <FormInputDate Id="InputDate57" Label="Input Date With Formatting (MMM DD, YYYY)" Time="false" Required="required" DateFormatToUse="MMM DD, YYYY" @bind-Value="@FormInputObj.DateValueFromtted" ValidationFor="@(() => FormInputObj.DateValueFromtted)" />
+
                     <FormInputSelect Id="InputSelect" Label="Input Select" SelectLabel="Select today's weather" Required="required" @bind-Value="FormInputObj.SelectValue" ValidationFor="@(() => FormInputObj.SelectValue)" OnChange="OnInputChange">
                         @foreach (var item in FormInputListObj)
                         {
@@ -60,6 +62,7 @@
                     <FormInputNumber readonly Id="InputNumberDecimal" Label="Input Number (Decimal)" Required="required" @bind-Value="@FormInputObj.DecimalValue" ValidationFor="@(()=>FormInputObj.DecimalValue)" />
                     @*<FormInputTextArea readonly Id="InputTextArea" Label="Input Text Area" Required="required" Rows="2" Cols="50" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />*@
                     <FormInputDate readonly Id="InputDate" Label="Input Date" Time="true" Required="required" @bind-Value="@FormInputObj.DateValue" ValidationFor="@(() => FormInputObj.DateValue)" />
+
                     <FormInputSelect readonly Id="InputSelect" Label="Input Select" SelectLabel="Select today's weather" Required="required" @bind-Value="FormInputObj.SelectValue" ValidationFor="@(() => FormInputObj.SelectValue)" OnChange="OnInputChange">
                         @foreach (var item in FormInputListObj)
                         {

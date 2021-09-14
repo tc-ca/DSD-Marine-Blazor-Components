@@ -24,6 +24,8 @@ namespace DSD.MSS.Blazor.Components.Core.Demo.Model
         [Required]
         public DateTime? DateValueNull { get; set; }
 
+        public DateTime? DateValueFromtted { get; set; }
+
         [Required]
         public bool BoolValue { get; set; }
 

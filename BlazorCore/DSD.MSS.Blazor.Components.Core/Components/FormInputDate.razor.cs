@@ -1,11 +1,16 @@
 ﻿namespace DSD.MSS.Blazor.Components.Core.Components
 {
     using Microsoft.AspNetCore.Components;
+    using Microsoft.JSInterop;
     using System;
     using System.Linq.Expressions;
 
     public partial class FormInputDate
     {
+
+        [Inject]
+        IJSRuntime JS { get; set; }
+
         /// <summary>
         /// Specifies the Field ID
         /// </summary>
@@ -17,6 +22,9 @@
         /// </summary>
         [Parameter]
         public string Label { get; set; }
+
+        [Parameter]
+        public string DateFormatToUse { get; set; }
 
         /// <summary>
         /// Specifies the Field Label
@@ -42,13 +50,19 @@
         [Parameter]
         public bool IsRequired { get; set; }
 
+
         private TimeSpan LocalTime = DateTime.Now.TimeOfDay;
         protected string TimeValue { get => GetTimeFromDateTime(CurrentValue); }
-        protected void OnDateChange(DateTime? date)
+        protected async void OnDateChange(DateTime? date)
         {
             if (date != null)
             {
                 CurrentValue = new DateTime(date.Value.Year, date.Value.Month, date.Value.Day, LocalTime.Hours, LocalTime.Minutes, 0);
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.DateFormatToUse))
+            {
+                await JS.InvokeVoidAsync("test1",this.Id);
             }
         }
 
