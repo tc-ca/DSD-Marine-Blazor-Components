@@ -71,24 +71,6 @@
         [Parameter]
         public List<SelectListItem> SelectionList { get; set; } = new List<SelectListItem>();
 
-        /// <summary>
-        /// Will specify the first item in the selection list as the default value
-        /// </summary>
-        [Parameter]
-        public bool UseFirstItemAsDefault { get; set; }
-
-
-        protected override void OnInitialized()
-        {
-            if (UseFirstItemAsDefault && this.SelectionList.Count > 0)
-            {
-                this.CurrentValueAsString = SelectionList[0].Id;
-            }
-
-            base.OnInitialized();
-
-        }
-
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
         {
             if (typeof(T) == typeof(string))
