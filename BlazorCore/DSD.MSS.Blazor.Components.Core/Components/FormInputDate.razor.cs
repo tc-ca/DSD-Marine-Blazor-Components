@@ -3,7 +3,10 @@
     using Microsoft.AspNetCore.Components;
     using Microsoft.JSInterop;
     using System;
+    using System.Globalization;
+    using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
 
     public partial class FormInputDate
     {
@@ -23,8 +26,18 @@
         [Parameter]
         public string Label { get; set; }
 
+        /// <summary>
+        /// The C# format of the date
+        /// </summary>
         [Parameter]
         public string DateFormatToUse { get; set; }
+
+        /// <summary>
+        /// The jquery format to use. This format is different than C#'s format. Example C# - MM/dd/yy is jQuery - mm/dd/y.
+        /// Both return the same format but are written differently
+        /// </summary>
+        [Parameter]
+        public string JQueryDateFormat { get; set; }
 
         /// <summary>
         /// Specifies the Field Label
@@ -50,19 +63,74 @@
         [Parameter]
         public bool IsRequired { get; set; }
 
+        public string DateTest { get; set; }
 
         private TimeSpan LocalTime = DateTime.Now.TimeOfDay;
+
+        protected string DateFormattedValue
+        {
+            get =>
+            CurrentValue.HasValue ? CurrentValue.Value.ToString(this.DateFormatToUse) : DateTime.Now.ToString(this.DateFormatToUse);
+        }
+
         protected string TimeValue { get => GetTimeFromDateTime(CurrentValue); }
-        protected async void OnDateChange(DateTime? date)
+
+        protected override async void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            if (firstRender)
+            {
+                if (!string.IsNullOrWhiteSpace(this.DateFormatToUse) && !string.IsNullOrWhiteSpace(this.JQueryDateFormat))
+                {
+                    await JS.InvokeVoidAsync("jqueryDatepicker", this.Id, JQueryDateFormat, "");
+                }
+            }
+        }
+
+        protected void OnDateChange(DateTime? date)
         {
             if (date != null)
             {
                 CurrentValue = new DateTime(date.Value.Year, date.Value.Month, date.Value.Day, LocalTime.Hours, LocalTime.Minutes, 0);
             }
+        }
 
-            if (!string.IsNullOrWhiteSpace(this.DateFormatToUse))
+        protected void OnDateChange(string dateValue)
+        {
+            if (!string.IsNullOrWhiteSpace(dateValue))
             {
-                await JS.InvokeVoidAsync("test1",this.Id);
+                DateTime date;
+                if (JQueryDateFormat.Count(f => f == 'y') == 1)
+                {
+                    // Displays as 07/13/ | so month/day/
+                    var dateString = dateValue.Substring(0, 6);
+                    int year;
+                    if (int.TryParse(dateValue.Substring(6), out year))
+                    {
+                        dateString += CultureInfo.CurrentCulture.Calendar.ToFourDigitYear(year);
+                        if (DateTime.TryParse(dateString, out date))
+                        {
+                            CurrentValue = date;
+                        }
+                    }
+                }
+                else if (DateTime.TryParse(dateValue, out date))
+                {
+                    CurrentValue = date;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Method to handle date picker change
+        /// </summary>
+        /// <param name="e">ChangeEventArgs</param>
+        private void OnChange(ChangeEventArgs e)
+        {
+            DateTime dateTime;
+            if (DateTime.TryParse(e.Value.ToString(), out dateTime))
+            {
+                ValueChanged.InvokeAsync(dateTime);
             }
         }
 

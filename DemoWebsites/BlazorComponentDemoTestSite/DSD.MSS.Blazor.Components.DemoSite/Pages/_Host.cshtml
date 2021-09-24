@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="_content/DSD.MSS.Blazor.Components.Core/styles.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="css/components.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
     <app>
@@ -45,18 +46,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="_content/DSD.MSS.Blazor.Components.Core/script/bootstrap.js"></script>
-    <!--  -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- jQuery Language -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/jquery-ui-i18n.min.js"></script>
+    <!-- Custom JS -->
     <script src="_content/DSD.MSS.Blazor.Components.Core/script/custom.js"></script>
-    
+
     <script src="script/bootstrap.js"></script>
     <script src="script/apphelper.js"></script>
     <script>
         $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
             $(this).closest("li").toggleClass("active", this.checked);
-        });
-
-        $(document).on('click', '.allow-focus', function (e) {
-            e.stopPropagation();
         });
 
         $("input").on("change", function () {
@@ -68,17 +70,45 @@
             console.log("Change to " + this.value);
         }).trigger("change");
 
-        function test1(id) {
-            var element = document.getElementById(id);
+        // jQuery date picker
+        function jqueryDatepicker(id, format, lang) {
 
-            element.setAttribute(
-                "data-date",
-                moment(element.value, "YYYY-MM-DD")
-                    .format(element.getAttribute("data-date-format"))
+            console.log("ID = " + id + " | " + format + " | Lang = " + lang);
+
+            elementRef = document.getElementById(id);
+
+            elementRef.onchange = function () {
+
+                console.log("Value = "+document.getElementById(id).value);
+
+                var event = new Event('change');
+
+                elementRef.dispatchEvent(event);
+
+            };
+
+            if (lang == "fr") {
+
+            } else {
+                lang = "";
+            }
+
+            var options = $.extend({},
+                $.datepicker.regional[lang],
+                {
+                    dateFormat: format, // show date format mm/dd/yy.
+                    changeYear: true,
+                    changeMonth: true
+                }
             );
-            console.log("Change to " + element.value);
-            $(element).trigger("change");
+
+            $('input[id$=' + id + ']').datepicker(options);
         }
+
+        $(document).on('click', '.allow-focus', function (e) {
+            e.stopPropagation();
+        });
+
     </script>
 </body>
 </html>
