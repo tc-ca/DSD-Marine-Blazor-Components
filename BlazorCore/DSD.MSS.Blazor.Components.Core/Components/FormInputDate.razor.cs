@@ -63,8 +63,6 @@
         [Parameter]
         public bool IsRequired { get; set; }
 
-        public string DateTest { get; set; }
-
         private TimeSpan LocalTime = DateTime.Now.TimeOfDay;
 
         protected string DateFormattedValue
@@ -104,8 +102,7 @@
                 {
                     // Displays as 07/13/ | so month/day/
                     var dateString = dateValue.Substring(0, 6);
-                    int year;
-                    if (int.TryParse(dateValue.Substring(6), out year))
+                    if (int.TryParse(dateValue.Substring(6), out int year))
                     {
                         dateString += CultureInfo.CurrentCulture.Calendar.ToFourDigitYear(year);
                         if (DateTime.TryParse(dateString, out date))
@@ -118,19 +115,6 @@
                 {
                     CurrentValue = date;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Method to handle date picker change
-        /// </summary>
-        /// <param name="e">ChangeEventArgs</param>
-        private void OnChange(ChangeEventArgs e)
-        {
-            DateTime dateTime;
-            if (DateTime.TryParse(e.Value.ToString(), out dateTime))
-            {
-                ValueChanged.InvokeAsync(dateTime);
             }
         }
 

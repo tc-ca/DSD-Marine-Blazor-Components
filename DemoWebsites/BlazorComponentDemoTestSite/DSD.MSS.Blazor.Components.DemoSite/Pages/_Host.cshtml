@@ -40,19 +40,17 @@
 
     <script src="_framework/blazor.server.js"></script>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="_content/DSD.MSS.Blazor.Components.Core/script/bootstrap.js"></script>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- jQuery Language -->
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/jquery-ui-i18n.min.js"></script>
     <!-- Custom JS -->
-    <script src="_content/DSD.MSS.Blazor.Components.Core/script/custom.js"></script>
+    <script src="_content/DSD.MSS.Blazor.Components.Core/script/site.js"></script>
 
     <script src="script/bootstrap.js"></script>
     <script src="script/apphelper.js"></script>
@@ -60,50 +58,6 @@
         $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
             $(this).closest("li").toggleClass("active", this.checked);
         });
-
-        $("input").on("change", function () {
-            this.setAttribute(
-                "data-date",
-                moment(this.value, "YYYY-MM-DD")
-                    .format(this.getAttribute("data-date-format"))
-            );
-            console.log("Change to " + this.value);
-        }).trigger("change");
-
-        // jQuery date picker
-        function jqueryDatepicker(id, format, lang) {
-
-            console.log("ID = " + id + " | " + format + " | Lang = " + lang);
-
-            elementRef = document.getElementById(id);
-
-            elementRef.onchange = function () {
-
-                console.log("Value = "+document.getElementById(id).value);
-
-                var event = new Event('change');
-
-                elementRef.dispatchEvent(event);
-
-            };
-
-            if (lang == "fr") {
-
-            } else {
-                lang = "";
-            }
-
-            var options = $.extend({},
-                $.datepicker.regional[lang],
-                {
-                    dateFormat: format, // show date format mm/dd/yy.
-                    changeYear: true,
-                    changeMonth: true
-                }
-            );
-
-            $('input[id$=' + id + ']').datepicker(options);
-        }
 
         $(document).on('click', '.allow-focus', function (e) {
             e.stopPropagation();
