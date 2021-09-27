@@ -142,11 +142,29 @@ namespace DSD.MSS.Blazor.Components.Table.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Columns.
+        /// </summary>
+        internal static string ShowColumns {
+            get {
+                return ResourceManager.GetString("ShowColumns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Showing.
         /// </summary>
         internal static string Showing {
             get {
                 return ResourceManager.GetString("Showing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table Settings.
+        /// </summary>
+        internal static string TableSettings {
+            get {
+                return ResourceManager.GetString("TableSettings", resourceCulture);
             }
         }
         

@@ -118,36 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Cancel" xml:space="preserve">
-    <value>FR-Cancel</value>
+    <value>Annuler</value>
   </data>
   <data name="ClearFilters" xml:space="preserve">
-    <value>FR-Clear filters</value>
+    <value>Effacer les filtres</value>
   </data>
   <data name="EditFilters" xml:space="preserve">
-    <value>FR-Edit filters</value>
+    <value>Modifier les filtres</value>
   </data>
   <data name="Entries" xml:space="preserve">
-    <value>FR-entries</value>
+    <value>entrées</value>
   </data>
   <data name="FilterByKeyword" xml:space="preserve">
-    <value>FR-Filter by keyword ...</value>
+    <value>Filtrer par mot-clé...</value>
   </data>
   <data name="Next" xml:space="preserve">
-    <value>FR-Next</value>
+    <value>Prochaine</value>
   </data>
   <data name="Of" xml:space="preserve">
-    <value>FR-of</value>
+    <value>de</value>
   </data>
   <data name="Previous" xml:space="preserve">
-    <value>FR-Previous</value>
+    <value>Précédente</value>
   </data>
   <data name="Show" xml:space="preserve">
-    <value>FR-Show</value>
+    <value>Montrer</value>
+  </data>
+  <data name="ShowColumns" xml:space="preserve">
+    <value>Afficher les colonnes</value>
   </data>
   <data name="Showing" xml:space="preserve">
-    <value>FR-Showing</value>
+    <value>Montrant</value>
+  </data>
+  <data name="TableSettings" xml:space="preserve">
+    <value>Paramètres du tableau</value>
   </data>
   <data name="To" xml:space="preserve">
-    <value>FR-to</value>
+    <value>à</value>
   </data>
 </root>

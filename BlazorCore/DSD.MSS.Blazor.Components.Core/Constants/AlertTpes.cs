@@ -13,5 +13,4 @@ namespace DSD.MSS.Blazor.Components.Core.Constants
         Danger = 4,
         Primary = 5
     }
-
 }
