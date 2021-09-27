@@ -1,8 +1,10 @@
 ﻿namespace DSD.MSS.Blazor.Components.Core.Components
 {
+    using DSD.MSS.Blazor.Components.Core.Models;
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Forms;
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
@@ -62,6 +64,13 @@
         /// </summary>
         [Parameter] 
         public bool ShowDefaultOption { get; set; } = true;
+
+        /// <summary>
+        /// List of selection options
+        /// </summary>
+        [Parameter]
+        public List<SelectListItem> SelectionList { get; set; } = new List<SelectListItem>();
+
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
         {
             if (typeof(T) == typeof(string))

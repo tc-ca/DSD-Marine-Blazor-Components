@@ -20,7 +20,17 @@
         {
             <option value="-1">@this.SelectLabel</option>
         }
-        @this.ChildContent
+            @if (this.SelectionList.Any())
+            {
+                foreach (var item in this.SelectionList)
+                {
+                    <option value="@item.Id">@item.Text</option>
+                }
+            }
+        else
+        {
+            @this.ChildContent
+        }
     </InputSelect>
     <ValidationMessage For="@this.ValidationFor" />
 </div>
