@@ -24,9 +24,6 @@ using System.Threading.Tasks;
             }
         }
 
-        [Parameter]
-        public bool ReadOnly { get; set; }
-
         /// <summary>
         /// Callback used when submitting a comment
         /// </summary>
@@ -55,6 +52,8 @@ using System.Threading.Tasks;
         public static List<SelectListItem> SortOptions { get; set; }
 
         public int MaxShownComments { get; set; } = 5;
+
+        public bool ReadOnly { get; set; }
 
         private SortOption SortOption { get; set; } = new SortOption();
 
