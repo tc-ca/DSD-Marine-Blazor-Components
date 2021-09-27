@@ -27,14 +27,32 @@ using System.Threading.Tasks;
         [Parameter]
         public bool ReadOnly { get; set; }
 
+        /// <summary>
+        /// Callback used when submitting a comment
+        /// </summary>
         [Parameter]
         public EventCallback<string> SubmitComment { get; set; }
 
         [Parameter]
         public EventCallback<List<RequestCommentInfo>> WorkCommentsChanged { get; set; }
         
+        /// <summary>
+        /// Model used to change the text in the component. Used for localization.
+        /// </summary>
         [Parameter]
         public CommentTextModel TextModel { get; set; }
+        
+        /// <summary>
+        /// Callback used for the sort dropdown
+        /// </summary>
+        [Parameter]
+        public EventCallback<ChangeEventArgs> OnSortChange { get; set; }
+        
+        /// <summary>
+        /// List of sorting options for the comments list.
+        /// </summary>
+        [Parameter]
+        public static List<SelectListItem> SortOptions { get; set; }
 
         public int MaxShownComments { get; set; } = 5;
 
@@ -48,7 +66,7 @@ using System.Threading.Tasks;
 
         private bool areAllCommentsShown { get; set; }
 
-        public static List<SelectListItem> SortOptions { get; set; }
+       
 
         protected override void OnInitialized()
         {
@@ -68,7 +86,7 @@ using System.Threading.Tasks;
             {
                 this.areAllCommentsShown = true;
             }
-          
+          //insert default text
             if(this.TextModel == null)
             {
                 this.TextModel = new CommentTextModel()
@@ -81,10 +99,15 @@ using System.Threading.Tasks;
                     SortOrderOld = "Oldest"
                 };
             }
-            SortOptions = new List<SelectListItem>() {
+
+            //insert default sorting options
+            if (SortOptions.Count <= 0)
+            {
+                SortOptions = new List<SelectListItem>() {
             new SelectListItem { Id = "1", Text = TextModel.SortOrderNew },
             new SelectListItem { Id = "2", Text = TextModel.SortOrderOld }
            };
+            }
             this.EditContext = new EditContext(this.requestComment);
         }
 
@@ -100,20 +123,6 @@ using System.Threading.Tasks;
                 this.requestComment.CommentText = string.Empty;
             }
         }
-
-        public void ChangeSortOrder()
-        {
-            var sortNewest = "2";
-            if (string.Equals(this.SortOption.Text, sortNewest))
-            {
-                this.WorkComments = WorkComments.OrderByDescending(o => o.CreatedDateUTC).ToList();
-            }
-            else
-            {
-                this.WorkComments = WorkComments.OrderBy(o => o.CreatedDateUTC).ToList();
-            }
-        }
-
         private void LoadMoreComments()
         {
             this.MaxShownComments += 10;
@@ -128,7 +137,10 @@ using System.Threading.Tasks;
                 this.areAllCommentsShown = true;
             }
         }
-
+        protected virtual async Task OnChangeAsync(ChangeEventArgs e)
+        {
+            await this.OnSortChange.InvokeAsync(e);
+        }
         private bool IsCommentListEmpty() => this.WorkComments == null || !this.WorkComments.Any();
     }
 }

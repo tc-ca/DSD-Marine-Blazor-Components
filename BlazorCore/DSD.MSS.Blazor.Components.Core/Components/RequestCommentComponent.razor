@@ -15,7 +15,7 @@
     <p class="d-inline pr-3"> @this.TextModel.CommentsLabel </p>
     <div class="pr-3" style="flex-basis:40%">
         <EditForm Model="this.SortOption">
-            <FormInputSelect Id="InputSelect" ShowDefaultOption="false" Label="" SelectLabel="CommentSortType" Required="required" @bind-Value="SortOption.Text" ValidationFor="@(() => SortOption.Text)" OnChange="ChangeSortOrder">
+            <FormInputSelect Id="InputSelect" ShowDefaultOption="false" Label="" SelectLabel="CommentSortType" Required="required" @bind-Value="SortOption.Text" ValidationFor="@(() => SortOption.Text)" OnChange="OnChangeAsync">
                 @foreach (var item in SortOptions)
                 {
                     <option value="@item.Id">@item.Text</option>
