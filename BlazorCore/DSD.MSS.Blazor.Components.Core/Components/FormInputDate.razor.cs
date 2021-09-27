@@ -63,12 +63,18 @@
         [Parameter]
         public bool IsRequired { get; set; }
 
+        /// <summary>
+        /// If true, it displays blank else it displays the current time.
+        /// </summary>
+        [Parameter]
+        public bool ShowDefaultValue { get; set; }
+
         private TimeSpan LocalTime = DateTime.Now.TimeOfDay;
 
         protected string DateFormattedValue
         {
             get =>
-            CurrentValue.HasValue ? CurrentValue.Value.ToString(this.DateFormatToUse) : DateTime.Now.ToString(this.DateFormatToUse);
+            CurrentValue.HasValue ? CurrentValue.Value.ToString(this.DateFormatToUse) : ShowDefaultValue ? "" : DateTime.Now.ToString(this.DateFormatToUse);
         }
 
         protected string TimeValue { get => GetTimeFromDateTime(CurrentValue); }

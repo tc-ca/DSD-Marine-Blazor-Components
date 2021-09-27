@@ -14,33 +14,25 @@
             }
         </label>
     }
-<div>
-    @if (string.IsNullOrWhiteSpace(DateFormatToUse))
-    {
-        <InputDate @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" style="float:left; min-width: 180px; margin-right: 10px;" class="@($"form-control w-25 {this.CssClass}")" Value="@Value" ValueChanged="@((DateTime? value)=>OnDateChange(value))" ValueExpression="ValueExpression" />
-    }
-    else
-    {
-        <InputText @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" style="float:left; min-width: 180px; margin-right: 10px;"
-            class="@($"form-control w-25 {this.CssClass}")"
-            Value="@DateFormattedValue" ValueChanged="@((string value)=> OnDateChange(value))"
-            ValueExpression="@(() => DateFormattedValue)" />
+    <div>
+        @if (string.IsNullOrWhiteSpace(DateFormatToUse))
+        {
+            <InputDate @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" style="float:left; min-width: 180px; margin-right: 10px;" class="@($"form-control w-25 {this.CssClass}")" Value="@Value" ValueChanged="@((DateTime? value)=>OnDateChange(value))" ValueExpression="ValueExpression" />
+        }
+        else
+        {
+            <InputText @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" style="float:left; min-width: 180px; margin-right: 10px;"
+                       class="@($"form-control w-25 {this.CssClass}")"
+                       Value="@DateFormattedValue" ValueChanged="@((string value)=> OnDateChange(value))"
+                       ValueExpression="@(() => DateFormattedValue)" />
+        }
 
-        @*<input type="text" id="chris" class="@($"form-control w-25 {this.CssClass}")"
-               data-provide="datepicker"
-               @ref="currentElement"
-               @bind-value="BindValue"
-               @bind-value:event="oninput"
-               @bind-value:format="@JQueryDateFormat"
-               @onchange="OnChange" />*@
-    }
+        @if (this.Time)
+        {
+            <InputText @attributes="this.AdditionalAttributes" id="@($"{this.Id}-Time")" name="@($"{this.Id}-Time")" aria-labelledby="@this.Id" type="time" Value="@TimeValue" ValueChanged="@((string value)=>OnTimeChange(value))" ValueExpression="@(()=>TimeValue)" style="min-width: 180px;" class="@($"form-control w-25 {this.CssClass}")" />
+        }
 
-    @if (this.Time)
-    {
-        <InputText @attributes="this.AdditionalAttributes" id="@($"{this.Id}-Time")" name="@($"{this.Id}-Time")" aria-labelledby="@this.Id" type="time" Value="@TimeValue" ValueChanged="@((string value)=>OnTimeChange(value))" ValueExpression="@(()=>TimeValue)" style="min-width: 180px;" class="@($"form-control w-25 {this.CssClass}")" />
-    }
-
-    <div class="clearfix"></div>
-</div>
+        <div class="clearfix"></div>
+    </div>
     <ValidationMessage For="@this.ValidationFor" />
 </div>
