@@ -26,13 +26,6 @@
             Value="@DateFormattedValue" ValueChanged="@((string value)=> OnDateChange(value))"
             ValueExpression="@(() => DateFormattedValue)" />
 
-        @*<input type="text" id="chris" class="@($"form-control w-25 {this.CssClass}")"
-               data-provide="datepicker"
-               @ref="currentElement"
-               @bind-value="BindValue"
-               @bind-value:event="oninput"
-               @bind-value:format="@JQueryDateFormat"
-               @onchange="OnChange" />*@
     }
 
     @if (this.Time)
