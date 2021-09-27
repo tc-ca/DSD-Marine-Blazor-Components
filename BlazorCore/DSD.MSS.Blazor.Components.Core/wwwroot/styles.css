@@ -3,32 +3,6 @@
     used from a library project/package.
 */
 
-input[type="date"].formatted-date-input {
-    position: relative;
-}
-
-    input[type="date"].formatted-date-input::before {
-        position: absolute;
-        left: 3px;
-        content: attr(data-date);
-        display: inline-block;
-        color: black;
-    }
-
-    input[type="date"].formatted-date-input::-webkit-datetime-edit,
-    input[type="date"].formatted-date-input::-webkit-inner-spin-button,
-    input[type="date"].formatted-date-input::-webkit-clear-button {
-        display: none;
-    }
-
-    input[type="date"].formatted-date-input::-webkit-calendar-picker-indicator {
-        position: absolute;
-        top: 3px;
-        right: 0;
-        color: black;
-        opacity: 1;
-    }
-
 .button-content {
     transition: all 0.2s;
 }
