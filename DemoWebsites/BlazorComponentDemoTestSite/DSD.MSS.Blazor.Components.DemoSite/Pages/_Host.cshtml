@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="_content/DSD.MSS.Blazor.Components.Core/styles.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="css/components.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
     <app>
@@ -39,11 +40,17 @@
 
     <script src="_framework/blazor.server.js"></script>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="_content/DSD.MSS.Blazor.Components.Core/script/bootstrap.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- jQuery Language -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/jquery-ui-i18n.min.js"></script>
+    <!-- Custom JS -->
+    <script src="_content/DSD.MSS.Blazor.Components.Core/script/component.js"></script>
 
     <script src="script/bootstrap.js"></script>
     <script src="script/apphelper.js"></script>
@@ -55,6 +62,7 @@
         $(document).on('click', '.allow-focus', function (e) {
             e.stopPropagation();
         });
+
     </script>
 </body>
 </html>
