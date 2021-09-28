@@ -25,7 +25,6 @@
             class="@($"form-control w-25 {this.CssClass}")"
             Value="@DateFormattedValue" ValueChanged="@((string value)=> OnDateChange(value))"
             ValueExpression="@(() => DateFormattedValue)" />
-
     }
 
     @if (this.Time)
