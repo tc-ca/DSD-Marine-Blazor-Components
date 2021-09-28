@@ -73,7 +73,7 @@
 
         protected string DateFormattedValue
         {
-            get => CurrentValue.HasValue ? CurrentValue.Value.ToString(this.DateFormatToUse) : ShowDefaultValue ? "" : DateTime.Now.ToString(this.DateFormatToUse);
+          get => CurrentValue.HasValue ? CurrentValue.Value.ToString(this.DateFormatToUse) : ShowDefaultValue ? "" : DateTime.Now.ToString(this.DateFormatToUse);
         }
 
         protected string TimeValue { get => GetTimeFromDateTime(CurrentValue); }
