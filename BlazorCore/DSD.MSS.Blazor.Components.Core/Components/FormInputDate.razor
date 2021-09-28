@@ -21,12 +21,10 @@
     }
     else
     {
-        <p>Date selected = @CurrentValue?.ToString(DateFormatToUse)</p>
         <InputText @attributes="this.AdditionalAttributes" id="@this.Id" name="@this.Id" style="float:left; min-width: 180px; margin-right: 10px;"
             class="@($"form-control w-25 {this.CssClass}")"
             Value="@DateFormattedValue" ValueChanged="@((string value)=> OnDateChange(value))"
             ValueExpression="@(() => DateFormattedValue)" />
-
     }
 
     @if (this.Time)
