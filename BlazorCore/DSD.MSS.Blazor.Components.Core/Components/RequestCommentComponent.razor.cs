@@ -49,11 +49,12 @@ using System.Threading.Tasks;
         /// List of sorting options for the comments list.
         /// </summary>
         [Parameter]
-        public static List<SelectListItem> SortOptions { get; set; }
+        public List<SelectListItem> SortOptions { get; set; }
+        
+        [Parameter]
+        public bool ReadOnly { get; set; }
 
         public int MaxShownComments { get; set; } = 5;
-
-        public bool ReadOnly { get; set; }
 
         private SortOption SortOption { get; set; } = new SortOption();
 
