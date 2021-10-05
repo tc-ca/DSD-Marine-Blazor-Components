@@ -1,13 +1,5 @@
 ﻿@page "/"
-@using DSD.MSS.Blazor.Components.Table;
 @using DSD.MSS.Blazor.Components.Table.Demo.Model;
-@using DSD.MSS.Blazor.Components.Table.Demo.Data;
-@using System.Globalization;
-@using Microsoft.AspNetCore.Components.Forms;
-@using DSD.MSS.Blazor.Components.Table.Models;
-@using Microsoft.Extensions.Caching.Memory;
-@using Microsoft.AspNetCore.Http;
-@inject IMemoryCache memoryCache
 
 <h1>Table Component</h1>
 
@@ -33,103 +25,29 @@
                 </div>
 
                 <Table TableClass="table table-striped table-hover" TableItem="TableModel" SearchPlaceHolderText="Search ..."
-                       @ref="TableRef" DefaultPageSize="10" OnAfterDataLoaded="OnAfterTableDataLoaded" ShowSearchBar="@ShowFilterHeader"
-                       Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
+                       @ref="this.TableRef" DefaultPageSize="10" OnAfterDataLoaded="OnAfterTableDataLoaded" ShowSearchBar="@ShowFilterHeader"
+                       Items="this.TableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
                        FilterChanged="(e)=>OnFilterChanged(e)">
-                    <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" DefaultShowColumn="true" DefaultShowHeaderFilter="false" Sortable="false" Width="25%" />
-                    <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
-                    <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
-                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
+                    <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" DefaultShowColumn="true" DefaultShowHeaderFilter="false" Sortable="false" />
+                    <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" DefaultShowHeaderFilter="true" Sortable="true" />
+                    <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" DefaultShowHeaderFilter="true" Sortable="true" />
+                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true" />
+                    <Column TableItem="TableModel" Title="Date" Field="@(x => x.TestingDateValue)" SortFieldValue="@(x => x.TestingDate)" DefaultShowHeaderFilter="true" Sortable="true" />
                     <Pager ShowPageNumber="true" ShowTotalCount="true" />
                 </Table>
 
                 <Table TableClass="table table-striped table-hover" TableItem="TableModel" SearchPlaceHolderText="Search ..."
-                       @ref="TableRef" DefaultPageSize="10" OnAfterDataLoaded="OnAfterTableDataLoaded" ShowSearchBar="@ShowFilterHeader"
-                       Items="tableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
+                       @ref="this.TableRef" DefaultPageSize="10" OnAfterDataLoaded="OnAfterTableDataLoaded" ShowSearchBar="@ShowFilterHeader"
+                       Items="this.TableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
                        FilterChanged="(e)=>OnFilterChanged(e)" ShowClearFilterOnTop="true">
-                    <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" DefaultShowColumn="true" DefaultShowHeaderFilter="false" Sortable="false" Width="25%" />
-                    <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
-                    <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
-                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true" Width="25%" />
+                    <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" DefaultShowColumn="true" DefaultShowHeaderFilter="false" Sortable="false" />
+                    <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" DefaultShowHeaderFilter="true" Sortable="true" />
+                    <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" DefaultShowHeaderFilter="true" Sortable="true" />
+                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true" />
+                    <Column TableItem="TableModel" Title="Date" Field="@(x => x.TestingDateValue)" DefaultShowHeaderFilter="true" Sortable="true" />
                     <Pager ShowPageNumber="true" ShowTotalCount="true" />
                 </Table>
             </div>
         </div>
     </div>
 </div>
-
-@code {
-
-    private const string tableSettingKey = "TableSettings";
-    protected List<TableModel>
-    tableData = new List<TableModel>();
-    protected bool LastNameFilter { get; set; } = true;
-    protected bool FirstNameFilter { get; set; } = true;
-    protected bool ShowFilterHeader { get; set; } = true;
-    protected TableSettings<TableModel> tableSettings { get; set; }
-
-    protected Table<TableModel> TableRef { get; set; }
-
-    public void OnFilterChanged(TableSettings<TableModel> settings)
-    {
-
-        var cacheOptions = new MemoryCacheEntryOptions()
-        {
-            AbsoluteExpiration = DateTime.Now.AddHours(2)
-        };
-
-        if (TableRef != null)
-        {
-            memoryCache.Set("TableSettings", settings);
-        }
-    }
-
-    private void ToggleLastNameFilter()
-    {
-        LastNameFilter = !LastNameFilter;
-        TableRef.Update();
-    }
-
-    private void ToggleFirstNameFilter()
-    {
-        FirstNameFilter = !FirstNameFilter;
-        TableRef.Update();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        //await Task.Delay(TimeSpan.FromSeconds(5));
-        tableData = TableData.GetData();
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-        {
-            if (memoryCache.TryGetValue("TableSettings", out TableSettings<TableModel> settings))
-            {
-                tableSettings = settings;
-                TableRef.Update();
-            }
-        }
-    }
-
-    protected void OnAfterTableDataLoaded()
-    {
-        if (tableSettings != null)
-        {
-            TableRef.ResetTableSettings(tableSettings);
-            TableRef.UpdatePage(tableSettings.PageNumber);
-            tableSettings = null;
-        }
-    }
-
-    protected void HandleHeaderFilterChanged()
-    {
-        StateHasChanged();
-    }
-    protected void HandleFilterButtonClick()
-    {
-        ShowFilterHeader = !ShowFilterHeader;
-    }
-}
