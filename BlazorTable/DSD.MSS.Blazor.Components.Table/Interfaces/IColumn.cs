@@ -84,6 +84,12 @@ namespace DSD.MSS.Blazor.Components.Table
         Expression<Func<TableItem, object>> Field { get; set; }
 
         /// <summary>
+        /// Field to use for sort if assigned a value.
+        /// </summary>
+        [Parameter]
+        public Expression<Func<TableItem, object>> SortFieldValue { get; set; }
+
+        /// <summary>
         /// Filter expression
         /// </summary>
         Expression<Func<TableItem, bool>> Filter { get; set; }

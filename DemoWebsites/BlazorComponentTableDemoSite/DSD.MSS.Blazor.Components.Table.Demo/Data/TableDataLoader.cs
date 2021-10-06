@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DSD.MSS.Blazor.Components.Table.Demo.Data
 {
-    public class TableData
+    public class TableDataLoader
     {
         public static List<TableModel> GetData()
         {
@@ -18,7 +18,8 @@ namespace DSD.MSS.Blazor.Components.Table.Demo.Data
                     Id = i.ToString(),
                     FirstName = "Mark " + i,
                     LastName = "Otto " + i,
-                    Handle = "@mdo" + i.ToString()
+                    Handle = "@mdo" + i.ToString(),
+                    TestingDate = DateTime.Now.AddDays(i)
                 });
             }
             

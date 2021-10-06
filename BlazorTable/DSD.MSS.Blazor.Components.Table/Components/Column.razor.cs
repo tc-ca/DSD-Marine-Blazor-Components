@@ -87,6 +87,10 @@ namespace DSD.MSS.Blazor.Components.Table
         [Parameter]
         public Expression<Func<TableItem, object>> Field { get; set; }
 
+        /// <inheritdoc/>
+        [Parameter]
+        public Expression<Func<TableItem, object>> SortFieldValue { get; set; }
+
         /// <summary>
         /// Horizontal alignment
         /// </summary>
@@ -157,6 +161,7 @@ namespace DSD.MSS.Blazor.Components.Table
         /// Column Filter Selected Items
         /// </summary>
         public List<string> ColumnFilterSelectedItems { get; set; }
+
         /// <summary>
         /// Column Data Type
         /// </summary>

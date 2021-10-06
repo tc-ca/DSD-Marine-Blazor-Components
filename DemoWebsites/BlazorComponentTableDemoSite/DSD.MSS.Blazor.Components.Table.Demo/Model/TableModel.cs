@@ -11,5 +11,7 @@ namespace DSD.MSS.Blazor.Components.Table.Demo.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Handle { get; set; }
+        public DateTime TestingDate { get; set; }
+        public string TestingDateValue => TestingDate.ToString("MMM dd, yyyy");
     }
 }
