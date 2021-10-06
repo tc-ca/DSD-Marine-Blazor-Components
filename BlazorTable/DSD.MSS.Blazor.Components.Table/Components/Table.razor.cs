@@ -210,13 +210,27 @@ namespace DSD.MSS.Blazor.Components.Table
 
                 if (sortColumn != null)
                 {
-                    if (sortColumn.SortDescending)
+                    if (sortColumn.SortFieldValue != null)
                     {
-                        ItemsQueryable = ItemsQueryable.OrderByDescending(sortColumn.Field);
+                        if (sortColumn.SortDescending)
+                        {
+                            ItemsQueryable = ItemsQueryable.OrderByDescending(sortColumn.SortFieldValue);
+                        }
+                        else
+                        {
+                            ItemsQueryable = ItemsQueryable.OrderBy(sortColumn.SortFieldValue);
+                        }
                     }
                     else
                     {
-                        ItemsQueryable = ItemsQueryable.OrderBy(sortColumn.Field);
+                        if (sortColumn.SortDescending)
+                        {
+                            ItemsQueryable = ItemsQueryable.OrderByDescending(sortColumn.Field);
+                        }
+                        else
+                        {
+                            ItemsQueryable = ItemsQueryable.OrderBy(sortColumn.Field);
+                        }
                     }
                 }
 
