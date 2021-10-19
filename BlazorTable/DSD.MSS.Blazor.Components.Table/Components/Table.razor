@@ -12,7 +12,12 @@
                 <thead role="search">
                     <tr>
                         <th colspan="@columnCount" style="padding:0px">
-                             <TableHeaderFilter HeaderFilterChanged="@(() => OnHeaderFilterChanged())" TableRef="this" ShowClearFilterOnTop="@ShowClearFilterOnTop" />
+                            <TableHeaderFilter 
+                                HeaderFilterChanged="@(() => OnHeaderFilterChanged())" 
+                                TableRef="this" 
+                                ShowClearFilterOnTop="@ShowClearFilterOnTop"
+                                HideFilterButton="HideFilterButton"
+                            />
                         </th>
                     </tr>
                 </thead>
@@ -127,11 +132,17 @@
                                             class="@(column.Class)">
 
                                             @if (IsEditMode && column.EditTemplate != null)
+                                            {
                                                 @column.EditTemplate(item)
-                                                else if (column.Template == null)
-                                                    @column.Render(item)
-                                                    else
-                                                        @column.Template(item)
+                                            }
+                                            else if (column.Template == null)
+                                            {
+                                                @column.Render(item)
+                                            }
+                                            else
+                                            {
+                                                @column.Template(item)
+                                            }
                                         </td>
                                     }
                                 }

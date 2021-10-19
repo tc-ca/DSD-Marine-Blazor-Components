@@ -97,6 +97,12 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         [Parameter]
         public bool ShowClearFilterOnTop { get; set; }
+        
+        /// <summary>
+        /// Hide/Show the filter button.
+        /// </summary>
+        [Parameter]
+        public bool HideFilterButton { get; set; }
 
         /// <summary>
         /// Search all columns for the specified string, supports spaces as a delimiter
@@ -104,7 +110,7 @@ namespace DSD.MSS.Blazor.Components.Table
         public string GlobalSearch { get; set; }
 
         /// <summary>
-        /// Header filter changeed event
+        /// Header filter changed event
         /// </summary>
         [Parameter]
         public Action HeaderFilterChanged { get; set; }
@@ -312,7 +318,7 @@ namespace DSD.MSS.Blazor.Components.Table
                     column.SortColumn  = updatedColumn.SortColumn;
                     column.SortDescending = updatedColumn.SortDescending;
                     column.ShowColumn = updatedColumn.ShowColumn;
-                    column.ShowHeaderRowFilterable = (updatedColumn.DefaultShowHeaderFilter != null && updatedColumn.DefaultShowHeaderFilter != true) ? false : column.ShowColumn;
+                    column.ShowHeaderRowFilterable = (updatedColumn.DefaultShowHeaderFilter == null || updatedColumn.DefaultShowHeaderFilter == true) && column.ShowColumn;
                     column.UpdateColumnFilter();
                 }
             }

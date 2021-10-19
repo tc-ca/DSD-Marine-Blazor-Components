@@ -46,6 +46,12 @@ namespace DSD.MSS.Blazor.Components.Table
         public bool ShowClearFilterOnTop { get; set; }
 
         /// <summary>
+        /// Hide/Show the filter button.
+        /// </summary>
+        [Parameter]
+        public bool HideFilterButton { get; set; }
+
+        /// <summary>
         /// Configure Modal
         /// </summary>
         protected Modal ConfigureModal { get; set; }
@@ -123,7 +129,6 @@ namespace DSD.MSS.Blazor.Components.Table
             }
             column.UpdateColumnFilter();
         }
-
 
     }
 }
