@@ -94,7 +94,7 @@
             }
             column.ColumnFilterItems.Clear();
         }
-        @if (!this.ShowClearFilterOnTop)
+        @if (!ShowClearFilterOnTop && !HideFilterButton)
         {
         <div class="ml-2 pr-1 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
             <button class="btn" type="button" @onclick="(() => OnCancelClicked())"
