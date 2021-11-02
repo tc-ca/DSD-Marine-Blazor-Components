@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using DSD.MSS.Blazor.Components.Table.Demo.Model;
+@using DSD.MSS.Blazor.Components.Table.Models;
 
 <h1>Table Component</h1>
 
@@ -32,7 +33,7 @@
                     <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" DefaultShowHeaderFilter="true" Sortable="true" />
                     <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" DefaultShowHeaderFilter="true" Sortable="true" />
                     <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true" />
-                    <Column TableItem="TableModel" Title="Date" Field="@(x => x.TestingDateValue)" SortFieldValue="@(x => x.TestingDate)" DefaultShowHeaderFilter="true" Sortable="true" />
+                    <Column TableItem="TableModel" Title="Date" Field="@(x => x.TestingDateValue)" FilterSort="SortOrder.DESCENDING" FilterFieldValue="@(x => x.TestingDate)" SortFieldValue="@(x => x.TestingDate)" DefaultShowHeaderFilter="true" Sortable="true" />
                     <Pager ShowPageNumber="true" ShowTotalCount="true" />
                 </Table>
 

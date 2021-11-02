@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DSD.MSS.Blazor.Components.Table.Models;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -62,6 +63,11 @@ namespace DSD.MSS.Blazor.Components.Table
         bool FilterOpen { get; }
 
         /// <summary>
+        /// Gets or sets the sort order for the filter.
+        /// </summary>
+        public SortOrder FilterSort { get; set; }
+
+        /// <summary>
         /// Opens/Closes the Filter Panel
         /// </summary>
         void ToggleFilter();
@@ -88,6 +94,12 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         [Parameter]
         public Expression<Func<TableItem, object>> SortFieldValue { get; set; }
+
+        /// <summary>
+        /// Field to use for filter if assigned a value.
+        /// </summary>
+        [Parameter]
+        public Expression<Func<TableItem, object>> FilterFieldValue { get; set; }
 
         /// <summary>
         /// Filter expression
@@ -124,6 +136,7 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         bool SortDescending { get; set; }
 
+
         /// <summary>
         /// ARIA sort value, if any
         /// </summary>
@@ -157,7 +170,7 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Column filter items
         /// </summary>
-        List<string> ColumnFilterItems { get; set; }
+        List<TableFilter> ColumnFilterItems { get; set; }
 
         /// <summary>
         /// Column filter selected items
@@ -175,5 +188,12 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <param name="item"></param>
         /// <returns></returns>
         string Render(TableItem item);
+
+        /// <summary>
+        /// Generates the filter sort value.
+        /// </summary>
+        /// <param name="item">The TableItem to render the filter value for.</param>
+        /// <returns>The filter value.</returns>
+        object GenerateFilterSortValue(TableItem item);
     }
 }
