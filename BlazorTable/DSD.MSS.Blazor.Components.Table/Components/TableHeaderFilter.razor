@@ -1,4 +1,4 @@
-﻿@using Blazorade.Bootstrap.Components
+@using Blazorade.Bootstrap.Components
 @using Blazorade.Bootstrap.Components.Utilities
 @using Blazorade.Bootstrap.Components.Content
 @using Microsoft.AspNetCore.Components.Forms
@@ -116,24 +116,23 @@
                     }
                     </ul>
                 </div>
-                }
-                        column.ColumnFilterItems.Clear();
             }
-            @if (!ShowClearFilterOnTop && !HideFilterButton)
-            {
-                <div class="ml-2 pr-1 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
-                    <button class="btn" type="button" @onclick="(() => OnCancelClicked())"
-                            aria-label="@Resources.SharedResources.ResourceManager.GetString("ClearFilters", Resources.SharedResources.Culture)">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            }
-            <div class="ml-2 pr-3 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
-                <button class="btn" type="button" @onclick="(() => HandleConfigureClick())"
-                        aria-label="@Resources.SharedResources.ResourceManager.GetString("EditFilters", Resources.SharedResources.Culture)">
-                    <i class="fas fa-cog"></i>
+            column.ColumnFilterItems.Clear();
+        }
+        @if (!ShowClearFilterOnTop && !HideFilterButton)
+        {
+            <div class="ml-2 pr-1 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
+                <button class="btn" type="button" @onclick="(() => OnCancelClicked())"
+                        aria-label="@Resources.SharedResources.ResourceManager.GetString("ClearFilters", Resources.SharedResources.Culture)">
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
+        }
+        <div class="ml-2 pr-3 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
+            <button class="btn" type="button" @onclick="(() => HandleConfigureClick())"
+                    aria-label="@Resources.SharedResources.ResourceManager.GetString("EditFilters", Resources.SharedResources.Culture)">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
     </div>
-
 </div>
