@@ -55,6 +55,10 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         public bool ShowHeaderRowFilterable { get; set; }
 
+        /// <inheritdoc/>
+        [Parameter]
+        public SortOrder FilterSort { get; set; } = SortOrder.NONE;
+
         /// <summary>
         /// Show header filter by default
         /// </summary>
@@ -90,6 +94,14 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <inheritdoc/>
         [Parameter]
         public Expression<Func<TableItem, object>> SortFieldValue { get; set; }
+
+        /// <inheritdoc/>
+        [Parameter]
+        public Expression<Func<TableItem, object>> FilterFieldValue
+        {
+            get { return this.filterFieldValue ?? this.Field; }
+            set { this.filterFieldValue = value; }
+        }
 
         /// <summary>
         /// Horizontal alignment
@@ -155,7 +167,7 @@ namespace DSD.MSS.Blazor.Components.Table
         /// <summary>
         /// Column Filter Items
         /// </summary>
-        public List<string> ColumnFilterItems { get; set; }
+        public List<TableFilter> ColumnFilterItems { get; set; }
 
         /// <summary>
         /// Column Filter Selected Items
@@ -178,13 +190,15 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         public IFilter<TableItem> FilterControl { get; set; }
 
+        private Expression<Func<TableItem, object>> filterFieldValue;
+
         /// <summary>
         /// On Initialized
         /// </summary>
         protected override void OnInitialized()
         {
             Table.AddColumn(this);
-            ColumnFilterItems = new List<string>();
+            ColumnFilterItems = new List<TableFilter>();
             ColumnFilterSelectedItems = new List<string>();
 
             if (DefaultShowColumn.HasValue)
@@ -297,6 +311,18 @@ namespace DSD.MSS.Blazor.Components.Table
                 Table.Update();
             }
         }
+
+        public object GenerateFilterSortValue(TableItem item)
+        {
+            if(this.filterValueCompiled == null)
+            {
+                this.filterValueCompiled = this.FilterFieldValue.Compile();
+            }
+
+            return this.filterValueCompiled.Invoke(item);
+        }
+
+        private Func<TableItem, object> filterValueCompiled;
 
         /// <summary>
         /// Render a default value if no template

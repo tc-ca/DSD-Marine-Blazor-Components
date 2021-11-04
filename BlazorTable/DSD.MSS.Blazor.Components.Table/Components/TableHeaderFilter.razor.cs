@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 
+
 namespace DSD.MSS.Blazor.Components.Table
 {
     /// <summary>
@@ -129,6 +130,5 @@ namespace DSD.MSS.Blazor.Components.Table
             }
             column.UpdateColumnFilter();
         }
-
     }
 }

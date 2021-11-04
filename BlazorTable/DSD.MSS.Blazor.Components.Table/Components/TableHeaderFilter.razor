@@ -1,17 +1,20 @@
-﻿@using Blazorade.Bootstrap.Components
+@using Blazorade.Bootstrap.Components
 @using Blazorade.Bootstrap.Components.Utilities
 @using Blazorade.Bootstrap.Components.Content
 @using Microsoft.AspNetCore.Components.Forms
+@using DSD.MSS.Blazor.Components.Table.Models;
 @namespace DSD.MSS.Blazor.Components.Table
 @typeparam TableItem
 
 @if (this.ShowClearFilterOnTop && this.TableRef.IsFiltered)
 {
-<div class="mb-3 mt-3">
-    <span style="font-weight:normal">Filters</span>
-    <button class="btn btn-light" type="button" @onclick="(() => OnCancelClicked())"
-            aria-label="@Resources.SharedResources.ResourceManager.GetString("ClearFilters", Resources.SharedResources.Culture)">Clear filters</button>
-</div>
+    <div class="mb-3 mt-3">
+        <span style="font-weight:normal">Filters</span>
+        <button class="btn btn-light" type="button" @onclick="(() => OnCancelClicked())"
+                aria-label="@Resources.SharedResources.ResourceManager.GetString("ClearFilters", Resources.SharedResources.Culture)">
+            Clear filters
+        </button>
+    </div>
 }
 
 <div class="d-flex flex-row" id="ConfigModal">
@@ -61,34 +64,56 @@
                 if (column.ShowHeaderRowFilterable)
                 {
                     var value = column.Render(item);
-                    if (!string.IsNullOrEmpty(value) && !column.ColumnFilterItems.Contains(value))
+                    var filterValue = column.GenerateFilterSortValue(item);
+
+                    var tableFilterItem = new TableFilter()
                     {
-                        column.ColumnFilterItems.Add(value);
+                        DisplayValue = value,
+                        SortValue = filterValue
+                    };
+
+                if (!string.IsNullOrEmpty(value) && !column.ColumnFilterItems.Select(x => x.DisplayValue).Contains(value))
+                    {
+                        column.ColumnFilterItems.Add(tableFilterItem);
                     }
                 }
             }
         }
 
-        @foreach (IColumn<TableItem> column in TableRef.Columns)
+        @foreach (IColumn<TableItem> column in this.TableRef.Columns)
         {
             @if (column.ShowHeaderRowFilterable)
             {
+                List<TableFilter> sortedList;
+                switch (column.FilterSort) {
+                    case SortOrder.ASCENDING:
+                        sortedList = column.ColumnFilterItems.OrderBy(x => x.SortValue).ToList();
+                        break;
+                    case SortOrder.DESCENDING:
+                        sortedList = column.ColumnFilterItems.OrderByDescending(x => x.SortValue).ToList();
+                        break;
+                    case SortOrder.NONE:
+                    default:
+                        sortedList = column.ColumnFilterItems;
+                        break;
+                }
                 <div class="dropdown ml-2 pr-3 d-flex flex-row flex-noshrink">
                     <button class="text-btn dropdown-toggle" type="button" data-toggle="dropdown">
                         @column.Title
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu checkbox-menu allow-focus text-btn-item">
-                        @foreach (var item in column.ColumnFilterItems)
-                        {
-                            <li>
-                                <label>
-                                    <input type="checkbox"
-                                           checked="@column.ColumnFilterSelectedItems.Contains(item)"
-                                           @onchange="args => { OnCheckboxClicked(column, item, args.Value); }">@item
-                                    </label>
-                                </li>
-                            }
+
+                    @foreach (var item in sortedList)
+                    {
+                        <li>
+                            <label>
+                                <input type="checkbox"
+                                        checked="@column.ColumnFilterSelectedItems.Contains(item.DisplayValue)"
+                                        @onchange="args => { OnCheckboxClicked(column, item.DisplayValue, args.Value); }">@item.DisplayValue
+                            </label>
+                        </li>
+                    }
                     </ul>
                 </div>
             }
@@ -96,12 +121,12 @@
         }
         @if (!ShowClearFilterOnTop && !HideFilterButton)
         {
-        <div class="ml-2 pr-1 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
-            <button class="btn" type="button" @onclick="(() => OnCancelClicked())"
-                    aria-label="@Resources.SharedResources.ResourceManager.GetString("ClearFilters", Resources.SharedResources.Culture)">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
+            <div class="ml-2 pr-1 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
+                <button class="btn" type="button" @onclick="(() => OnCancelClicked())"
+                        aria-label="@Resources.SharedResources.ResourceManager.GetString("ClearFilters", Resources.SharedResources.Culture)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
         }
         <div class="ml-2 pr-3 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
             <button class="btn" type="button" @onclick="(() => HandleConfigureClick())"
@@ -110,5 +135,4 @@
             </button>
         </div>
     </div>
-
 </div>
