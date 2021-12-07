@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 
+
 namespace DSD.MSS.Blazor.Components.Table
 {
     /// <summary>
@@ -44,6 +45,12 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         [Parameter]
         public bool ShowClearFilterOnTop { get; set; }
+
+        /// <summary>
+        /// Hide/Show the filter button.
+        /// </summary>
+        [Parameter]
+        public bool HideFilterButton { get; set; }
 
         /// <summary>
         /// Configure Modal
@@ -123,7 +130,5 @@ namespace DSD.MSS.Blazor.Components.Table
             }
             column.UpdateColumnFilter();
         }
-
-
     }
 }

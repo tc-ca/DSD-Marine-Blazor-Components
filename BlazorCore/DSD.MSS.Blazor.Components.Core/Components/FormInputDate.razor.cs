@@ -69,14 +69,14 @@
         [Parameter]
         public bool ShowDefaultValue { get; set; }
 
-        private TimeSpan LocalTime = DateTime.Now.TimeOfDay;
+        private TimeSpan LocalTime;
 
         protected string DateFormattedValue
         {
           get => CurrentValue.HasValue ? CurrentValue.Value.ToString(this.DateFormatToUse) : ShowDefaultValue ? "" : DateTime.Now.ToString(this.DateFormatToUse);
         }
 
-        protected string TimeValue { get => GetTimeFromDateTime(CurrentValue); }
+        protected string TimeValue;
 
         protected override async void OnAfterRender(bool firstRender)
         {
@@ -137,13 +137,9 @@
             }
         }
 
-        private string GetTimeFromDateTime(DateTime? date)
+        protected override void OnInitialized()
         {
-            if (date != null)
-            {
-                LocalTime = ((DateTime)date).TimeOfDay;
-            }
-            return date?.ToString("HH:mm");
+            TimeValue = CurrentValue?.ToString("HH:mm");
         }
 
         protected override bool TryParseValueFromString(string value, out DateTime? result, out string validationErrorMessage)
