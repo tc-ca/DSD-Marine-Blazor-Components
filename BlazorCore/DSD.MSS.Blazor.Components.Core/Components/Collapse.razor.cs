@@ -18,7 +18,7 @@ namespace DSD.MSS.Blazor.Components.Core.Components
         [Parameter] public string ViewMore { get; set; }
         [Parameter] public string ViewLess { get; set; }
         [Parameter] public string ContentBodyCssClass { get; set; } = "card-body";
-
+        [Parameter] public RenderFragment HeaderContent { get; set; }
 
 
         private void SetCollapseState()
