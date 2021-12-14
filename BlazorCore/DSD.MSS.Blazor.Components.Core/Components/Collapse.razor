@@ -1,36 +1,44 @@
 ﻿<div class="card @(!ShowBorder ? "border-0" : "")">
-    <div class="card-header @(!ShowBorder ? "border-0" : "")"
-         style="background-color: @HeaderBackgroundColor; color: @HeaderTitleTextColor; display: flex; justify-content: space-between; align-items: center; align-content:center;">
-        @if (!string.IsNullOrEmpty(Icon))
-        {
-            <i class="@Icon"></i>
-        }
+    @if (HeaderContent == null)
+    {
+        <div class="card-header @(!ShowBorder ? "border-0" : "")"
+             style="background-color: @HeaderBackgroundColor; color: @HeaderTitleTextColor; display: flex; justify-content: space-between; align-items: center; align-content:center;">
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                <i class="@Icon"></i>
+            }
 
-        <h5 class="mr-auto mb-0">@Title</h5>
-        @if (IsCollapsable)
-        {
-            @if (IsCollapsed)
+            <h5 class="mr-auto mb-0">@Title</h5>
+            @if (IsCollapsable)
             {
-                <div class="d-flex justify-content-end" style="align-items: center !important;">
-                    @if (!string.IsNullOrWhiteSpace(ViewMore))
-                    {
-                        <h6 class="mb-0 mr-3" @onclick="SetCollapseState" style="text-decoration: underline; cursor: pointer;">@ViewMore</h6>
-                    }
-                    <i class="fas fa-chevron-down" @onclick="SetCollapseState" style="cursor: pointer;"></i>
-                </div>
+                @if (IsCollapsed)
+                {
+                    <div class="d-flex justify-content-end" style="align-items: center !important;">
+                        @if (!string.IsNullOrWhiteSpace(ViewMore))
+                        {
+                            <h6 class="mb-0 mr-3" @onclick="SetCollapseState" style="text-decoration: underline; cursor: pointer;">@ViewMore</h6>
+                        }
+                        <i class="fas fa-chevron-down" @onclick="SetCollapseState" style="cursor: pointer;"></i>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex justify-content-end" style="align-items: center !important;">
+                        @if (!string.IsNullOrWhiteSpace(ViewLess))
+                        {
+                            <h6 class="mb-0 mr-3" @onclick="SetCollapseState" style="text-decoration: underline; cursor: pointer;">@ViewLess</h6>
+                        }
+                        <i class="fas fa-chevron-up" @onclick="SetCollapseState" style="cursor: pointer;"></i>
+                    </div>
+                }
             }
-            else
-            {
-                <div class="d-flex justify-content-end" style="align-items: center !important;">
-                    @if (!string.IsNullOrWhiteSpace(ViewLess))
-                    {
-                        <h6 class="mb-0 mr-3" @onclick="SetCollapseState" style="text-decoration: underline; cursor: pointer;">@ViewLess</h6>
-                    }
-                    <i class="fas fa-chevron-up" @onclick="SetCollapseState" style="cursor: pointer;"></i>
-                </div>
-            }
-        }
-    </div>
+        </div>
+    }
+    else
+    {
+        @HeaderContent
+    }
+
     @if (!IsCollapsed)
     {
         <div class="@ContentBodyCssClass">
