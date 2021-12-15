@@ -28,3 +28,68 @@
         </Collapse>
     </div>
 </div>
+
+<h4 class="mt-3 mb-3">With customizable header of the component</h4>
+
+<div class="row well">
+    <div class="col-8">
+        <Collapse IsCollapsed="@IsCollapsed">
+            <HeaderContent>
+                <div class="card-header @(!ShowBorder ? "border-0" : "")"
+                     style="background-color: #1B50B1; color: #FFFFFF; display: flex; justify-content: space-between; align-items: center; align-content: center;">
+                    <h5 class="mr-auto mb-0">New Test Title</h5>
+                    <button class="mr-3 btn btn-outline-primary" style="border-radius: 60px;background: rgba(255, 255, 255, 0.2);" @onclick="OnButtonClick">
+                        <i class=" mt-1 fas fa-bell" style="color: #FFFFFF;"></i>
+                        <span class="ml-1" style= "@(setColor ? "color:#FFFFFF": "color:#000000")">Notify</span>
+                    </button>
+                    @if (IsCollapsable)
+                    {
+                        @if (IsCollapsed)
+                        {
+                            <div class="d-flex justify-content-end" style="align-items: center !important;">
+                                @if (!string.IsNullOrWhiteSpace(ViewMore))
+                                {
+                                    <h6 class="mb-0 mr-3" @onclick="SetCollapseState" style="text-decoration: underline; cursor: pointer;">@ViewMore</h6>
+                                }
+                                <i class="fas fa-chevron-down" @onclick="SetCollapseState" style="cursor: pointer;"></i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="d-flex justify-content-end" style="align-items: center !important;">
+                                @if (!string.IsNullOrWhiteSpace(ViewLess))
+                                {
+                                    <h6 class="mb-0 mr-3" @onclick="SetCollapseState" style="text-decoration: underline; cursor: pointer;">@ViewLess</h6>
+                                }
+                                <i class="fas fa-chevron-up" @onclick="SetCollapseState" style="cursor: pointer;"></i>
+                            </div>
+                        }
+                    }
+                </div>
+            </HeaderContent>
+            <BodyContent>
+                <p>Test collapse component</p>
+            </BodyContent>
+        </Collapse>
+    </div>
+</div>
+
+@code
+{
+    protected bool ShowBorder = false;
+    protected bool IsCollapsable = true;
+    protected bool IsCollapsed = true;
+    protected string ViewMore = "View More";
+    protected string ViewLess = "View Less";
+    protected bool setColor = true;
+
+    private void SetCollapseState()
+    {
+        IsCollapsed = !IsCollapsed;
+    }
+
+    private void OnButtonClick()
+    {
+        setColor = !setColor;
+    }
+}
