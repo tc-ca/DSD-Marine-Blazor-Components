@@ -10,19 +10,19 @@
         /// <summary>
         /// Specifies the Field ID
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public string Id { get; set; }
 
         /// <summary>
         /// Specifies the Field Label
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public string Label { get; set; }
 
         /// <summary>
         /// Define the validation expression.
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public Expression<Func<T>> ValidationFor { get; set; }
 
         /// <summary>
@@ -36,6 +36,12 @@
         /// </summary>
         [Parameter]
         public bool IsRequired { get; set; }
+
+        /// <summary>
+        /// Specifies the field icon(inside the input area)
+        /// </summary>
+        [Parameter]
+        public string InputAreaIcon { get; set; }
 
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
         {
