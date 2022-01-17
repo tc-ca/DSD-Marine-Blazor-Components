@@ -12,9 +12,20 @@
             else
             {
                 <b>@this.Label</b>
-            }                             
+            }
         </label>
     }
-    <InputText @attributes="this.AdditionalAttributes" id="@Id" name="@Id" class="@($"form-control {CssClass}")" @bind-Value="CurrentValueAsString" />
-    <ValidationMessage For="@ValidationFor" />
+    @if (!string.IsNullOrEmpty(InputAreaIcon))
+    {
+        <div style="position:relative">
+            <i class="@InputAreaIcon" style="position:absolute; top:10px; left:auto; right:10px;"> </i>
+            <InputText @attributes="this.AdditionalAttributes" id="@Id" name="@Id" class="@($"form-control {CssClass}")" @bind-Value="CurrentValueAsString" />
+            <ValidationMessage For="@ValidationFor" />
+        </div>
+    }
+    else
+    {
+        <InputText @attributes="this.AdditionalAttributes" id="@Id" name="@Id" class="@($"form-control {CssClass}")" @bind-Value="CurrentValueAsString" />
+        <ValidationMessage For="@ValidationFor" />
+    }
 </div>

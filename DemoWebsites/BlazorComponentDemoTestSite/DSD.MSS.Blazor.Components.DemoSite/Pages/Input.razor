@@ -17,6 +17,7 @@
                     <ValidationSummary />
                     <FormInputText Id="InputText" Label="Input Text(Required)" Required="required" IsRequired="true" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
                     <FormInputText Id="InputText" Label="Input Text" Required="required" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" />
+                    <FormInputText Id="InputText" Label="Input Text With Input Area Icon" Required="required" @bind-Value="@FormInputObj.StringValue" ValidationFor="@(()=>FormInputObj.StringValue)" InputAreaIcon="fas fa-exclamation-circle" />
                     <FormInputNumber Id="InputNumberInt" Label="Input Number (Int)" Required="required" @bind-Value="@FormInputObj.IntValue" ValidationFor="@(()=>FormInputObj.IntValue)" />
                     <FormInputNumber Id="InputNumberDouble" Label="Input Number (Double)" Required="required" @bind-Value="@FormInputObj.DoubleValue" ValidationFor="@(()=>FormInputObj.DoubleValue)" />
                     <FormInputNumber Id="InputNumberFloat" Label="Input Number (Float)" Required="required" @bind-Value="@FormInputObj.FloatValue" ValidationFor="@(()=>FormInputObj.FloatValue)" />
@@ -28,6 +29,12 @@
                     <FormInputDate Id="InputDate57" Label="Input Date With Formatting (MMM DD, YYYY)" Time="false" Required="required" DateFormatToUse="MM'/'dd'/'yy" ShowDefaultValue="true" JQueryDateFormat="mm/dd/y" @bind-Value="@FormInputObj.DateValueFormatted" ValidationFor="@(() => FormInputObj.DateValueFormatted)" />
 
                     <FormInputSelect Id="InputSelect" Label="Input Select" SelectLabel="Select today's weather" Required="required" @bind-Value="FormInputObj.SelectValue" ValidationFor="@(() => FormInputObj.SelectValue)" OnChange="OnInputChange">
+                        @foreach (var item in FormInputListObj)
+                        {
+                            <option value="@item.ID">@item.StringValue</option>
+                        }
+                    </FormInputSelect>
+                    <FormInputSelect Id="InputSelect" Label="Input Select With Input Area Icon" SelectLabel="Select today's weather" Required="required" @bind-Value="FormInputObj.SelectValue" ValidationFor="@(() => FormInputObj.SelectValue)" OnChange="OnInputChange" InputAreaIcon="fas fa-exclamation-circle" >
                         @foreach (var item in FormInputListObj)
                         {
                             <option value="@item.ID">@item.StringValue</option>

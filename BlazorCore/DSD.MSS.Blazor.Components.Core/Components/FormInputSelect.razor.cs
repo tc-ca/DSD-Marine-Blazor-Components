@@ -9,36 +9,36 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    public partial  class FormInputSelect<T> 
+    public partial class FormInputSelect<T>
     {
         /// <summary>
         /// Specifies the Field ID
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public string Id { get; set; }
 
         /// <summary>
         /// Specifies the Field Label
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public string Label { get; set; }
 
         /// <summary>
         /// Specifies the Label for default selection
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public string SelectLabel { get; set; }
 
         /// <summary>
         /// Define the validation expression.
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public Expression<Func<T>> ValidationFor { get; set; }
 
         /// <summary>
         /// Specifies whether this field is required.
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public string Required { get; set; }
 
         /// <summary>
@@ -50,19 +50,19 @@
         /// <summary>
         /// The callback that is called when selected a new value.
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public EventCallback<ChangeEventArgs> OnChange { get; set; }
 
         /// <summary>
         /// Child content
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public RenderFragment ChildContent { get; set; }
 
         /// <summary>
         /// Specifies if defalut selection should be displayed.
         /// </summary>
-        [Parameter] 
+        [Parameter]
         public bool ShowDefaultOption { get; set; } = true;
 
         /// <summary>
@@ -70,6 +70,12 @@
         /// </summary>
         [Parameter]
         public List<SelectListItem> SelectionList { get; set; } = new List<SelectListItem>();
+
+        /// <summary>
+        /// Specifies the field icon(inside the input area)
+        /// </summary>
+        [Parameter]
+        public string InputAreaIcon { get; set; }
 
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
         {
