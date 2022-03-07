@@ -1,12 +1,13 @@
 ﻿using Blazorade.Bootstrap.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Timers;
 
 namespace DSD.MSS.Blazor.Components.Table
 {
@@ -16,6 +17,9 @@ namespace DSD.MSS.Blazor.Components.Table
     /// <typeparam name="TableItem"></typeparam>
     public partial class TableHeaderFilter<TableItem> : ComponentBase
     {
+
+        private Timer typingTimer;
+
         /// <summary>
         /// Parent Table
         /// </summary>
@@ -27,6 +31,12 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         [Parameter]
         public string GlobalSearch { get; set; }
+
+        /// <summary>
+        /// Serach Typeing Delay
+        /// </summary>
+        [Parameter]
+        public int SearchTypingDelay { get; set; } = 500;
 
         /// <summary>
         /// Header filter changed
@@ -61,6 +71,44 @@ namespace DSD.MSS.Blazor.Components.Table
         /// Configure Edit Context
         /// </summary>
         protected EditContext ConfigureContext { get; set; }
+
+        /// <summary>
+        /// OnInitialized
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            typingTimer = new Timer(SearchTypingDelay);
+            typingTimer.Elapsed += OnUserFinishTypingSearch;
+            typingTimer.AutoReset = false;
+            base.OnInitialized();
+        }
+
+        /// <summary>
+        /// OnUserFinishTypingSearch
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        /// </summary>
+        private void OnUserFinishTypingSearch(Object source, ElapsedEventArgs e)
+        {
+            InvokeAsync(() =>
+            {
+                TableRef.Update();
+                StateHasChanged();
+            });
+        }
+
+        /// <summary>
+        /// HandSearchInputleKeyUp
+        /// <param name="e"></param>
+        /// </summary>
+        void HandSearchInputleKeyUp(KeyboardEventArgs e)
+        {
+            // remove previous one
+            typingTimer.Stop();
+
+            // new timer
+            typingTimer.Start();
+        }
 
         /// <summary>
         /// Cancel click handler
@@ -130,5 +178,7 @@ namespace DSD.MSS.Blazor.Components.Table
             }
             column.UpdateColumnFilter();
         }
+
+      
     }
 }
