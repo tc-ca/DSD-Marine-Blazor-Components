@@ -8,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Resources;
 using DSD.MSS.Blazor.Components.Table.Models;
+using System.ComponentModel;
 
 namespace DSD.MSS.Blazor.Components.Table
 {
@@ -103,6 +104,11 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         [Parameter]
         public bool HideFilterButton { get; set; }
+        /// <summary>
+        /// Bool to activate filter by ID
+        /// </summary>
+        [Parameter]
+        public bool FilterById { get; set; }
 
         /// <summary>
         /// Search all columns for the specified string, supports spaces as a delimiter

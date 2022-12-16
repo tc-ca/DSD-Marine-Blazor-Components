@@ -53,6 +53,8 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         bool IsEditMode { get; }
 
+        bool FilterById { get; set; }
+
         /// <summary>
         /// Go to First Page
         /// </summary>

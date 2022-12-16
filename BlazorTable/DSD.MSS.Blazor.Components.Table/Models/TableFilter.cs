@@ -11,6 +11,11 @@
         public string DisplayValue { get; set; }
 
         /// <summary>
+        /// Gets or sets an ID for display value
+        /// </summary>
+        public int DisplayValueID { get; set; }
+
+        /// <summary>
         /// Gets or sets the value to sort the filter by
         /// </summary>
         public object SortValue { get; set; }

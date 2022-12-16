@@ -169,6 +169,11 @@ namespace DSD.MSS.Blazor.Components.Table
         /// </summary>
         public List<TableFilter> ColumnFilterItems { get; set; }
 
+        [Parameter]
+        public List<TableFilter> CustomFilterList { get; set; }
+
+        public List<TableFilter> SetFilters { get; set; } = new List<TableFilter>();
+
         /// <summary>
         /// Column Filter Selected Items
         /// </summary>
@@ -200,6 +205,7 @@ namespace DSD.MSS.Blazor.Components.Table
             Table.AddColumn(this);
             ColumnFilterItems = new List<TableFilter>();
             ColumnFilterSelectedItems = new List<string>();
+            CustomFilterList = new List<TableFilter>();
 
             if (DefaultShowColumn.HasValue)
             {
@@ -240,6 +246,19 @@ namespace DSD.MSS.Blazor.Components.Table
                 Table.Update();
                 Table.FirstPage();
             }
+            else if (SetFilters.Any()){
+            Expression<Func<TableItem, bool>> expression = GetStringFilter(this, CustomFilterList.Where(x => x.DisplayValueID == SetFilters.First().DisplayValueID).Select(x => x.DisplayValue).First());
+            Expression body = expression.Body;
+            foreach (var itemName in SetFilters.Skip(1))
+            {
+               var stringval = CustomFilterList.Where(x => x.DisplayValueID == itemName.DisplayValueID).Select(x => x.DisplayValue).First();
+               expression = GetStringFilter(this, stringval);
+               body = Expression.Or(body, expression.Body);
+            }
+            Filter = Expression.Lambda<Func<TableItem, bool>>(body, Field.Parameters);
+            Table.Update();
+            Table.FirstPage();
+         }
             else
             {
                 Filter = null;

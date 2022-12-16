@@ -102,6 +102,11 @@ namespace DSD.MSS.Blazor.Components.Table
         public Expression<Func<TableItem, object>> FilterFieldValue { get; set; }
 
         /// <summary>
+        /// Static list of Filters for a column
+        /// </summary>
+        public List<TableFilter> CustomFilterList { get; set; }
+
+        /// <summary>
         /// Filter expression
         /// </summary>
         Expression<Func<TableItem, bool>> Filter { get; set; }
@@ -171,6 +176,8 @@ namespace DSD.MSS.Blazor.Components.Table
         /// Column filter items
         /// </summary>
         List<TableFilter> ColumnFilterItems { get; set; }
+
+        List<TableFilter> SetFilters { get; set; }
 
         /// <summary>
         /// Column filter selected items

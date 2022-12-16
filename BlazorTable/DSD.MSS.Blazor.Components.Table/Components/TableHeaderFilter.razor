@@ -5,7 +5,9 @@
 @using DSD.MSS.Blazor.Components.Table.Models;
 @namespace DSD.MSS.Blazor.Components.Table
 @typeparam TableItem
-
+@{
+   var counter = 0;
+}
 @if (this.ShowClearFilterOnTop && this.TableRef.IsFiltered)
 {
     <div class="mb-3 mt-3">
@@ -57,28 +59,32 @@
                 placeholder="@TableRef.SearchPlaceHolderText" />
     </div>
     <div class="d-flex flex-row ml-auto">
-
         @foreach (TableItem item in TableRef.Items)
         {
             @foreach (IColumn<TableItem> column in TableRef.Columns)
             {
-                if (column.ShowHeaderRowFilterable)
-                {
-                    var value = column.Render(item);
-                    var filterValue = column.GenerateFilterSortValue(item);
-
-                    var tableFilterItem = new TableFilter()
-                    {
+            if (column.ShowHeaderRowFilterable)
+            {
+               var value = column.Render(item);
+               var filterValue = column.GenerateFilterSortValue(item);
+               if (column.CustomFilterList.Count > 0)
+               {
+                  column.ColumnFilterItems = column.CustomFilterList;
+               }
+               else
+               {
+                  var tableFilterItem = new TableFilter()
+                     {
                         DisplayValue = value,
                         SortValue = filterValue
-                    };
-
-                if (!string.IsNullOrEmpty(value) && !column.ColumnFilterItems.Select(x => x.DisplayValue).Contains(value))
-                    {
-                        column.ColumnFilterItems.Add(tableFilterItem);
-                    }
-                }
+                     };
+                  if (!string.IsNullOrEmpty(value) && !column.ColumnFilterItems.Select(x => x.DisplayValue).Contains(value))
+                  {
+                     column.ColumnFilterItems.Add(tableFilterItem);
+                  }
+               }
             }
+         }
         }
 
         @foreach (IColumn<TableItem> column in this.TableRef.Columns)
@@ -111,7 +117,7 @@
                             <label>
                                 <input type="checkbox"
                                         checked="@column.ColumnFilterSelectedItems.Contains(item.DisplayValue)"
-                                        @onchange="args => { OnCheckboxClicked(column, item.DisplayValue, args.Value); }">@item.DisplayValue
+                                        @onchange="args => { OnCheckboxClicked(column, item.DisplayValue, item, args.Value); }">@item.DisplayValue
                             </label>
                         </li>
                     }

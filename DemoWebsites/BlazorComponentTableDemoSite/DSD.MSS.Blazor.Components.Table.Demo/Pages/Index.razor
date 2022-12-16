@@ -25,15 +25,15 @@
                     </div>
                 </div>
 
-                <Table TableClass="table table-striped table-hover" TableItem="TableModel" SearchPlaceHolderText="Search ..."
+                <Table TableClass="table table-striped table-hover" TableItem="TableModel" FilterById=true SearchPlaceHolderText="Search ..."
                        @ref="this.TableRef" DefaultPageSize="10" OnAfterDataLoaded="OnAfterTableDataLoaded" ShowSearchBar="@ShowFilterHeader"
                        Items="this.TableData" HeaderFilterChanged="@(()=>HandleHeaderFilterChanged())"
                        FilterChanged="(e)=>OnFilterChanged(e)">
                     <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" DefaultShowColumn="true" DefaultShowHeaderFilter="false" Sortable="false" />
-                    <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" DefaultShowHeaderFilter="true" Sortable="true" />
+                    <Column TableItem="TableModel" Title="First Name" CustomFilterList="TableFilters" Field="@(x => x.FirstName)" DefaultShowHeaderFilter="true" Sortable="true" />
                     <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" DefaultShowHeaderFilter="true" Sortable="true" />
                     <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true" />
-                    <Column TableItem="TableModel" Title="Date" Field="@(x => x.TestingDateValue)" FilterSort="SortOrder.DESCENDING" FilterFieldValue="@(x => x.TestingDate)" SortFieldValue="@(x => x.TestingDate)" DefaultShowHeaderFilter="true" Sortable="true" />
+               <Column TableItem="TableModel" Title="Date" Field="@(x => x.TestingDateValue)" FilterSort="SortOrder.DESCENDING" FilterFieldValue="@(x => x.TestingDate)" SortFieldValue="@(x => x.TestingDate)" DefaultShowHeaderFilter="true" Sortable="true" />
                     <Pager ShowPageNumber="true" ShowTotalCount="true" />
                 </Table>
 
@@ -44,8 +44,8 @@
                     <Column TableItem="TableModel" Title="#" Field="@(x => x.Id)" DefaultShowColumn="true" DefaultShowHeaderFilter="false" Sortable="false" />
                     <Column TableItem="TableModel" Title="First Name" Field="@(x => x.FirstName)" DefaultShowHeaderFilter="true" Sortable="true" />
                     <Column TableItem="TableModel" Title="Last Name" Field="@(x => x.LastName)" DefaultShowHeaderFilter="true" Sortable="true" />
-                    <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true" />
-                    <Column TableItem="TableModel" Title="Date" Field="@(x => x.TestingDateValue)" DefaultShowHeaderFilter="true" Sortable="true" />
+               <Column TableItem="TableModel" Title="Handle" Field="@(x => x.Handle)" DefaultShowHeaderFilter="true" Sortable="true"/>
+                  <Column TableItem="TableModel" Title="Date" Field="@(x => x.TestingDateValue)" DefaultShowHeaderFilter="true" Sortable="true" Type="typeof(DateTime)"><CustomIFilters><DateFilter TableItem="TableModel"></DateFilter></CustomIFilters></Column>
                     <Pager ShowPageNumber="true" ShowTotalCount="true" />
                 </Table>
             </div>

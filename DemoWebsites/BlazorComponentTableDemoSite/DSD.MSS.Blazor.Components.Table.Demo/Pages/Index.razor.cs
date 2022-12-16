@@ -26,12 +26,16 @@
 
         protected Table<TableModel> TableRef { get; set; }
 
+
+        public List<TableFilter> TableFilters { get; set; }
+
         private const string tableSettingKey = "TableSettings";
 
         public void OnFilterChanged(TableSettings<TableModel> settings)
         {
 
-            var cacheOptions = new MemoryCacheEntryOptions()
+            
+        var cacheOptions = new MemoryCacheEntryOptions()
             {
                 AbsoluteExpiration = DateTime.Now.AddHours(2)
             };
@@ -56,8 +60,17 @@
 
         protected override async Task OnInitializedAsync()
         {
-            //await Task.Delay(TimeSpan.FromSeconds(5));
-            this.TableData = TableDataLoader.GetData();
+         this.TableFilters = new List<TableFilter>
+         {
+            new TableFilter() { DisplayValue = "MOQ1", DisplayValueID = 0 },
+            new TableFilter() { DisplayValue = "MOQ2", DisplayValueID = 1 },
+            new TableFilter() { DisplayValue = "MOQ3", DisplayValueID = 2 },
+            new TableFilter() { DisplayValue = "MOQ4", DisplayValueID = 3 }
+         };
+
+
+         //await Task.Delay(TimeSpan.FromSeconds(5));
+         this.TableData = TableDataLoader.GetData();
         }
 
         protected override void OnAfterRender(bool firstRender)
