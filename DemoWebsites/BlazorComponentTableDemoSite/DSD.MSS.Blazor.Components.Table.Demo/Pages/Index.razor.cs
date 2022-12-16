@@ -62,7 +62,7 @@
         {
          this.TableFilters = new List<TableFilter>
          {
-            new TableFilter() { DisplayValue = "MOQ1", DisplayValueID = 0 },
+            new TableFilter() { DisplayValue = "Mark 0", DisplayValueID = 0 },
             new TableFilter() { DisplayValue = "MOQ2", DisplayValueID = 1 },
             new TableFilter() { DisplayValue = "MOQ3", DisplayValueID = 2 },
             new TableFilter() { DisplayValue = "MOQ4", DisplayValueID = 3 }
