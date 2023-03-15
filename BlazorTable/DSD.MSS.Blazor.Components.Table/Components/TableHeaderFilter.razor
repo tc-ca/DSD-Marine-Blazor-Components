@@ -129,11 +129,14 @@
                 </button>
             </div>
         }
-        <div class="ml-2 pr-3 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
-            <button class="btn" type="button" @onclick="(() => HandleConfigureClick())"
-                    aria-label="@Resources.SharedResources.ResourceManager.GetString("EditFilters", Resources.SharedResources.Culture)">
-                <i class="fas fa-cog"></i>
-            </button>
-        </div>
+        @if (!HideConfigButton)
+        {
+            <div class="ml-2 pr-3 d-flex flex-row flex-noshrink" style="line-height: 2.75rem;">
+                <button class="btn" type="button" @onclick="(() => HandleConfigureClick())"
+                        aria-label="@Resources.SharedResources.ResourceManager.GetString("EditFilters", Resources.SharedResources.Culture)">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        }        
     </div>
 </div>

@@ -105,6 +105,12 @@ namespace DSD.MSS.Blazor.Components.Table
         public bool HideFilterButton { get; set; }
 
         /// <summary>
+        /// Hide/Show the config button.
+        /// </summary>
+        [Parameter]
+        public bool HideConfigButton { get; set; }
+
+        /// <summary>
         /// Search all columns for the specified string, supports spaces as a delimiter
         /// </summary>
         public string GlobalSearch { get; set; }
