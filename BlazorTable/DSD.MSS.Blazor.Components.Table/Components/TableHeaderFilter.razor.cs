@@ -104,10 +104,10 @@ namespace DSD.MSS.Blazor.Components.Table
         }
 
         /// <summary>
-        /// HandSearchInputleKeyUp
+        /// HandleSearchInputKeyUp
         /// <param name="e"></param>
         /// </summary>
-        void HandSearchInputleKeyUp(KeyboardEventArgs e)
+        void HandleSearchInputKeyUp(KeyboardEventArgs e)
         {
             // remove previous one
             typingTimer.Stop();
