@@ -63,6 +63,12 @@ namespace DSD.MSS.Blazor.Components.Table
         public bool HideFilterButton { get; set; }
 
         /// <summary>
+        /// Hide/Show the config button.
+        /// </summary>
+        [Parameter]
+        public bool HideConfigButton { get; set; }
+
+        /// <summary>
         /// Configure Modal
         /// </summary>
         protected Modal ConfigureModal { get; set; }
@@ -98,10 +104,10 @@ namespace DSD.MSS.Blazor.Components.Table
         }
 
         /// <summary>
-        /// HandSearchInputleKeyUp
+        /// HandleSearchInputKeyUp
         /// <param name="e"></param>
         /// </summary>
-        void HandSearchInputleKeyUp(KeyboardEventArgs e)
+        void HandleSearchInputKeyUp(KeyboardEventArgs e)
         {
             // remove previous one
             typingTimer.Stop();
