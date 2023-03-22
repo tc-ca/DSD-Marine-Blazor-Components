@@ -1,5 +1,7 @@
 # Autocomplete and CPAddressLookup Blazor Components
 
+NOTE!  Contact someone from TNT for a possibly newer version of this component. 
+
 This lookup component is based on the Blazored Typeahead, by Chris  Sainty. see https://github.com/Blazored/Typeahead
 
 The CPAddressLookup component requires a valid Canada Post Address Complete API key to work. This can be obtained from here https://www.canadapost.ca/pca/login/
